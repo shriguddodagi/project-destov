@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin</title>
-  <link rel="stylesheet" href="./vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./vendor/bootstrap 5/css/bootstrap.min.css">
 </head>
 
 <body>
@@ -274,13 +274,15 @@
             <form class="row g-3 needs-validation" novalidate>
               <input type="hidden" name="categoryIdIncreateProductModal" id="categoryIdIncreateProductModal">
               <div class="col-md-6">
-                <label for="field1" class="form-label h6">field1</label>
-                <input type="text" name="field1" id="field1" class="form-control" pattern=" *[A-Za-z]{1,}" required>
+                <label for="description" class="form-label h6">Description</label>
+                <textarea class="form-control" id="description" name="description" pattern=" *[A-Za-z0-9]{1,}"
+                  placeholder="description" required></textarea>
+
                 <div class="valid-feedback">
                   Looks good!
                 </div>
                 <div class="invalid-feedback">
-                  Field Name is invalid.
+                  Data is invalid.
                 </div>
               </div>
               <div class="col-md-6">
@@ -333,7 +335,7 @@
 </body>
 
 <script src="./vendor/jquery.min.js"></script>
-<script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="./vendor/bootstrap 5/js/bootstrap.min.js"></script>
 <script>
   (function () {
     'use strict'
@@ -359,13 +361,6 @@
 <script>
   $(document).ready(function () {
 
-    // $(document).on('click', '.edit-sub-category-button', function () {
-    //   $('#subcategoryIdInEditSubcategoryModal').val($(this).attr('id'));
-    //   $('#editSubcategoryModalLabel').find('.text-primary').text($(this).siblings('span').text());
-    // });
-
-
-
     // Edit Category
     // $(document).on('click', '.edit-category-button', function () {
     //   $('#categoryIdInEditCategoryModal').val($(this).attr('id'));
@@ -377,7 +372,7 @@
     // SubCategory
     $(document).on('click', '.create-product', function () {
       $('#categoryIdIncreateProductModal').val($(this).attr('id'));
-      $('#createProductModalLabel').find('.text-primary').text($(this).siblings('.card-title').text());
+      $('#createProductModalLabel').find('.text-primary').text($(this).siblings('span').text());
     });
 
 

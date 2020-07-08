@@ -65,7 +65,7 @@
         <div class="collapse navbar-collapse nav-collapse">
           <div class="menu-container">
             <ul class="navbar-nav navbar-nav-right">
-              <li class="nav-item"><a class="nav-item-child nav-item-hover active <?php if(isset($home)) {echo "active";} ?>" href="index.php">Home</a></li>
+              <li class="nav-item"><a class="nav-item-child nav-item-hover <?php if(isset($home)) {echo "active";} ?>" href="index.php">Home</a></li>
               <!-- <li class="nav-item"><a class="nav-item-child nav-item-hover" href="pricing.html">Pricing</a></li> -->
               <li class="nav-item"><a class="nav-item-child nav-item-hover <?php if(isset($about)) {echo "active";} ?>" href="about.php">About</a>
               </li>

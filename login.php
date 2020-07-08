@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Shop</title>
-  <link rel="stylesheet" href="./vendor/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./vendor/bootstrap 5/css/bootstrap.min.css">
   <script src="./vendor/jquery.min.js"></script>
 </head>
 
@@ -42,7 +42,7 @@
       </div>
     </div>
   </div>
-  <script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
+  <script src="./vendor/bootstrap 5/js/bootstrap.min.js"></script>
   <script>
 
     $(document).ready(function () {
