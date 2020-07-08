@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin</title>
+  <link rel="stylesheet" href="./vendor/bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand">
+          <img src="./img/logo3.png" alt="" class="img-fluid w-50 h-auto">
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+          aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="admin.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="admin.html">Categories</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="product-category.html">products</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="inquiries.html">Inquiries</a>
+            </li>
+          </ul>
+          <span class="navbar-text">
+            Somthing
+          </span>
+        </div>
+
+      </div>
+    </nav>
+  </header>
+  <main>
+
+    <div class="container">
+      <div class="row m-2">
+        <div class="col">
+
+          <div class="container-fluid">
+            <div class="col">
+
+              <div class="row">
+                <div class="col h3">
+                  Category - 1
+                </div>
+              </div>
+              <div class="container m-2">
+                <div class="row">
+                  <div class="col h4">
+                    <span>subcategory - 1</span>
+                    <button class="btn btn-outline-secondary create-product float-right" id="subcategory - 1"
+                      data-toggle="modal" data-target="#createProductModal">Add Product</button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-4">
+                    <div class="card">
+                      <img src="./img/397x400/01.jpg" class="card-img-top" style="max-width: 500px; max-height: auto;"
+                        alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">caption and other detail.</p>
+                        <div class="float-right">
+                          <button class="btn btn-outline-warning">Edit</button>
+                          <button class="btn btn-outline-danger">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="card">
+                      <img src="./img/397x400/01.jpg" class="card-img-top" style="max-width: 500px; max-height: auto;"
+                        alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">caption and other detail.</p>
+                        <div class="float-right">
+                          <button class="btn btn-outline-warning">Edit</button>
+                          <button class="btn btn-outline-danger">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="container m-2">
+                <div class="row">
+                  <div class="col h4">
+                    <span>subcategory - 2</span>
+                    <button class="btn btn-outline-secondary">Add Product</button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-4">
+                    <div class="card">
+                      <img src="./img/397x400/02.jpg" class="card-img-top" style="max-width: 500px; max-height: auto;"
+                        alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">caption and other detail.</p>
+                        <div class="float-right">
+                          <button class="btn btn-outline-warning">Edit</button>
+                          <button class="btn btn-outline-danger">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="card">
+                      <img src="./img/397x400/02.jpg" class="card-img-top" style="max-width: 500px; max-height: auto;"
+                        alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">caption and other detail.</p>
+                        <div class="float-right">
+                          <button class="btn btn-outline-warning">Edit</button>
+                          <button class="btn btn-outline-danger">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="row m-2">
+        <div class="col">
+
+          <div class="container-fluid">
+            <div class="col">
+
+              <div class="row">
+                <div class="col h3">
+                  Category - 2
+                </div>
+              </div>
+              <div class="container">
+                <div class="row">
+                  <div class="col h4">
+                    <span>subcategory - 1</span>
+                    <button class="btn btn-outline-secondary float-right">Add Product</button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-4">
+                    <div class="card">
+                      <img src="./img/397x400/02.jpg" class="card-img-top" style="max-width: 500px; max-height: auto;"
+                        alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">caption and other detail.</p>
+                        <div class="float-right">
+                          <button class="btn btn-outline-warning">Edit</button>
+                          <button class="btn btn-outline-danger">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="card">
+                      <img src="./img/397x400/02.jpg" class="card-img-top" style="max-width: 500px; max-height: auto;"
+                        alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">caption and other detail.</p>
+                        <div class="float-right">
+                          <button class="btn btn-outline-warning">Edit</button>
+                          <button class="btn btn-outline-danger">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="row m-2">
+        <div class="col">
+
+          <div class="container-fluid">
+            <div class="col">
+
+              <div class="row">
+                <div class="col h3">
+                  Category - 3
+                </div>
+              </div>
+              <div class="container">
+                <div class="row">
+                  <div class="col h4">
+                    <span>subcategory - 1</span>
+                    <button class="btn btn-outline-secondary float-right">Add Product</button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-4">
+                    <div class="card">
+                      <img src="./img/800x400/01.jpg" class="card-img-top" style="max-width: 500px; max-height: auto;"
+                        alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">caption and other detail.</p>
+                        <div class="float-right">
+                          <button class="btn btn-outline-warning">Edit</button>
+                          <button class="btn btn-outline-danger">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="card">
+                      <img src="./img/800x400/02.jpg" class="card-img-top" style="max-width: 500px; max-height: auto;"
+                        alt="...">
+                      <div class="card-body">
+                        <h5 class="card-title">Card title</h5>
+                        <p class="card-text">caption and other detail.</p>
+                        <div class="float-right">
+                          <button class="btn btn-outline-warning">Edit</button>
+                          <button class="btn btn-outline-danger">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+
+
+
+
+
+    <div class="modal fade" id="createProductModal" tabindex="-1" aria-labelledby="createProductModalLabel"
+      data-backdrop="static" data-keyboard="false" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="createProductModalLabel">Create New Product into <span
+                class="text-primary"></span> Category</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form class="row g-3 needs-validation" novalidate>
+              <input type="hidden" name="categoryIdIncreateProductModal" id="categoryIdIncreateProductModal">
+              <div class="col-md-6">
+                <label for="field1" class="form-label h6">field1</label>
+                <input type="text" name="field1" id="field1" class="form-control" pattern=" *[A-Za-z]{1,}" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+                <div class="invalid-feedback">
+                  Field Name is invalid.
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="field" class="form-label h6">field</label>
+                <input type="text" name="field" id="field" class="form-control" pattern=" *[A-Za-z]{1,}" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+                <div class="invalid-feedback">
+                  Field Name is invalid.
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="field1" class="form-label h6">field1</label>
+                <input type="text" name="field1" id="field1" class="form-control" pattern=" *[A-Za-z]{1,}" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+                <div class="invalid-feedback">
+                  Field Name is invalid.
+                </div>
+              </div>
+              <div class="col-md-6">
+                <label for="field" class="form-label h6">field</label>
+                <input type="text" name="field" id="field" class="form-control" pattern=" *[A-Za-z]{1,}" required>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+                <div class="invalid-feedback">
+                  Field Name is invalid.
+                </div>
+              </div>
+
+
+
+
+              <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-primary">Create New Sub Category</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+  </main>
+
+</body>
+
+<script src="./vendor/jquery.min.js"></script>
+<script src="./vendor/bootstrap/js/bootstrap.min.js"></script>
+<script>
+  (function () {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+      .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+          if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+          }
+
+          form.classList.add('was-validated')
+        }, false)
+      })
+  })()
+</script>
+
+<script>
+  $(document).ready(function () {
+
+    // $(document).on('click', '.edit-sub-category-button', function () {
+    //   $('#subcategoryIdInEditSubcategoryModal').val($(this).attr('id'));
+    //   $('#editSubcategoryModalLabel').find('.text-primary').text($(this).siblings('span').text());
+    // });
+
+
+
+    // Edit Category
+    // $(document).on('click', '.edit-category-button', function () {
+    //   $('#categoryIdInEditCategoryModal').val($(this).attr('id'));
+    //   $('#editCategoryModalLabel').find('.text-primary').text($(this).parent().siblings('div').find('h5.card-title').text());
+    // });
+
+
+
+    // SubCategory
+    $(document).on('click', '.create-product', function () {
+      $('#categoryIdIncreateProductModal').val($(this).attr('id'));
+      $('#createProductModalLabel').find('.text-primary').text($(this).siblings('.card-title').text());
+    });
+
+
+  });
+</script>
+
+</html>
