@@ -36,8 +36,7 @@
     <div class="content container">
       <div class="row">
         <div class="col-xs-12 text-center color-white">
-          <script>document.write(new Date().getFullYear());</script> All rights reserved</div>
-        &copy; Copyright @2020 <strong><span>destov International</span></strong>. All Rights Reserved
+          <script>document.write(new Date().getFullYear());</script> &copy; Copyright <strong>destov International</strong> All rights reserved</div>
         </div>
         <!-- <div class="col-xs-6 text-right">
           <p class="margin-b-0"><a class="color-base fweight-700"

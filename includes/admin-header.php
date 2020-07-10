@@ -32,7 +32,10 @@
               <a class="nav-link" href="product-category.html">products</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="slider.html">Slider</a>
+              <a class="nav-link active" href="slider.php">Slider</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="admin-blog.php">Blog</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="inquiries.php">Inquiries</a>
