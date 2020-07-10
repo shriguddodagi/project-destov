@@ -1,6 +1,42 @@
-<?php include_once('./includes/header.php') ?>
+<?php 
+include_once('./includes/header.php');
 
-  <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+$query = "SELECT * FROM `slides` ORDER BY id DESC LIMIT 2";
+$slides = mysqli_query($cn, $query);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+?>
+
+  <div id="carousel-example-generic" class="carousel slide margin-b-40" data-ride="carousel">
     <div class="container">
       <!-- Indicators -->
       <ol class="carousel-indicators">
@@ -8,37 +44,26 @@
         <li data-target="#carousel-example-generic" data-slide-to="1"></li>
       </ol>
     </div>
-
-    <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
-      <div class="item active">
-        <img class="img-responsive" src="img/1920x1080/01.jpg" alt="Slider Image">
-        <div class="container">
-          <div class="carousel-centered">
-            <div class="margin-b-40">
-              <h1 class="carousel-title">Hi-Tech Design</h1>
-              <p>Lorem ipsum dolor amet consectetur adipiscing dolore magna aliqua <br /> enim minim
-                estudiat veniam siad venumus dolore</p>
+      <?php 
+      while ($row = mysqli_fetch_array($slides)) {
+      
+        echo
+        "<div class='item'>
+          <img class='img-responsive' src='". $row['image'] ."' alt='". $row['title'] ."'>
+          <div class='container'>
+            <div class='carousel-centered'>
+              <div class='margin-b-40'>
+                <h1 class='carousel-title'>". $row['title'] ."</h1>
+                <p style='color:white'>". $row['description'] ."</p>
+              </div>
+              <a href='product.php'
+                class='btn-theme btn-theme-sm btn-white-brd text-uppercase'>Explore</a>
             </div>
-            <a href="product.php"
-              class="btn-theme btn-theme-sm btn-white-brd text-uppercase">Explore</a>
           </div>
-        </div>
-      </div>
-      <div class="item">
-        <img class="img-responsive" src="img/1920x1080/02.jpg" alt="Slider Image">
-        <div class="container">
-          <div class="carousel-centered">
-            <div class="margin-b-40">
-              <h2 class="carousel-title">Hi-Tech Design</h2>
-              <p>Lorem ipsum dolor amet consectetur adipiscing dolore magna aliqua <br /> enim minim
-                estudiat veniam siad venumus dolore</p>
-            </div>
-            <a href="product.php"
-              class="btn-theme btn-theme-sm btn-white-brd text-uppercase">Explore</a>
-          </div>
-        </div>
-      </div>
+        </div>";
+      }
+      ?>
     </div>
   </div>
 
@@ -56,10 +81,14 @@
                 Vegetables, taking a prestige to deliver Quality over Quantity. We deal in pomegranates, mangoes, bananas,
                 onions, potatoes, garlic, and so on.
                 </div>
-                <div class="margin-b-20">
+                <!-- <div class="margin-b-20">
                 We are strategically located in Mumbai, which facilitates International Trade through its largest port of
                 Nhava Sheva. Proximity to different locations like Nashik, Pune, Ratnagiri, Solapur, Nagpur which are part
                 of the Maharashtra State, the agricultural hub of India, helps us to procure products with ease.
+                </div> -->
+                <div class="margin-b-20">
+                  <a href="about.php"
+                  class="btn-theme btn-theme-sm btn-black-brd text-uppercase">Know More</a>
                 </div>
               </blockquote>
             </div>
@@ -362,6 +391,11 @@
     </div>
   </div>
   <!-- End Service -->
+
+  
+<?php include_once('./includes/feedback-form.php') ?>
+
+
   
 <?php include_once('./includes/scripts.php') ?>
 <?php include_once('./includes/footer.php') ?>

@@ -23,8 +23,8 @@
               New Mumbai - 400 706
             </p>
             <ul class="list-unstyled contact-list">
-              <li><i class="margin-r-10 color-base icon-call-out"></i> +91 8082087255</li>
-              <li><i class="margin-r-10 color-base icon-envelope"></i> info@destov.com</li>
+              <li><i class="margin-r-10 color-base fa fa-lg fa-tag fa-phone"></i> +91 8082087255</li>
+              <li><i class="margin-r-10 color-base fa fa-lg fa-tag fa-envelope"></i> info@destov.com</li>
             </ul>
           </div>
         </div>
@@ -41,6 +41,7 @@
       frameborder="0" allowfullscreen></iframe>
   </div>
 
+<?php include_once('./includes/feedback-form.php') ?>
 
 
 <?php include_once('./includes/scripts.php') ?>
