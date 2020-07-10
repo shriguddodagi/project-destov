@@ -1,4 +1,3 @@
-<?php include_once('./config.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +35,7 @@
               <a class="nav-link active" href="slider.html">Slider</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="inquiries.html">Inquiries</a>
+              <a class="nav-link" href="inquiries.php">Inquiries</a>
             </li>
           </ul>
           <span class="navbar-text">

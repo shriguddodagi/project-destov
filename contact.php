@@ -1,4 +1,15 @@
-<?php include_once('./includes/header.php') ?>
+<?php 
+include_once('./includes/header.php');
+include_once('./includes/util.php');
+include_once('./FormSanitizer.php');
+
+if(isset($_POST['submit'])) {
+  mysqli_query($cn, recordSanitize($_POST));
+  unset($_REQUEST, $_POST, $_GET);  
+  header('Location: contact.php');
+}
+
+?>
 
 
   <div class="parallax-window" data-parallax="scroll" data-image-src="img/1920x1080/01.jpg">

@@ -1,5 +1,50 @@
 <?php 
 include_once('./includes/header.php');
+include_once('./includes/util.php');
+include_once('./FormSanitizer.php');
+
+if(isset($_POST['submit'])) {
+  mysqli_query($cn, recordSanitize($_POST));
+  unset($_REQUEST, $_POST, $_GET);  
+  header('Location: index.php');
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $query = "SELECT * FROM `slides` ORDER BY id DESC LIMIT 2";
 $slides = mysqli_query($cn, $query);
