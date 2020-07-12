@@ -279,7 +279,7 @@ $result = mysqli_query($cn, $query);
     var filePath = fileInput.value;
     var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
     if (!allowedExtensions.exec(filePath)) {
-      alert('Please upload file having extensions .jpeg.jpg.png.gif only.');
+      alert('Please upload file having extensions .jpeg, .jpg, .png, .gif only.');
       fileInput.value = '';
       return false;
     } else {

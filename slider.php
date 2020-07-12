@@ -161,7 +161,7 @@ $result = mysqli_query($cn, $query);
           <div class="modal-body">
             <form action="" method="POST" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
               <div class="mb-3">
-                <label for="description" class="form-label">Title</label>
+                <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control" id="title" name="title" placeholder="Title"
                   pattern="^\w+(\s+\w+)*$" required></textarea>
                 <div class="valid-feedback">
@@ -261,7 +261,7 @@ $result = mysqli_query($cn, $query);
     var filePath = fileInput.value;
     var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
     if (!allowedExtensions.exec(filePath)) {
-      alert('Please upload file having extensions .jpeg/.jpg/.png/.gif only.');
+      alert('Please upload file having extensions .jpeg, .jpg, .png, .gif only.');
       fileInput.value = '';
       return false;
     } else {
