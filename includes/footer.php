@@ -35,7 +35,7 @@
                 <a class="footer-list-link" href="https://twitter.com/destovofficial"><i class="margin-r-10 fa fa-lg fa-tag fa-linkedin"></i></a>
                 <a class="footer-list-link" href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-instagram"></i></a>
               </div>
-
+              <div id="google_translate_element"></div>
             </div>
           </ul>
           <!-- End List -->
@@ -56,10 +56,10 @@
             </li>
             <li class="margin-b-10"><a class="footer-list-link" style="color: white" href="#">Terms And Conditions</a>
             </li>
-            <li class="margin-b-10"><a class="footer-list-link" style="color: white" href="#">Privacy Policy</a>
+            <!-- <li class="margin-b-10"><a class="footer-list-link" style="color: white" href="#">Privacy Policy</a>
             </li>
             <li class="margin-b-10"><a class="footer-list-link" style="color: white" href="#">Trams Of Use</a>
-            </li>
+            </li> -->
           </ul>
           <!-- End List -->
         </div>
@@ -89,6 +89,12 @@
   </div>
   
 </footer>
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+  }
+</script>
   <a href="javascript:void(0);" class="js-back-to-top back-to-top">Top</a>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </body>
 </html>

@@ -39,7 +39,7 @@
 
         
           <div class="logo">
-            <a class="logo-wrap" href="index.html">
+            <a class="logo-wrap" href="index.php">
               <img class="logo-img logo-img-main" src="img/png.png" alt="Destov Logo">
               <img class="logo-img logo-img-active" src="img/jpg.jpg" alt="Destov Logo">
             </a>
