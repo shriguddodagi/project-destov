@@ -1,3 +1,27 @@
+<?php
+include_once('./config.php');
+
+if(isset($_POST['login'])) {
+  $email = $_POST['adminEmail'];
+  $password = $_POST['adminPassword'];
+  $data = mysqli_fetch_array(mysqli_query($cn, "SELECT * FROM `admin` WHERE `email`='$email' AND `password`='$password' LIMIT 1"));
+  
+  if(count($data) > 0) {
+    session_start();
+    $_SESSION['auth'] = true;
+    $_SESSION['email'] = $email;
+    unset($_POST);
+    header('Location: admin.php');
+  } else {
+    echo "<script>alert('Invalid Email and Password');</script>";
+    unset($_POST);
+    header('Location: login.php');
+  }
+  
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,7 +43,7 @@
           <h5 class="modal-title text-capitalization" id="exampleModalLabel">ADMIN LOGIN</h5>
         </div>
         <div class="modal-body">
-          <form action="admin.html" method="POST" class="row g-3 needs-validation" novalidate>
+          <form action="" method="POST" class="row g-3 needs-validation" novalidate>
             <div class="col-12">
               <label for="adminEmail" class="form-label">Your Email</label>
               <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="adminEmail" class="form-control" id="adminEmail" required>
@@ -29,7 +53,7 @@
             </div>
             <div class="col-12">
               <label for="adminPassword" class="form-label">Your password</label>
-              <input type="password" pattern=".{8,}" title="Eight or more characters" name="adminPassword" class="form-control" id="adminPassword" required>
+              <input type="password" pattern=".{5,}" title="Eight or more characters" name="adminPassword" class="form-control" id="adminPassword" required>
               <div class="invalid-feedback">
                 Password is Required
               </div>
@@ -53,11 +77,8 @@
   <script>
     (function () {
       'use strict'
-
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
       var forms = document.querySelectorAll('.needs-validation')
 
-      // Loop over them and prevent submission
       Array.prototype.slice.call(forms)
         .forEach(function (form) {
           form.addEventListener('submit', function (event) {
@@ -65,7 +86,6 @@
               event.preventDefault()
               event.stopPropagation()
             }
-
             form.classList.add('was-validated')
           }, false)
         })

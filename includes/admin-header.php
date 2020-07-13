@@ -1,10 +1,22 @@
+<?php
+session_start();
+if(!isset($_SESSION['auth']) && !$_SESSION['auth'] == true && !isset($_SESSION['email'])) {
+  unset($_SESSION['auth'], $_SESSION['email']);
+  header('Location: login.php');
+}
+
+if(isset($_POST['logout'])) {
+  unset($_SESSION['auth'], $_SESSION['email']);
+  header('Location: index.php');
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin</title>
+  <title>Destov - Admin</title>
   <link rel="stylesheet" href="./vendor/bootstrap 5/css/bootstrap.min.css">
 </head>
 
@@ -56,7 +68,9 @@
             </li>
           </ul>
           <span class="navbar-text">
-            Somthing
+            <form action="" method="post">
+              <button class="btn btn-sm btn-info" type="submit" name="logout">Logout</button>
+            </form>
           </span>
         </div>
 
