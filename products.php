@@ -1,8 +1,14 @@
 <?php 
 include_once('./includes/header.php');
+include_once('./includes/productUtil.php');
 
 $query = "SELECT id, title, description, image FROM `products` ORDER BY id DESC";
 $products = mysqli_query($cn, $query);
+
+if(isset($_GET['term'])) {
+  $term = $_GET['term'];
+  $search = mysqli_query($cn, "SELECT * FROM `products` WHERE title LIKE '$term%'");
+}
 
 ?>
 
@@ -12,7 +18,32 @@ $products = mysqli_query($cn, $query);
     </div>
   </div>
 
-   
+  <div class="content-lg container text-center">
+    <div class="row margin-b-10">
+      <form action="" method="get">
+        <div class="col-md-10">
+          <input name="term" 
+            id="term" 
+            type="text" 
+            class="form-control margin-b-10" 
+            placeholder="Start Typing..." 
+            required 
+            pattern="^\w+(\s+\w+)*$">
+        </div>
+        <div class="col-md-2">
+          <button name="search" id="search" type="submit" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Search</button>
+        </div>
+      </form>
+    </div>
+    <div class="row">
+      <?php
+      while($row = mysqli_fetch_array($search)) {
+        echo thumbnail($row['image'], $row['title'], $row['description'], $row['id']);
+      }
+      ?>
+    </div>
+  </div>
+
   <div class="content-lg container">
     <div class="row margin-b-40">
       <div class="col-sm-6">
@@ -25,21 +56,7 @@ $products = mysqli_query($cn, $query);
       <?php
 
       while($row = mysqli_fetch_array($products)) {
-
-        echo "<div class='col-sm-4 sm-margin-b-50'>
-          <div class='margin-b-20'>
-            <div class='wow zoomIn' data-wow-duration='.3' data-wow-delay='.1s'>
-              <img class='img-responsive' src='". $row['image'] ."' alt='". $row['title'] ."'>
-            </div>
-          </div>
-          <h4><a
-              href='product.php?product=". $row['id'] ."'>". $row['title'] ."</a></h4>
-          <p>". $row['description'] ."</p>
-          <a class='link'
-            href='product.php?product=". $row['id'] ."'>Read
-            More</a>
-        </div>";
-      
+        echo thumbnail($row['image'], $row['title'], $row['description'], $row['id']);
       }
       
       ?>

@@ -37,6 +37,16 @@ function forCol12 ($image, $title, $description, $id) {
   </div>";
 };
 
-
-
+function thumbnail ($image, $title, $description, $id) {
+  return "<div class='col-sm-4 sm-margin-b-50'>
+    <div class='margin-b-20'>
+      <div class='wow zoomIn' data-wow-duration='.3' data-wow-delay='.1s'>
+        <img class='img-responsive' src='". $image ."' alt='". $title ."'>
+      </div>
+    </div>
+    <h4><a href='product.php?product=". $id ."'>". $title ."</a></h4>
+    <p>". $description ."</p>
+    <a class='link' href='product.php?product=". $id ."'>Read More</a>
+  </div>";
+}
 
