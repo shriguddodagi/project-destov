@@ -1289,3 +1289,61 @@ fieldset[disabled] .btn-theme {
 .height-400 {
   height: 400px !important;
 }
+
+.accordion .panel-default {
+  border: none;
+}
+
+.accordion .panel-heading {
+  border-radius: 0;
+}
+
+.accordion .panel-default > .panel-heading {
+  color: #515769;
+  background: #fff;
+  border: none;
+  padding: 0;
+}
+
+.accordion .panel-title {
+  font-size: 22px;
+}
+
+.accordion .panel-title-child {
+  display: block;
+  padding: 30px;
+}
+
+.accordion .panel-group .panel + .panel {
+  border-radius: 0;
+  margin-top: 10px;
+}
+
+.accordion .panel-default > .panel-heading + .panel-collapse > .panel-body {
+  font-size: 16px;
+  border-top: none;
+  padding: 0 30px 30px 30px;
+  margin-top: -1px;
+}
+
+.accordion [aria-expanded="true"],
+.accordion .collapse.in {
+  color: #fff;
+  background: #17bed2;
+}
+
+.calender {
+  border: 1px solid #000000;
+  font-weight: 600;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.calender-on {
+  background-color: #17bed2;
+  color: #fff;
+}
+.calender-off {
+  background-color: #515769;
+  color: #fff;
+}

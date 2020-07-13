@@ -2,6 +2,7 @@
 include_once('./includes/header.php');
 include_once('./includes/util.php');
 include_once('./FormSanitizer.php');
+include_once('./includes/productUtil.php');
 
 if(isset($_POST['submit'])) {
   mysqli_query($cn, recordSanitize($_POST));
@@ -9,81 +10,16 @@ if(isset($_POST['submit'])) {
   header('Location: index.php');
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 $query = "SELECT * FROM `slides` ORDER BY id DESC LIMIT 2";
 $slides = mysqli_query($cn, $query);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+$query = "SELECT id, title, description, image FROM `products` ORDER BY id DESC LIMIT 8";
+$products = mysqli_query($cn, $query);
 
 ?>
 
   <div id="carousel-example-generic" class="carousel slide margin-b-40" data-ride="carousel">
     <div class="container">
-      <!-- Indicators -->
       <ol class="carousel-indicators">
         <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
         <li data-target="#carousel-example-generic" data-slide-to="1"></li>
@@ -112,7 +48,6 @@ $slides = mysqli_query($cn, $query);
     </div>
   </div>
 
-  <!-- About us -->
   <div class="promo-section overflow-h">
     <div class="container">
       <div class="clearfix">
@@ -158,133 +93,55 @@ $slides = mysqli_query($cn, $query);
       <div class="masonry-grid">
         <div class="masonry-grid-sizer col-xs-6 col-sm-6 col-md-1"></div>
      
-        <div class="masonry-grid-item col-xs-6 col-sm-6 col-md-4">
-          <!-- Work -->
-          <div class="work wow fadeInUp" data-wow-duration=".3" data-wow-delay=".2s">
-            <div class="work-overlay">
-              <img class="full-width img-responsive" src="img/970x647/01.jpg" alt="Portfolio Image">
-            </div>
-            <div class="work-content">
-              <h3 class="color-white margin-b-5">Clean Design</h3>
-              <p class="color-white margin-b-0">Lorem ipsum dolor sit amet consectetur adipiscing</p>
-            </div>
-            <a class="content-wrapper-link"
-              href="product.php"></a>
-          </div>
-          <!-- End Work -->
-        </div>
-        
-        <div class="masonry-grid-item col-xs-12 col-sm-6 col-md-8">
+        <?php
 
-          <div class="work wow fadeInUp" data-wow-duration=".3" data-wow-delay=".1s">
-            <div class="work-overlay">
-              <img class="full-width img-responsive" src="img/970x647/02.jpg" alt="Portfolio Image">
-            </div>
-            <div class="work-content">
-              <h3 class="color-white margin-b-5">Product</h3>
-              <p class="color-white margin-b-0">Caption for Product</p>
-            </div>
-            <a class="content-wrapper-link"
-              href="product.php"></a>
-          </div>
+        $cnt = 0;
 
-        </div>   
+        while($row = mysqli_fetch_array($products)) {
 
-        <div class="masonry-grid-item col-xs-6 col-sm-6 col-md-4">
-          <!-- Work -->
-          <div class="work wow fadeInUp" data-wow-duration=".3" data-wow-delay=".3s">
-            <div class="work-overlay">
-              <img class="full-width img-responsive" src="img/970x647/01.jpg" alt="Portfolio Image">
-            </div>
-            <div class="work-content">
-              <h3 class="color-white margin-b-5">Clean Design</h3>
-              <p class="color-white margin-b-0">Lorem ipsum dolor sit amet consectetur adipiscing</p>
-            </div>
-            <a class="content-wrapper-link"
-              href="product.php"></a>
-          </div>
-          <!-- End Work -->
-        </div>
-
-        <div class="masonry-grid-item col-xs-12 col-sm-6 col-md-8">
-          <!-- Work -->
-          <div class="work wow fadeInUp" data-wow-duration=".3" data-wow-delay=".1s">
-              <div class="work-overlay">
-                  <img class="full-width img-responsive" src="img/970x647/01.jpg" alt="Portfolio Image">
+          if($cnt === 0) {
+            echo forCol6($row['image'], $row['title'], $row['description'], $row['id']);
+          } elseif ($cnt === 1) {
+            echo forCol12($row['image'], $row['title'], $row['description'], $row['id']);
+          } elseif ($cnt === 2) {
+            echo forCol6($row['image'], $row['title'], $row['description'], $row['id']);
+          } elseif ($cnt === 3) {
+            echo forCol12($row['image'], $row['title'], $row['description'], $row['id']);
+          } elseif ($cnt === 4) {
+            echo forCol6($row['image'], $row['title'], $row['description'], $row['id']);
+          } elseif ($cnt === 5) {
+            echo forCol6($row['image'], $row['title'], $row['description'], $row['id']);
+          } elseif ($cnt === 6) {
+            echo forCol6($row['image'], $row['title'], $row['description'], $row['id']);
+          } elseif ($cnt === 7) {
+            echo forCol6($row['image'], $row['title'], $row['description'], $row['id']);
+            echo "<div class='masonry-grid-item col-xs-6 col-sm-6 col-md-4'>             
+              <div class='work wow fadeInUp' data-wow-duration='.3' data-wow-delay='.4s'>
+                <div class='work-overlay'>
+                  <img class='full-width img-responsive' src='img/970x647/01.jpg' alt='Portfolio Image'>
+                </div>
+                <div class='work-content'>
+                  <h3 class='color-white margin-b-5'>Show All</h3>
+                  <p class='color-white margin-b-0'>Explore Our All Products</p>
+                </div>
+                <a class='content-wrapper-link'
+                  href='product.php'></a>
               </div>
-              <div class="work-content">
-                  <h3 class="color-white margin-b-5">Art Of Coding</h3>
-                  <p class="color-white margin-b-0">Lorem ipsum dolor sit amet consectetur adipiscing</p>
-              </div>
-              <a class="content-wrapper-link" href="#"></a>
-          </div>
-          <!-- End Work -->
-        </div>
+            </div>";
+          }
+          $cnt++;
+        }
 
-        <div class="masonry-grid-item col-xs-6 col-sm-6 col-md-4">
-          <!-- Work -->
-          <div class="work wow fadeInUp" data-wow-duration=".3" data-wow-delay=".1s">
-            <div class="work-overlay">
-                <img class="full-width img-responsive" src="img/970x647/01.jpg" alt="Portfolio Image">
-            </div>
-            <div class="work-content">
-                <h3 class="color-white margin-b-5">Clean Fruit</h3>
-                <p class="color-white margin-b-0">Lorem ipsum dolor sit amet consectetur adipiscing</p>
-            </div>
-            <a class="content-wrapper-link" href="#"></a>
-          </div>
-          <div class="work">
-            <div class="work-overlay">
-              <img class="full-width img-responsive" src="img/970x647/01.jpg" alt="Portfolio Image">
-            </div>
-            <div class="work-content">
-              <h3 class="color-white margin-b-5">Show All</h3>
-            </div>
-            <a class="content-wrapper-link" href="prodcuts.php"></a>
-          </div>
-          <!-- End Work -->
-        </div>
-
-        <div class="masonry-grid-item col-xs-6 col-sm-6 col-md-4">
-          <!-- Work -->
-          <div class="work wow fadeInUp" data-wow-duration=".3" data-wow-delay=".4s">
-            <div class="work-overlay">
-              <img class="full-width img-responsive" src="img/970x647/01.jpg" alt="Portfolio Image">
-            </div>
-            <div class="work-content">
-              <h3 class="color-white margin-b-5">Clean Design</h3>
-              <p class="color-white margin-b-0">Lorem ipsum dolor sit amet consectetur adipiscing</p>
-            </div>
-            <a class="content-wrapper-link"
-              href="product.php"></a>
-          </div>
-          <!-- End Work -->
-        </div>
-
-        <div class="masonry-grid-item col-xs-6 col-sm-6 col-md-4">
-          <!-- Work -->
-          <div class="work wow fadeInUp" data-wow-duration=".3" data-wow-delay=".5s">
-            <div class="work-overlay">
-              <img class="full-width img-responsive" src="img/970x647/01.jpg" alt="Portfolio Image">
-            </div>
-            <div class="work-content">
-              <h3 class="color-white margin-b-5">Clean Design</h3>
-              <p class="color-white margin-b-0">Lorem ipsum dolor sit amet consectetur adipiscing</p>
-            </div>
-            <a class="content-wrapper-link"
-              href="product.php"></a>
-          </div>
-          <!-- End Work -->
-        </div>
+        ?>
        
-          
-       
+      
+      
+      
+      
       </div>
-      <!-- End Masonry Grid -->
     </div>
   </div>
 
-  <!-- Service -->
   <div class="bg-color-sky-light" data-auto-height="true">
     <div class="content-lg container">
       <h2>Certificates</h2>
@@ -332,7 +189,6 @@ $slides = mysqli_query($cn, $query);
     
     </div>
   </div>
-  <!-- End Service -->
 
   
 <?php include_once('./includes/feedback-form.php') ?>
