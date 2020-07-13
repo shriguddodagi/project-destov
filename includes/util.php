@@ -18,7 +18,8 @@ function recordSanitize($POST) {
     $email = FormSanitizer::sanitizeFormEmail($POST['email']);
     $phone = FormSanitizer::sanitizeFormNameNumber($POST['phone']);
     $message = $POST['message'];
-    return "INSERT INTO `inquiries` (name, email, phone, message) VALUES('$name', '$email', '$phone', '$message')";
+    $check = $_POST['check'];
+    return "INSERT INTO `inquiries` (name, email, phone, message, check_mode) VALUES('$name', '$email', '$phone', '$message', '$check')";
 }
 
 

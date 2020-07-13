@@ -45,12 +45,14 @@ $closeInquirie  = mysqli_query($cn, 'SELECT * FROM inquiries WHERE mode="close" 
                 <th scope="col">Phone</th>
                 <th scope="col">Message</th>
                 <th scope="col">Arrived On</th>
+                <th scope="col">Type</th>
                 <th scope="col">Close</th>
               </tr>
             </thead>
             <tbody>
               <?php
               while($row = mysqli_fetch_array($openInquirie)) {
+                $type = $row['check_mode'] == "on" ? "<td class='text-primary font-weight-bold'>Inquiry</td>" : "<td class='text-secondary'>Feedback</td>";
                 echo "<tr>
                   <th scope='row'>".$row['id']."</th>
                   <td>".$row['name']."</td>
@@ -58,6 +60,7 @@ $closeInquirie  = mysqli_query($cn, 'SELECT * FROM inquiries WHERE mode="close" 
                   <td>".$row['phone']."</td>
                   <td>".$row['message']."</td>
                   <td>".$row['created_at']."</td>
+                  $type
                   <td>
                     <form action='' method='POST'>
                       <input type='hidden' name='id' value='". $row['id'] ."'>
@@ -80,12 +83,14 @@ $closeInquirie  = mysqli_query($cn, 'SELECT * FROM inquiries WHERE mode="close" 
                 <th scope="col">Phone</th>
                 <th scope="col">Message</th>
                 <th scope="col">Arrived On</th>
+                <th scope="col">Type</th>
                 <th scope="col">Reopen</th>
               </tr>
             </thead>
             <tbody>
             <?php
               while($row = mysqli_fetch_array($closeInquirie)) {
+                $type = $row['check_mode'] == "on" ? "<td class='bg-primary font-weight-bold'>Inquiry</td>" : "<td class='text-secondary'>Feedback</td>";
                 echo "<tr>
                   <th scope='row'>".$row['id']."</th>
                   <td>".$row['name']."</td>
@@ -93,6 +98,7 @@ $closeInquirie  = mysqli_query($cn, 'SELECT * FROM inquiries WHERE mode="close" 
                   <td>".$row['phone']."</td>
                   <td>".$row['message']."</td>
                   <td>".$row['created_at']."</td>
+                  $type
                   <td>
                     <form action='' method='POST'>
                       <input type='hidden' name='id' value='". $row['id'] ."'>
