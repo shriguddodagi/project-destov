@@ -613,6 +613,9 @@ $months = mysqli_query($cn, $query);
     }
   }
 
+  CKEDITOR.replace('paymenterms');
+  CKEDITOR.replace('certifications');
+
   $(document).ready(function () {
 
     var myModalEl = document.getElementById('createProductModal')

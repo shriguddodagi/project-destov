@@ -87,8 +87,7 @@ $categories = mysqli_query($cn, $query);
               </div>
               <p class='text-left terms p-2'>". $row['terms'] ."</p>
               <div class='d-flex mt-3 justify-content-between'>
-                <button id='".  $row['id'] ."' class='btn btn-warning edit-category-button' data-toggle='modal'
-                  data-target='#editCategoryModal'>Edit</button>
+                <button id='".  $row['id'] ."' class='btn btn-warning edit-category-button'>Edit</button>
                   <form action='' method='POST'>
                     <input type='hidden' name='id' value='". $row['id'] ."'>
                     <button type='submit' name='deleteCategory' class='btn btn-danger delete-category-button'>Delete</button>
@@ -123,7 +122,7 @@ $categories = mysqli_query($cn, $query);
     <!-- Category -->
     <div class="modal fade" id="createCategoryModal" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="createCategoryModalLabel"
       aria-hidden="true">
-      <div class="modal-dialog modal-lg">
+      <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="createCategoryModalLabel">Create New Category</h5>
@@ -163,7 +162,7 @@ $categories = mysqli_query($cn, $query);
     </div>
     <div class="modal fade" id="editCategoryModal" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="editCategoryModalLabel"
       aria-hidden="true">
-      <div class="modal-dialog modal-lg">
+      <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="editCategoryModalLabel">Edit Category <span class="text-primary"></span></h5>
@@ -237,77 +236,6 @@ $categories = mysqli_query($cn, $query);
         </div>
       </div>
     </div>
-
-
-
-    <!-- <div class="modal fade" id="editSubcategoryModal" tabindex="-1" aria-labelledby="editSubcategoryModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-md">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="editSubcategoryModalLabel">Edit Sub Category <span
-                  class="text-primary"></span></h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <form class="row g-3 needs-validation" novalidate>
-                <div class="col-md-12">
-                  <input type="hidden" name="subcategoryIdInEditSubcategoryModal"
-                    id="subcategoryIdInEditSubcategoryModal">
-                  <label for="validationCustom01" class="form-label">Category Name</label>
-                  <input type="text" name="subCategoryName" id="subCategoryName" class="form-control"
-                    pattern=" *[A-Za-z]{1,}" required>
-                  <div class="valid-feedback">
-                    Looks good!
-                  </div>
-                  <div class="invalid-feedback">
-                    Sub Category Name is invalid.
-                  </div>
-                </div>
-                <button type="submit" class="btn btn-primary">Create Sub Category</button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-
-
-
-    <!-- <div class="modal fade" id="createCategoryModal" tabindex="-1" aria-labelledby="createCategoryModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="createCategoryModalLabel">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              ...
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-
-
-
-
-
-
-
-
-
-
-
   </div>
 </main>
 
@@ -338,6 +266,8 @@ $categories = mysqli_query($cn, $query);
 </script>
 
 <script>
+  CKEDITOR.replace('categoryTermsInEditModal');
+  CKEDITOR.replace('categoryTerms');
   $(document).ready(function () {
     // Edit Category
     $(document).on('click', '.edit-category-button', function () {
@@ -345,18 +275,15 @@ $categories = mysqli_query($cn, $query);
       const title = $(this).parent().siblings('div').find('h5.card-title').text();
       $('#editCategoryModalLabel').find('.text-primary').text(title);
       $('#categoryNameInEditModal').val(title);
-      $('#categoryTermsInEditModal').val($(this).parent().siblings('p.terms').text());
+      $('#categoryTermsInEditModal').text($(this).parent().siblings('p.terms').text());
+      $('#editCategoryModal').modal('show');
     });
-
-
 
     // SubCategory
     $(document).on('click', '.create-sub-category-button', function () {
       $('#categoryIdInCreateSubCategoryModal').val($(this).attr('id'));
       $('#createSubCategoryModalLabel').find('.text-primary').text($(this).siblings('.card-title').text());
     });
-
-
   });
 </script>
 

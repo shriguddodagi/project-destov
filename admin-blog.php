@@ -88,7 +88,7 @@ $result = mysqli_query($cn, $query);
 
     <div class="modal fade" id="editblogModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
       aria-labelledby="editblogModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="editblogModalLabel">Edit Blog Data</h5>
@@ -149,7 +149,7 @@ $result = mysqli_query($cn, $query);
     </div>
     <div class="modal fade" id="blogModal" data-backdrop="static" data-keyboard="false" tabindex="-1"
       aria-labelledby="blogModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="blogModalLabel">Add New blog</h5>
@@ -237,6 +237,8 @@ $result = mysqli_query($cn, $query);
 </script>
 
 <script>
+  CKEDITOR.replace('descriptionInEditModal');
+  CKEDITOR.replace('description');
   $(document).ready(function () {
 
     // Edit blog
@@ -260,7 +262,7 @@ $result = mysqli_query($cn, $query);
     var filePath = fileInput.value;
     var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
     if (!allowedExtensions.exec(filePath)) {
-      alert('Please upload file having extensions .jpeg/.jpg/.png/.gif only.');
+      alert('Please upload file having extensions .jpeg, .jpg, .png, .gif only.');
       fileInput.value = '';
       return false;
     } else {
