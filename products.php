@@ -5,9 +5,10 @@ include_once('./includes/productUtil.php');
 $query = "SELECT id, title, description, image FROM `products` ORDER BY id DESC";
 $products = mysqli_query($cn, $query);
 
-if(isset($_GET['term'])) {
+if(isset($_GET['term']) && isset($_GET['search'])) {
   $term = $_GET['term'];
   $search = mysqli_query($cn, "SELECT * FROM `products` WHERE title LIKE '$term%'");
+  unset($_GET['search']);
 }
 
 ?>
@@ -18,13 +19,14 @@ if(isset($_GET['term'])) {
     </div>
   </div>
 
-  <div class="content-lg container text-center">
-    <div class="row margin-b-10">
+  <div class="content-lg container">
+    <div class="row margin-b-10 text-center">
       <form action="" method="get">
         <div class="col-md-10">
           <input name="term" 
             id="term" 
             type="text" 
+            value="<?php echo isset($_GET['term'])? $_GET['term'] : '' ?>"
             class="form-control margin-b-10" 
             placeholder="Start Typing..." 
             required 
@@ -37,8 +39,10 @@ if(isset($_GET['term'])) {
     </div>
     <div class="row">
       <?php
-      while($row = mysqli_fetch_array($search)) {
-        echo thumbnail($row['image'], $row['title'], $row['description'], $row['id']);
+      if(isset($search)) {
+        while($row = mysqli_fetch_array($search)) {
+          echo thumbnail($row['image'], $row['title'], $row['description'], $row['id']);
+        }
       }
       ?>
     </div>
