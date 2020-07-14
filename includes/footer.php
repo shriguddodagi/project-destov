@@ -68,8 +68,10 @@
           <p style="color: white; font-weight:500">
             Subscribe to get latest Market Updates, Our News Letter and Exclusive Deals directly to your in your main-box.
           </p>
-          <input type="email" class="form-control footer-input margin-b-20" placeholder="Email" required>
-          <button type="submit" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Submit</button>
+          <form action="" method="post">
+            <input type="email" name="email" class="form-control footer-input margin-b-20" placeholder="Your Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+            <button type="submit" name="subscribe" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Submit</button>
+          </form>
         </div>
       </div>
     </div>

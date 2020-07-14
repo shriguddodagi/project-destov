@@ -3,9 +3,10 @@ include_once('./includes/header.php');
 include_once('./includes/util.php');
 include_once('./FormSanitizer.php');
 include_once('./includes/productUtil.php');
-
+session_start();
 if(isset($_POST['submit'])) {
   mysqli_query($cn, recordSanitize($_POST));
+  $_SESSION['feedbackDone'] = true;
   unset($_REQUEST, $_POST, $_GET);  
   header('Location: index.php');
 }

@@ -10,7 +10,7 @@
 	    display: inline-flex;
 	    padding: 5px 30px;">Get In Touch</h4>
     <h5 class="text-center text-white bg-success rounded d-block" 
-    	style="padding: 15px; display: <?php echo (isset($_SESSION['feedbackDone'])) ? "block" : "none"; ?>; border-radius: 10px; "><?php if (isset($feedbackDone)) { echo "THANK YOU! OUR THEAM WILL CONTACT YOU SOON"; } ?></h5>
+    	style="padding: 15px; display: <?php echo (isset($_SESSION['feedbackDone'])) ? "block" : "none"; ?>; border-radius: 10px; "><?php if (isset($_SESSION['feedbackDone'])) { echo "THANK YOU! OUR THEAM WILL CONTACT YOU SOON"; } ?></h5>
 		<form method="POST" action="">
 			<div class="form-check form-switch">
 				<input class="form-check-input" type="checkbox" id="check" name="check" checked>

@@ -1,4 +1,13 @@
-<?php include_once('./config.php'); ?>
+<?php 
+include_once('./config.php'); 
+
+if (isset($_POST['subscribe'])) {
+  $email = $_POST['email'];
+  mysqli_query($cn, "INSERT INTO `subscribers` (email) VALUES ('$email')");
+  unset($_POST, $_GET, $_REQUEST);
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 
