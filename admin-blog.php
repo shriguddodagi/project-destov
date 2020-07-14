@@ -211,31 +211,7 @@ $result = mysqli_query($cn, $query);
   </main>
 
 </body>
-
-<script src="./vendor/jquery.min.js"></script>
-<script src="./vendor/bootstrap 5/js/bootstrap.min.js"></script>
-<script>
-  (function () {
-    'use strict'
-
-    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-    var forms = document.querySelectorAll('.needs-validation')
-
-    // Loop over them and prevent submission
-    Array.prototype.slice.call(forms)
-      .forEach(function (form) {
-        form.addEventListener('submit', function (event) {
-          if (!form.checkValidity()) {
-            event.preventDefault()
-            event.stopPropagation()
-          }
-
-          form.classList.add('was-validated')
-        }, false)
-      })
-  })()
-</script>
-
+<?php include_once('./includes/admin-script.php'); ?>
 <script>
   CKEDITOR.replace('descriptionInEditModal');
   CKEDITOR.replace('description');
