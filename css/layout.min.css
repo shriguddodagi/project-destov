@@ -278,6 +278,7 @@ fieldset[disabled] .btn-theme {
   font-size: 13px;
   font-weight: 600;
   padding: 15px 30px;
+  border-radius: 5px;
 }
 .pricing {
   padding: 70px 45px;
@@ -765,9 +766,7 @@ fieldset[disabled] .btn-theme {
   font-weight: 400;
   color: #a6a7aa;
   background: #fafafa;
-  border: none;
-  box-shadow: none;
-  border-radius: 0;
+  border-radius: 5px;
   padding-left: 15px;
 }
 .form-control::-moz-placeholder {
