@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2020 at 12:36 PM
+-- Generation Time: Jul 15, 2020 at 02:32 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -195,26 +195,27 @@ CREATE TABLE `products` (
   `incoterms` varchar(100) NOT NULL,
   `paymenterms` text NOT NULL,
   `certifications` text NOT NULL,
-  `image` varchar(100) NOT NULL
+  `image` varchar(100) NOT NULL,
+  `display_on_home` varchar(3) DEFAULT NULL,
+  `position` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `subcategory_id`, `title`, `description`, `varieties`, `color`, `size`, `weight`, `tss`, `calender`, `containercapacity`, `incoterms`, `paymenterms`, `certifications`, `image`) VALUES
-(4, 1, 'New title', 'update', 'update', 'update', 'update', 'update', 'update', '1,2,3,4,7,8,9,11', 'update', 'update', 'dfjckupdate', 'fdjkupdate', 'storage/159457515302.jpg'),
-(5, 2, 'House', 'description', 'hjbj', 'dskjvn', 'kjcvn', 'ksncvmc', 'ckvn', '2,4,9,11', 'jfhdskjfs', 'ijldsfksd', 'lksjdvkdn', 'lksddjvmdk', 'storage/159461458303.jpg'),
-(6, 3, 'sdkfjgf', 'kcvxnm', 'dfkbnfo', 'dgfjv', 'jdjfkvn', 'jdjnv', 'dknv', '1,4,8,11', 'ojdfs', 'dfkfnv', 'dkfvn', 'dkfng', 'storage/159461478202.jpg'),
-(7, 2, 'isdhfj', 'odpidfjv', 'odfdfjv', 'oidjf', 'oskdk', 'ojv', 'oissdjf', '1,5,9,12', 'odsijfds', 'osidjifm', 'oijdfs', 'osisdifj', 'storage/159461474401.jpg'),
-(8, 2, 'isdhfj', 'odpidfjv', 'odfdfjv', 'oidjf', 'oskdk', 'ojv', 'oissdjf', '1,5,9,12', 'odsijfds', 'osidjifm', 'oijdfs', 'osisdifj', 'storage/159461474901.jpg'),
-(9, 2, 'isdhfj', 'odpidfjv', 'odfdfjv', 'oidjf', 'oskdk', 'ojv', 'oissdjf', '1,5,9,12', 'odsijfds', 'osidjifm', 'oijdfs', 'osisdifj', 'storage/159461475101.jpg'),
-(10, 2, 'isdhfj', 'odpidfjv', 'odfdfjv', 'oidjf', 'oskdk', 'ojv', 'oissdjf', '1,5,9,12', 'odsijfds', 'osidjifm', 'oijdfs', 'osisdifj', 'storage/159461475301.jpg'),
-(11, 2, 'isdhfj', 'odpidfjv', 'odfdfjv', 'oidjf', 'oskdk', 'ojv', 'oissdjf', '1,5,9,12', 'odsijfds', 'osidjifm', 'oijdfs', 'osisdifj', 'storage/159461475401.jpg'),
-(12, 2, 'isdhfj', 'odpidfjv', 'odfdfjv', 'oidjf', 'oskdk', 'ojv', 'oissdjf', '1,5,9,12', 'odsijfds', 'osidjifm', 'oijdfs', 'osisdifj', 'storage/159461479701.jpg'),
-(13, 2, 'isdhfj', 'odpidfjv', 'odfdfjv', 'oidjf', 'oskdk', 'ojv', 'oissdjf', '1,5,9,12', 'odsijfds', 'osidjifm', 'oijdfs', 'osisdifj', 'storage/159461475701.jpg'),
-(14, 2, 'isdhfj', 'odpidfjv', 'odfdfjv', 'oidjf', 'oskdk', 'ojv', 'oissdjf', '1,5,9,12', 'odsijfds', 'osidjifm', 'oijdfs', 'osisdifj', 'storage/159461476501.jpg'),
-(15, 1, 'Title', 'New Description', 'asjdns', 'black', '12x23', '123', 'sdkdsf', '2,5,9', 'ldkfjgkl', 'lmgdklv', '<ul>\r\n	<li>sldfm,lvsf</li>\r\n	<li>ldkmgfd</li>\r\n</ul>\r\n', '<ul>\r\n	<li>skedgnfksd</li>\r\n	<li>jsdfnd</li>\r\n</ul>\r\n', 'storage/159472230601.jpg');
+INSERT INTO `products` (`id`, `subcategory_id`, `title`, `description`, `varieties`, `color`, `size`, `weight`, `tss`, `calender`, `containercapacity`, `incoterms`, `paymenterms`, `certifications`, `image`, `display_on_home`, `position`) VALUES
+(4, 1, 'New title', 'update', 'update', 'update', 'update', 'update', 'update', '1,2,3,4,7,8,9,11', 'update', 'update', 'dfjckupdate', 'fdjkupdate', 'storage/159457515302.jpg', 'on', 5),
+(5, 2, 'House', 'description', 'hjbj', 'dskjvn', 'kjcvn', 'ksncvmc', 'ckvn', '2,4,9,11', 'jfhdskjfs', 'ijldsfksd', 'lksjdvkdn', 'lksddjvmdk', 'storage/159461458303.jpg', 'on', 2),
+(6, 3, 'sdkfjgf', 'kcvxnm', 'dfkbnfo', 'dgfjv', 'jdjfkvn', 'jdjnv', 'dknv', '1,4,8,11', 'ojdfs', 'dfkfnv', 'dkfvn', 'dkfng', 'storage/159461478202.jpg', 'off', 0),
+(7, 2, 'isdhfj', 'odpidfjv', 'odfdfjv', 'oidjf', 'oskdk', 'ojv', 'oissdjf', '1,5,9,12', 'odsijfds', 'osidjifm', 'oijdfs', 'osisdifj', 'storage/159461474401.jpg', '', 0),
+(8, 2, 'isdhfj', 'odpidfjv', 'odfdfjv', 'oidjf', 'oskdk', 'ojv', 'oissdjf', '1,5,9,12', 'odsijfds', 'osidjifm', 'oijdfs', 'osisdifj', 'storage/159461474901.jpg', 'on', 1),
+(9, 2, 'isdhfj', 'odpidfjv', 'odfdfjv', 'oidjf', 'oskdk', 'ojv', 'oissdjf', '1,5,9,12', 'odsijfds', 'osidjifm', 'oijdfs', 'osisdifj', 'storage/159461475101.jpg', '', 0),
+(11, 2, 'isdhfj', 'odpidfjv', 'odfdfjv', 'oidjf', 'oskdk', 'ojv', 'oissdjf', '1,5,9,12', 'odsijfds', 'osidjifm', 'oijdfs', 'osisdifj', 'storage/159461475401.jpg', '', 0),
+(12, 2, 'isdhfj', 'odpidfjv', 'odfdfjv', 'oidjf', 'oskdk', 'ojv', 'oissdjf', '1,5,9,12', 'odsijfds', 'osidjifm', 'oijdfs', 'osisdifj', 'storage/159461479701.jpg', 'on', 4),
+(13, 2, 'isdhfj', 'odpidfjv', 'odfdfjv', 'oidjf', 'oskdk', 'ojv', 'oissdjf', '1,5,9,12', 'odsijfds', 'osidjifm', 'oijdfs', 'osisdifj', 'storage/159461475701.jpg', 'off', 0),
+(14, 2, 'isdhfj', 'odpidfjv', 'odfdfjv', 'oidjf', 'oskdk', 'ojv', 'oissdjf', '1,5,9,12', 'odsijfds', 'osidjifm', 'oijdfs', 'osisdifj', 'storage/159461476501.jpg', '', 0),
+(15, 1, 'Title', 'New Description', 'asjdns', 'black', '12x23', '123', 'sdkdsf', '2,5,9', 'ldkfjgkl', 'lmgdklv', '<ul>\r\n	<li>sldfm,lvsf</li>\r\n	<li>ldkmgfd</li>\r\n</ul>\r\n', '<ul>\r\n	<li>skedgnfksd</li>\r\n	<li>jsdfnd</li>\r\n</ul>\r\n', 'storage/159472230601.jpg', 'on', 3);
 
 -- --------------------------------------------------------
 
@@ -226,18 +227,21 @@ CREATE TABLE `slides` (
   `id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `description` varchar(1000) NOT NULL,
-  `image` varchar(100) NOT NULL
+  `file` text NOT NULL,
+  `type` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `slides`
 --
 
-INSERT INTO `slides` (`id`, `title`, `description`, `image`) VALUES
-(5, 'First Slide', 'This is not a long description', 'storage/1594316518fruits-bosbes.jpg'),
-(6, 'secondslide', 'no a long description ', 'storage/1594316553pineapple-water-splash-5k-3k.jpg'),
-(7, 'skd sdas asdmasd asdmas', 'asdas aodjasdo erfjdsf sdjo', 'storage/1594316719kiwi-pic.jpg'),
-(8, 'asn', 'aksnfds', 'storage/159472236801.jpg');
+INSERT INTO `slides` (`id`, `title`, `description`, `file`, `type`) VALUES
+(5, 'First Slide', 'This is not a long description', 'storage/1594316518fruits-bosbes.jpg', 'image'),
+(6, 'secondslide', 'no a long description ', 'storage/1594316553pineapple-water-splash-5k-3k.jpg', 'image'),
+(7, '', '', 'storage/1594316719kiwi-pic.jpg', 'image'),
+(8, 'asn', 'aksnfds', 'storage/159472236801.jpg', 'image'),
+(9, '', '', 'storage/1594786415Rakotzbrücke.jpg', 'image'),
+(10, '', '', 'storage/1594786482Lesson 1. Course Introduction.mp4', 'video');
 
 -- --------------------------------------------------------
 
@@ -393,7 +397,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `slides`
 --
 ALTER TABLE `slides`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `subcategories`
