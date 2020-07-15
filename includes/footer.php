@@ -35,7 +35,6 @@
                 <a class="footer-list-link" href="https://twitter.com/destovofficial"><i class="margin-r-10 fa fa-lg fa-tag fa-linkedin"></i></a>
                 <a class="footer-list-link" href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-instagram"></i></a>
               </div>
-              <div id="google_translate_element"></div>
             </div>
           </ul>
           <!-- End List -->

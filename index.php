@@ -11,7 +11,7 @@ if(isset($_POST['submit'])) {
   header('Location: index.php');
 }
 
-$query = "SELECT * FROM `slides` ORDER BY id DESC LIMIT 2";
+$query = "SELECT * FROM `slides` ORDER BY id DESC";
 $slides = mysqli_query($cn, $query);
 
 $query = "SELECT id, title, description, image FROM `products` ORDER BY id DESC LIMIT 8";
@@ -23,27 +23,37 @@ $products = mysqli_query($cn, $query);
     <div class="container">
       <ol class="carousel-indicators">
         <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        <?php
+        $cnt = 0;
+        while($cnt++ < $slides->num_rows-1) {
+          echo "<li data-target='#carousel-example-generic' data-slide-to='$cnt'></li>";
+        }        
+        ?>
       </ol>
     </div>
     <div class="carousel-inner" role="listbox">
       <?php 
       while ($row = mysqli_fetch_array($slides)) {
       
-        echo
-        "<div class='item'>
-          <img class='img-responsive' src='". $row['image'] ."' alt='". $row['title'] ."'>
-          <div class='container'>
+        $slide = "<div class='item'>";
+
+        $slide .= ($row['type'] == "image") ? 
+        "<img src='". $row['file'] ."' class='img-responsive' alt='".$row['title']."'>"
+        :
+        "<video src='". $row['file'] ."' class='img-responsive' alt='".$row['title']."' autoplay controls></video>";
+
+        $slide .= "<div class='container'>
             <div class='carousel-centered'>
               <div class='margin-b-40'>
                 <h1 class='carousel-title'>". $row['title'] ."</h1>
-                <p style='color:white'>". $row['description'] ."</p>
+                <p style='color:white; font-size: 20px'>". $row['description'] ."</p>
               </div>
               <a href='product.php'
                 class='btn-theme btn-theme-sm btn-white-brd text-uppercase'>Explore</a>
             </div>
           </div>
         </div>";
+        echo $slide;
       }
       ?>
     </div>

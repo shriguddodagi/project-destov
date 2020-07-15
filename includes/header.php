@@ -19,7 +19,6 @@ if (isset($_POST['subscribe'])) {
   <meta content="" name="description" />
   <meta content="" name="author" />
 
-  <link href="http://fonts.googleapis.com/css?family=Hind:300,400,500,600,700" rel="stylesheet" type="text/css">
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -82,6 +81,7 @@ if (isset($_POST['subscribe'])) {
               <li class="nav-item"><a class="nav-item-child nav-item-hover <?php if(isset($products)) {echo "active";} ?>" href="products.php">Products</a></li>
               <li class="nav-item"><a class="nav-item-child nav-item-hover <?php if(isset($blog)) {echo "active";} ?>" href="blog.php">Blog</a></li>
               <li class="nav-item"><a class="nav-item-child nav-item-hover <?php if(isset($contact)) {echo "active";} ?>" href="contact.php">Contact</a></li>
+              <li class="nav-item"><a class="nav-item-child nav-item-hover"><div id="google_translate_element"></div></a></li>
             </ul>
           </div>
         </div>
