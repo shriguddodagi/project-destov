@@ -53,6 +53,9 @@ if(isset($_POST['logout'])) {
           if(strpos($_SERVER['REQUEST_URI'],'inquiries',0)) {
             $inquiries = true;
           }
+          if(strpos($_SERVER['REQUEST_URI'],'feedback',0)) {
+            $feedback = true;
+          }
         ?>    
           <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
             <li class="nav-item">
@@ -72,6 +75,9 @@ if(isset($_POST['logout'])) {
             </li>
             <li class="nav-item">
               <a class="nav-link <?php if(isset($inquiries)) {echo "active";} ?>" href="inquiries.php">Inquiries</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <?php if(isset($feedback)) {echo "active";} ?>" href="feedbacks.php">Feedbacks</a>
             </li>
           </ul>
           <span class="navbar-text">

@@ -1,6 +1,14 @@
 <?php
 include_once('./includes/header.php');
+include_once('./FormSanitizer.php');
 include_once('./includes/classes/PackingDetail.php');
+include_once('./includes/util.php');
+
+if(isset($_POST['submit'])) {
+  mysqli_query($cn, sanitizeInquiryForm($_POST));
+  unset($_POST);  
+  header('Location: product.php?product=' . $_GET['product']);
+}
 
 $productId = $_GET['product'];
 
@@ -122,7 +130,7 @@ $packingDetailsObj = new PackingDetail($cn, $productId);
                     
                   </div>
               </div>
-              <a href="contact.php" class="btn-theme btn-theme-sm btn-white-bg text-uppercase">Contact US</a>
+              <button data-toggle='modal' data-target='#modal' class="btn-theme btn-theme-sm btn-white-bg text-uppercase">Inquiry Now</button>
           </div>
           <div class="col-md-5 col-sm-7 col-md-offset-2">
          
@@ -220,10 +228,33 @@ $packingDetailsObj = new PackingDetail($cn, $productId);
 
 
 
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title text-center">Inquiry Now</h3>
+      </div>
+      <div class="modal-body">
+      <p class="text-center" style="color: #000">
+        I'm intrested in <strong><?php echo $product['title']; ?></strong>. Kindly send us the details.
+      </p>
+      <form action="" method="POST">
+        <input type="hidden" name="productTitle" value="<?php echo $product['title']; ?>">
+        <input name="name" id="name" type="text" class="form-control footer-input margin-b-20" placeholder="Name" required pattern="^\w+(\s+\w+)*$">
+        <input name="position" id="position" type="text" class="form-control footer-input margin-b-20" placeholder="Position (optional)" pattern="^\w+(\s+\w+)*$">
+        <input name="company" id="company" type="text" class="form-control footer-input margin-b-20" placeholder="Company Name  (optional)" pattern="^\w+(\s+\w+)*$">
+        <input name="email" id="email" type="email" class="form-control footer-input margin-b-20" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+        <input name="phone" id="phone" type="text" class="form-control footer-input margin-b-20" placeholder="Phone" required pattern="[0-9]{6,}">
+        <textarea name="message" id="message" class="form-control footer-input margin-b-30" rows="6" placeholder="Message" required pattern="^\w+(\s+\w+)*$"></textarea>
+        <button name="submit" id="submit" type="submit" class="btn-theme btn-block btn-theme-sm btn-base-bg text-center text-uppercase">Submit</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
-
-<?php include_once('./includes/scripts.php') ?>
+<?php include_once('./includes/scripts.php'); ?>
 <script src="vendor/jquery.parallax.min.js" type="text/javascript"></script>
-<?php include_once('./includes/footer.php') ?>
+<?php include_once('./includes/footer.php'); ?>

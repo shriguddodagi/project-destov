@@ -16,11 +16,20 @@ function validType($file, $type) {
   }
 }
 
+function sanitizeInquiryForm($POST) {
+ 	$name = FormSanitizer::sanitizeFormNameNumber($POST['name']);
+ 	$position = FormSanitizer::sanitizeFormNameNumber($POST['position']);
+ 	$company = FormSanitizer::sanitizeFormNameNumber($POST['company']);
+  $email = FormSanitizer::sanitizeFormEmail($POST['email']);
+  $phone = FormSanitizer::sanitizeFormNameNumber($POST['phone']);
+  $message = $POST['message'];
+  return "INSERT INTO `inquiries` (name, position, company, email, phone, message) VALUES('$name', '$position', '$company', '$email', '$phone', '$message')";
+}
+
 function recordSanitize($POST) {
  	$name = FormSanitizer::sanitizeFormNameNumber($POST['name']);
   $email = FormSanitizer::sanitizeFormEmail($POST['email']);
   $phone = FormSanitizer::sanitizeFormNameNumber($POST['phone']);
   $message = $POST['message'];
-  $check = $_POST['check'];
-  return "INSERT INTO `inquiries` (name, email, phone, message, check_mode) VALUES('$name', '$email', '$phone', '$message', '$check')";
+  return "INSERT INTO `feedbacks` (name, email, phone, message) VALUES('$name', '$email', '$phone', '$message')";
 }

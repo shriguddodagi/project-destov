@@ -10,6 +10,9 @@ $slides = mysqli_query($cn, $query);
 $query = "SELECT id, title, description, image FROM `products` WHERE display_on_home='on' ORDER BY position ASC LIMIT 8";
 $products = mysqli_query($cn, $query);
 
+$query = "SELECT `name`, `message` FROM `feedbacks`";
+$feedbacks = mysqli_query($cn, $query);
+
 ?>
 
   <div id="carousel-example-generic" class="carousel slide margin-b-40" data-ride="carousel">
@@ -82,6 +85,53 @@ $products = mysqli_query($cn, $query);
     </div>
     <div class="promo-section-img-right">
       <img class="img-responsive" src="img/970x970/01.jpg" alt="Content Image">
+    </div>
+  </div>
+
+  <div class="content-lg container">
+    <div class="row">
+      <div class="col-sm-9">
+        <h2>Customer Reviews</h2>
+
+        <div class="swiper-slider swiper-testimonials swiper-container-horizontal">
+          
+          <div class="swiper-wrapper" style="transform: translate3d(-1372px, 0px, 0px); transition-duration: 0ms;"><div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="1" style="width: 686px;">
+            <blockquote class="blockquote">
+              <div class="margin-b-20"></div>
+              <div class="margin-b-20"></div>
+              <p><span class="fweight-700 color-link"></span></p>
+            </blockquote>
+          </div>
+
+        <?php
+        while ($row = mysqli_fetch_array($feedbacks)) {
+          echo "<div class='swiper-slide swiper-slide-prev' data-swiper-slide-index='0' style='width: 686px;'>
+            <blockquote class='blockquote'>
+              <div class='margin-b-20'>
+                ". $row['message'] ."
+              </div>
+              <p><span class='fweight-700 color-link'>". $row['name'] ."</span></p>
+            </blockquote>
+          </div>";
+        }
+
+          
+         
+
+        ?>
+
+          <div class="swiper-slide swiper-slide-duplicate swiper-slide-next" data-swiper-slide-index="2" style="width: 686px;">
+            <blockquote class="blockquote">
+              <div class="margin-b-20"></div>
+              <div class="margin-b-20"></div>
+              <p><span class="fweight-700 color-link"></span></p>
+            </blockquote>
+          </div>
+        </div>
+      
+        <div class="swiper-testimonials-pagination"></div>
+        </div>
+      </div>
     </div>
   </div>
   
