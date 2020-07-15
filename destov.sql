@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2020 at 02:32 PM
+-- Generation Time: Jul 15, 2020 at 06:02 PM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -85,36 +85,63 @@ INSERT INTO `categories` (`id`, `name`, `terms`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `feedbacks`
+--
+
+CREATE TABLE `feedbacks` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `message` text NOT NULL,
+  `status` varchar(5) DEFAULT '0',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `feedbacks`
+--
+
+INSERT INTO `feedbacks` (`id`, `name`, `email`, `phone`, `message`, `status`, `created_at`) VALUES
+(1, 'skdnf', 'kls@ksdjf.sdflj', '48372238947382', 'skfjmdskf', '0', '2020-07-15 20:50:53'),
+(2, 'skdnf', 'kls@ksdjf.sdflj', '48372238947382', 'skfjmdskf', '1', '2020-07-15 20:50:53'),
+(3, 'skdnf', 'kls@ksdjf.sdflj', '48372238947382', 'skfjmdskf', '0', '2020-07-15 20:50:53');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `inquiries`
 --
 
 CREATE TABLE `inquiries` (
   `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
+  `position` varchar(100) NOT NULL,
+  `company` varchar(100) NOT NULL,
   `email` varchar(50) NOT NULL,
   `phone` varchar(100) NOT NULL,
   `message` longtext NOT NULL,
-  `created_at` date NOT NULL DEFAULT current_timestamp(),
-  `mode` varchar(5) DEFAULT 'open',
-  `check_mode` varchar(10) NOT NULL
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `mode` varchar(5) DEFAULT 'open'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `inquiries`
 --
 
-INSERT INTO `inquiries` (`id`, `name`, `email`, `phone`, `message`, `created_at`, `mode`, `check_mode`) VALUES
-(124, 'dfnskm', 'hjfdsk@hfjdkf.urefjdsks', '4538920', 'gfhdsjk', '2020-07-10', 'open', ''),
-(125, 'hgdfjk', 'dfuhsj@gdhfsj.ergufdjs', '348920', 'fdhjsk', '2020-07-10', 'open', ''),
-(126, 'hgdfjk', 'dfuhsj@gdhfsj.ergufdjs', '348920', 'fdhjsk', '2020-07-10', 'close', ''),
-(127, 'hgdfjk', 'dfuhsj@gdhfsj.ergufdjs', '348920', 'fdhjsk', '2020-07-10', 'open', ''),
-(128, 'from contact page', 'my@sajdh.codsin', '3642879289786554534567', 'dfjskcmxkjekhds', '2020-07-10', 'open', ''),
-(129, 'hygh', 'sdvnk@kdnv.dosm', '238423480918', 'isdhcnsdjc', '2020-07-13', 'open', 'on'),
-(130, 'sdknf', 'sksdnf@sdlkm.sd', '8472349881', 'knfdsfsd', '2020-07-13', 'open', ''),
-(131, 'sdkkfmc', 'klsdmf@oskdfm.asdk', '384572842394', '<p>sdkfnsmdkdf</p>\r\n', '2020-07-14', 'open', 'on'),
-(132, 'hii', 'skdn@ksjsndf.saod', '1286371948', 'jsfnsdkf', '2020-07-14', 'open', 'on'),
-(133, 'sdkgj', 'sdklfn@ksfnd.wsdlkj', '2839473294', 'kjdvndkmsdl', '2020-07-14', 'open', 'on'),
-(134, 'dskjfn', 'skldn@ksdnf.woj', '293329849', 'kdjfmsdkfsd', '2020-07-14', 'open', 'on');
+INSERT INTO `inquiries` (`id`, `name`, `position`, `company`, `email`, `phone`, `message`, `created_at`, `mode`) VALUES
+(124, 'dfnskm', '', '', 'hjfdsk@hfjdkf.urefjdsks', '4538920', 'gfhdsjk', '2020-07-10 00:00:00', 'open'),
+(125, 'hgdfjk', '', '', 'dfuhsj@gdhfsj.ergufdjs', '348920', 'fdhjsk', '2020-07-10 00:00:00', 'open'),
+(126, 'hgdfjk', '', '', 'dfuhsj@gdhfsj.ergufdjs', '348920', 'fdhjsk', '2020-07-10 00:00:00', 'close'),
+(127, 'hgdfjk', '', '', 'dfuhsj@gdhfsj.ergufdjs', '348920', 'fdhjsk', '2020-07-10 00:00:00', 'open'),
+(128, 'from contact page', '', '', 'my@sajdh.codsin', '3642879289786554534567', 'dfjskcmxkjekhds', '2020-07-10 00:00:00', 'open'),
+(129, 'hygh', '', '', 'sdvnk@kdnv.dosm', '238423480918', 'isdhcnsdjc', '2020-07-13 00:00:00', 'open'),
+(130, 'sdknf', '', '', 'sksdnf@sdlkm.sd', '8472349881', 'knfdsfsd', '2020-07-13 00:00:00', 'open'),
+(131, 'sdkkfmc', '', '', 'klsdmf@oskdfm.asdk', '384572842394', '<p>sdkfnsmdkdf</p>\r\n', '2020-07-14 00:00:00', 'open'),
+(132, 'hii', '', '', 'skdn@ksjsndf.saod', '1286371948', 'jsfnsdkf', '2020-07-14 00:00:00', 'open'),
+(133, 'sdkgj', '', '', 'sdklfn@ksfnd.wsdlkj', '2839473294', 'kjdvndkmsdl', '2020-07-14 00:00:00', 'open'),
+(134, 'dskjfn', '', '', 'skldn@ksdnf.woj', '293329849', 'kdjfmsdkfsd', '2020-07-14 00:00:00', 'open'),
+(135, 'asdkj', 'kasnd', 'klsnd', 'kns@ksdnf.sdko', '2834783', 'lsdkfmsld', '2020-07-15 20:07:15', 'open');
 
 -- --------------------------------------------------------
 
@@ -241,7 +268,7 @@ INSERT INTO `slides` (`id`, `title`, `description`, `file`, `type`) VALUES
 (7, '', '', 'storage/1594316719kiwi-pic.jpg', 'image'),
 (8, 'asn', 'aksnfds', 'storage/159472236801.jpg', 'image'),
 (9, '', '', 'storage/1594786415Rakotzbrücke.jpg', 'image'),
-(10, '', '', 'storage/1594786482Lesson 1. Course Introduction.mp4', 'video');
+(11, '', '', 'storage/1594822235img_1.jpg', 'image');
 
 -- --------------------------------------------------------
 
@@ -303,6 +330,12 @@ ALTER TABLE `blogs`
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `feedbacks`
+--
+ALTER TABLE `feedbacks`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -370,10 +403,16 @@ ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `feedbacks`
+--
+ALTER TABLE `feedbacks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `inquiries`
 --
 ALTER TABLE `inquiries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
 
 --
 -- AUTO_INCREMENT for table `months`
@@ -397,7 +436,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `slides`
 --
 ALTER TABLE `slides`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `subcategories`
