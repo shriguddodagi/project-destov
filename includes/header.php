@@ -81,7 +81,6 @@ if (isset($_POST['subscribe'])) {
               <li class="nav-item"><a class="nav-item-child nav-item-hover <?php if(isset($products)) {echo "active";} ?>" href="products.php">Products</a></li>
               <li class="nav-item"><a class="nav-item-child nav-item-hover <?php if(isset($blog)) {echo "active";} ?>" href="blog.php">Blog</a></li>
               <li class="nav-item"><a class="nav-item-child nav-item-hover <?php if(isset($contact)) {echo "active";} ?>" href="contact.php">Contact</a></li>
-              <li class="nav-item"><a class="nav-item-child nav-item-hover"><div id="google_translate_element"></div></a></li>
             </ul>
           </div>
         </div>

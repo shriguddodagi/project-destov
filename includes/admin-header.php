@@ -35,6 +35,9 @@ if(isset($_POST['logout'])) {
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
         <?php 
+          if(strpos($_SERVER['REQUEST_URI'],'admin-home',0)) {
+            $home = true;
+          }
           if(strpos($_SERVER['REQUEST_URI'],'admin.php',0)) {
             $categories = true;
           }
@@ -54,6 +57,9 @@ if(isset($_POST['logout'])) {
           <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link <?php if(isset($categories)) {echo "active";} ?>" aria-current="page" href="admin.php">Categories</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link <?php if(isset($home)) {echo "active";} ?>" aria-current="page" href="admin-home.php">Home Page Product</a>
             </li>
             <li class="nav-item">
               <a class="nav-link <?php if(isset($products)) {echo "active";} ?>" href="admin-products.php">products</a>

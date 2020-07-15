@@ -3,18 +3,11 @@ include_once('./includes/header.php');
 include_once('./includes/util.php');
 include_once('./FormSanitizer.php');
 include_once('./includes/productUtil.php');
-session_start();
-if(isset($_POST['submit'])) {
-  mysqli_query($cn, recordSanitize($_POST));
-  $_SESSION['feedbackDone'] = true;
-  unset($_REQUEST, $_POST, $_GET);  
-  header('Location: index.php');
-}
 
 $query = "SELECT * FROM `slides` ORDER BY id DESC";
 $slides = mysqli_query($cn, $query);
 
-$query = "SELECT id, title, description, image FROM `products` ORDER BY id DESC LIMIT 8";
+$query = "SELECT id, title, description, image FROM `products` WHERE display_on_home='on' ORDER BY position ASC LIMIT 8";
 $products = mysqli_query($cn, $query);
 
 ?>
@@ -126,22 +119,22 @@ $products = mysqli_query($cn, $query);
             echo forCol6($row['image'], $row['title'], $row['description'], $row['id']);
           } elseif ($cnt === 7) {
             echo forCol6($row['image'], $row['title'], $row['description'], $row['id']);
-            echo "<div class='masonry-grid-item col-xs-6 col-sm-6 col-md-4'>             
-              <div class='work wow fadeInUp' data-wow-duration='.3' data-wow-delay='.4s'>
-                <div class='work-overlay'>
-                  <img class='full-width img-responsive' src='img/970x647/01.jpg' alt='Portfolio Image'>
-                </div>
-                <div class='work-content'>
-                  <h3 class='color-white margin-b-5'>Show All</h3>
-                  <p class='color-white margin-b-0'>Explore Our All Products</p>
-                </div>
-                <a class='content-wrapper-link'
-                  href='product.php'></a>
-              </div>
-            </div>";
           }
           $cnt++;
         }
+        echo "<div class='masonry-grid-item col-xs-6 col-sm-6 col-md-4'>             
+          <div class='work wow fadeInUp' data-wow-duration='.3' data-wow-delay='.4s'>
+            <div class='work-overlay'>
+              <img class='full-width img-responsive' src='img/970x647/01.jpg' alt='Portfolio Image'>
+            </div>
+            <div class='work-content'>
+              <h3 class='color-white margin-b-5'>Show All</h3>
+              <p class='color-white margin-b-0'>Explore Our All Products</p>
+            </div>
+            <a class='content-wrapper-link'
+              href='products.php'></a>
+          </div>
+        </div>";
 
         ?>
        
@@ -155,54 +148,60 @@ $products = mysqli_query($cn, $query);
 
   <div class="bg-color-sky-light" data-auto-height="true">
     <div class="content-lg container">
-      <h2>Certificates</h2>
-      <div class="row row-space-1 margin-b-2">
-        <div style="padding: 30px 60px; box-sizing: border-box" class="col-sm-3 sm-margin-b-2">
-          <div class="wow fadeInLeft" data-wow-duration=".3" data-wow-delay=".3s">
-              <img class="img-responsive" src="./img/certificates/04.png" alt="">
+      <h2 class="text-center text-uppercase">We are proud members of</h2>
+      <div class="row row-space-1 margin-b-10">
+        <div style="padding: 30px 60px; box-sizing: border-box" class="col-md-3">
+          <div class="wow text-center fadeInLeft" data-wow-duration=".3" data-wow-delay=".3s">
+              <img class="img-responsive" style="width: 100%; height: auto;" src="./img/certificates/03.png" alt="">
           </div>
         </div>
-        <div style="padding: 30px 60px; box-sizing: border-box" class="col-sm-3 sm-margin-b-2">
-          <div class="wow fadeInLeft" data-wow-duration=".3" data-wow-delay=".2s">
-            <img class="img-responsive" src="./img/certificates/05.png" alt="">
+        <div style="padding: 30px 60px; box-sizing: border-box" class="col-md-3">
+          <div class="wow text-center fadeInLeft" data-wow-duration=".3" data-wow-delay=".2s">
+              <img class="img-responsive" style="width: 100%; height: auto;" src="./img/certificates/01.png" alt="">
           </div>
         </div>
-        <div style="padding: 30px 60px; box-sizing: border-box" class="col-sm-3">
-          <div class="wow fadeInLeft" data-wow-duration=".3" data-wow-delay=".1s">
-            <img class="img-responsive" src="./img/certificates/06.png" alt="">
+        <div style="padding: 30px 60px; box-sizing: border-box" class="col-md-3">
+          <div class="wow text-center fadeInLeft" data-wow-duration=".3" data-wow-delay=".1s">
+              <img class="img-responsive" style="width: 100%; height: auto;" src="./img/certificates/06.png" alt="">
           </div>
         </div>
-        <div style="padding: 30px 60px; box-sizing: border-box" class="col-sm-3 sm-margin-b-2">
-          <div class="wow fadeInLeft" data-wow-duration=".3" data-wow-delay=".3s">
-              <img class="img-responsive" src="./img/certificates/01.png" alt="">
-          </div>
-        </div>
-      </div>
-
-      <div class="row row-space-1 margin-b-2">
-        <div style="padding: 30px 60px; box-sizing: border-box" class="col-sm-3 sm-margin-b-2">
-          <div class="wow fadeInLeft" data-wow-duration=".3" data-wow-delay=".2s">
-            <img class="img-responsive" src="./img/certificates/02.png" alt="">
-          </div>
-        </div>
-        <div style="padding: 30px 60px; box-sizing: border-box" class="col-sm-3 sm-margin-b-2">
-          <div class="wow fadeInLeft" data-wow-duration=".3" data-wow-delay=".2s">
-            <img class="img-responsive" src="./img/certificates/07.png" alt="">
-          </div>
-        </div>
-        <div style="padding: 30px 60px; box-sizing: border-box" class="col-sm-3">
-          <div class="wow fadeInLeft" data-wow-duration=".3" data-wow-delay=".1s">
-            <img class="img-responsive" src="./img/certificates/03.png" alt="">
+        <div style="padding: 30px 60px; box-sizing: border-box" class="col-md-3">
+          <div class="wow text-center fadeInLeft" data-wow-duration=".3" data-wow-delay=".3s">
+              <img class="img-responsive" style="width: 100%; height: auto;" src="./img/certificates/05.png" alt="">
           </div>
         </div>
       </div>
-
-    
+      <div class="row row-space-1 margin-b-10">
+        <div class="col-md-6">
+          <h2 class="text-center text-uppercase" style="padding: 10px">Our associations</h2>
+          <div class="row row-space-1 margin-b-2">
+            <div class="col-md-6" style="padding: 30px 60px; box-sizing: border-box">
+              <div class="wow fadeInLeft" data-wow-duration=".3" data-wow-delay=".2s">
+                <img class="img-responsive" src="./img/certificates/07.png" alt="">
+              </div>
+            </div>
+            <div class="col-md-6" style="padding: 30px 60px; box-sizing: border-box">
+              <div class="wow fadeInLeft" data-wow-duration=".3" data-wow-delay=".2s">
+                <img class="img-responsive" src="./img/certificates/04.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <h2 class="text-center text-uppercase" style="padding: 10px">Our banking partner</h2>
+          <div class="row row-space-1 margin-b-2">
+            <div class="col-md-12" style="padding: 30px 60px; box-sizing: border-box">
+              <div class="wow fadeInLeft" data-wow-duration=".3" data-wow-delay=".1s">
+                <img class="img-responsive" src="./img/certificates/02.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   
-<?php include_once('./includes/feedback-form.php') ?>
 
 
   

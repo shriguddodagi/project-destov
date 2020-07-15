@@ -35,6 +35,7 @@
                 <a class="footer-list-link" href="https://twitter.com/destovofficial"><i class="margin-r-10 fa fa-lg fa-tag fa-linkedin"></i></a>
                 <a class="footer-list-link" href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-instagram"></i></a>
               </div>
+              <div id="google_translate_element"></div>
             </div>
           </ul>
           <!-- End List -->
@@ -106,7 +107,7 @@
     var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
   })();
   function googleTranslateElementInit() {
-    new google.translate.TranslateElement({pageLanguage: 'en'}, 'google_translate_element');
+    new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
   }
 </script>
   <a href="javascript:void(0);" class="js-back-to-top back-to-top">Top</a>

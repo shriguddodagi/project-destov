@@ -101,7 +101,7 @@ $result = mysqli_query($cn, $query);
               <input type="hidden" name="blogId" id="blogIdInEditModal">
               <div class="mb-3">
                 <label for="titleInEditModal" class="form-label">Title</label>
-                <input type="text" class="form-control" id="titleInEditModal" name="titleInEditModal" placeholder="Title" pattern="^\w+(\s+\w+)*$" required></textarea>
+                <input type="text" class="form-control" id="titleInEditModal" name="titleInEditModal" placeholder="Title" pattern="^\w+(\s+\w+)*$" required>
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -162,7 +162,7 @@ $result = mysqli_query($cn, $query);
               <div class="mb-3">
                 <label for="description" class="form-label">Title</label>
                 <input type="text" class="form-control" id="title" name="title" placeholder="Title"
-                  pattern="^\w+(\s+\w+)*$" required></textarea>
+                  pattern="^\w+(\s+\w+)*$" required>
                 <div class="valid-feedback">
                   Looks good!
                 </div>
