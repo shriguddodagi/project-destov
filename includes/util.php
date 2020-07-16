@@ -22,8 +22,9 @@ function sanitizeInquiryForm($POST) {
  	$company = FormSanitizer::sanitizeFormNameNumber($POST['company']);
   $email = FormSanitizer::sanitizeFormEmail($POST['email']);
   $phone = FormSanitizer::sanitizeFormNameNumber($POST['phone']);
+  $productTitle = FormSanitizer::sanitizeFormNameNumber($POST['productTitle']);
   $message = $POST['message'];
-  return "INSERT INTO `inquiries` (name, position, company, email, phone, message) VALUES('$name', '$position', '$company', '$email', '$phone', '$message')";
+  return "INSERT INTO `inquiries` (name, position, company, email, phone, message, product) VALUES('$name', '$position', '$company', '$email', '$phone', '$message', '$productTitle')";
 }
 
 function recordSanitize($POST) {
