@@ -29,11 +29,11 @@ if(isset($_POST['logout'])) {
           <img src="./img/logo3.png" alt="" class="img-fluid w-50 h-auto">
         </a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
           aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarText">
+        <div class="collapse navbar-collapse text-center" id="navbar">
         <?php 
           if(strpos($_SERVER['REQUEST_URI'],'admin-home',0)) {
             $home = true;
