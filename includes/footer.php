@@ -4,7 +4,6 @@
     <div class="content-lg container">
       <div class="row">
         <div class="col-sm-3 sm-margin-b-50">
-          <!-- List -->
           <ul class="list-unstyled footer-list text-center">
             <h2 class="text-capitalization" style="color:white">HOW TO REACH US</h2>
             <div class="container"  style="color:white; display:contents">
@@ -35,13 +34,10 @@
                 <a class="footer-list-link" href="https://twitter.com/destovofficial"><i class="margin-r-10 fa fa-lg fa-tag fa-linkedin"></i></a>
                 <a class="footer-list-link" href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-instagram"></i></a>
               </div>
-              <div id="google_translate_element"></div>
             </div>
           </ul>
-          <!-- End List -->
         </div>
         <div class="col-sm-4 sm-margin-b-30">
-          <!-- List -->
           <ul class="list-unstyled footer-list text-center">
             <h2 style="color: white">Useful Links</h2>
             <li class="margin-b-10"><a class="footer-list-link" style="color: white" href="index.php">Home</a>
@@ -56,12 +52,7 @@
             </li>
             <li class="margin-b-10"><a class="footer-list-link" style="color: white" href="#">Terms And Conditions</a>
             </li>
-            <!-- <li class="margin-b-10"><a class="footer-list-link" style="color: white" href="#">Privacy Policy</a>
-            </li>
-            <li class="margin-b-10"><a class="footer-list-link" style="color: white" href="#">Trams Of Use</a>
-            </li> -->
           </ul>
-          <!-- End List -->
         </div>
         <div class="col-sm-5 sm-margin-b-30 text-center">
           <h2 class="color-white">GET LATEST MARKET UPDATES</h2>
@@ -92,20 +83,29 @@
   
 </footer>
 <script type="text/javascript">
-  (function () {
-    var options = {
-      facebook: "113975870339215", // Facebook page ID
-      whatsapp: "+91 80820 87255", // WhatsApp number
-      call_to_action: "Message us", // Call to action
-      button_color: "#129BF4", // Color of button
-      position: "left", // Position may be 'right' or 'left'
-      order: "facebook,whatsapp", // Order of buttons
-    };
-    var proto = document.location.protocol, host = "getbutton.io", url = proto + "//static." + host;
-    var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
-    s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
-    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
-  })();
+  (function () { 
+    var options = { 
+      whatsapp: "+91 80820 87255", // WhatsApp number 
+      call_to_action: "Message us", // Call to action 
+      position: "left", // Position may be 'right' or 'left' 
+    }; 
+    var proto = document.location.protocol, host = "getbutton.io", url = proto + "//static." + host; 
+    var s = document.createElement('script'); 
+    s.type = 'text/javascript'; 
+    s.async = true; 
+    s.src = url + '/widget-send-button/js/init.js'; 
+    s.onload = function () { WhWidgetSendButton.init(host, proto, options); }; 
+    var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x); 
+  })(); 
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date(); 
+  (function(){ 
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0]; 
+    s1.async=true; 
+    s1.src='https://embed.tawk.to/5f0ec5985b59f94722bac26f/default'; 
+    s1.charset='UTF-8'; 
+    s1.setAttribute('crossorigin','*'); 
+    s0.parentNode.insertBefore(s1,s0); 
+  })(); 
   function googleTranslateElementInit() {
     new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
   }

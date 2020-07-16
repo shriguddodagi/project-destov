@@ -37,7 +37,6 @@ if (isset($_POST['subscribe'])) {
   
     <nav class="navbar" role="navigation">
       <div class="container">
-        
         <div class="menu-container">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
             <span class="sr-only">Toggle navigation</span>
@@ -47,8 +46,8 @@ if (isset($_POST['subscribe'])) {
         
           <div class="logo">
             <a class="logo-wrap" href="index.php">
-              <img class="logo-img logo-img-main" src="img/png.png" alt="Destov Logo">
-              <img class="logo-img logo-img-active" src="img/jpg.jpg" alt="Destov Logo">
+              <img class="logo-img logo-img-main" style="height: 110px; margin-top: -30px; width: 100px; border-radius: 0 0 10px 10px;" src="./img/jpg.jpg" alt="Destov Logo">
+              <img class="logo-img logo-img-active" style="height: 110px; margin-top: -30px; width: 100px; border-radius: 0 0 10px 10px;" src="./img/jpg.jpg" alt="Destov Logo">
             </a>
           </div>
         
@@ -74,6 +73,7 @@ if (isset($_POST['subscribe'])) {
         <div class="collapse navbar-collapse nav-collapse">
           <div class="menu-container">
             <ul class="navbar-nav navbar-nav-right">
+            <div id="google_translate_element" style="float: right"></div>
               <li class="nav-item"><a class="nav-item-child nav-item-hover <?php if(isset($home)) {echo "active";} ?>" href="index.php">Home</a></li>
               <!-- <li class="nav-item"><a class="nav-item-child nav-item-hover" href="pricing.html">Pricing</a></li> -->
               <li class="nav-item"><a class="nav-item-child nav-item-hover <?php if(isset($about)) {echo "active";} ?>" href="about.php">About</a>

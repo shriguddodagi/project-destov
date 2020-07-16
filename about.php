@@ -6,14 +6,13 @@
     </div>
   </div>
 
-  <!-- About -->
   <div class="content-lg container">
     <div class="row margin-b-20">
       <div class="col-sm-6">
         <h2>About</h2>
       </div>
     </div>
-    <!--// end row -->
+   
 
     <div class="row">
       <div class="col-sm-7 sm-margin-b-50">
@@ -46,26 +45,24 @@
         <p>We therefore look forward to serve the globe, extending our vertical beyond the agricultural commodities, in the near future.</p>
       </div>
       <div class="col-sm-4 col-sm-offset-1">
-        <img class="img-responsive margin-b-40" src="img/640x380/01.jpg" alt="Our Office">
-        <img class="img-responsive" src="img/640x380/01.jpg" alt="Our Office">
+        <img class="img-responsive margin-b-40" src="img/1920x1080/01.jpg" alt="Our Office">
       </div>
     </div>
-    <!--// end row -->
+   
   </div>
-  <!-- End About -->
 
-  <!-- Team -->
-  <div class="bg-color-sky-light">
+
+  <!-- <div class="bg-color-sky-light">
     <div class="content-lg container">
       <div class="row margin-b-40">
         <div class="col-sm-6">
           <h2>Meet the Team</h2>
         </div>
       </div>
-      <!--// end row -->
+     
 
       <div class="row">
-        <!-- Team -->
+      
         <div class="col-sm-4 sm-margin-b-50">
           <div class="bg-color-white margin-b-20">
             <div class="wow zoomIn" data-wow-duration=".3" data-wow-delay=".1s">
@@ -73,17 +70,17 @@
             </div>
           </div>
           <h4><a
-              href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes">Alicia
+              href="#">Alicia
               Keys</a> <span class="text-uppercase margin-l-20">Project Manager</span></h4>
           <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed tempor incdidunt ut laboret dolor magna ut
             consequat siad esqudiat dolor</p>
           <a class="link"
-            href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes">Read
+            href="#">Read
             More</a>
         </div>
-        <!-- End Team -->
+    
 
-        <!-- Team -->
+      
         <div class="col-sm-4 sm-margin-b-50">
           <div class="bg-color-white margin-b-20">
             <div class="wow zoomIn" data-wow-duration=".3" data-wow-delay=".1s">
@@ -91,17 +88,17 @@
             </div>
           </div>
           <h4><a
-              href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes">James
+              href="#">James
               Millner</a> <span class="text-uppercase margin-l-20">Lead Developer</span></h4>
           <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed tempor incdidunt ut laboret dolor magna ut
             consequat siad esqudiat dolor</p>
           <a class="link"
-            href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes">Read
+            href="#">Read
             More</a>
         </div>
-        <!-- End Team -->
+    
 
-        <!-- Team -->
+      
         <div class="col-sm-4 sm-margin-b-50">
           <div class="bg-color-white margin-b-20">
             <div class="wow zoomIn" data-wow-duration=".3" data-wow-delay=".1s">
@@ -109,20 +106,19 @@
             </div>
           </div>
           <h4><a
-              href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes">Scarlet
+              href="#">Scarlet
               Johanson</a> <span class="text-uppercase margin-l-20">Designer</span></h4>
           <p>Lorem ipsum dolor sit amet consectetur adipiscing elit sed tempor incdidunt ut laboret dolor magna ut
             consequat siad esqudiat dolor</p>
           <a class="link"
-            href="https://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes">Read
+            href="#">Read
             More</a>
         </div>
-        <!-- End Team -->
+    
       </div>
-      <!--// end row -->
+     
     </div>
-  </div>
-  <!-- End Team -->
+  </div> -->
  
 
 <?php include_once('./includes/scripts.php') ?>
