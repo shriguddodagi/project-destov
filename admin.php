@@ -242,8 +242,6 @@ $categories = mysqli_query($cn, $query);
 </body>
 <?php include_once('./includes/admin-script.php'); ?>
 <script>
-  CKEDITOR.replace('categoryTermsInEditModal');
-  CKEDITOR.replace('categoryTerms');
   $(document).ready(function () {
     // Edit Category
     $(document).on('click', '.edit-category-button', function () {
@@ -263,4 +261,8 @@ $categories = mysqli_query($cn, $query);
   });
 </script>
 
+<script>
+  CKEDITOR.replace('categoryTermsInEditModal');
+  CKEDITOR.replace('categoryTerms');
+</script>
 </html>

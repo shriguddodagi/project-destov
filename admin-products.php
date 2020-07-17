@@ -139,136 +139,164 @@ $months = mysqli_query($cn, $query);
   <main>
 
     <div class="container">
+      <div class="display-1">
+        Products
+      </div>
 
-    <?php
+      <div class="accordion" id="accordionProducts">
 
-    while($row = mysqli_fetch_array($categories)) {
 
-      $subCatObj = new Subcategory($cn, $row['id']);
+        <?php
 
-      $container = "<div class='row m-2'>
-        <div class='col'>
+        $container = "";
 
-          <div class='container-fluid'>
-            <div class='col'>
+        while($category = mysqli_fetch_array($categories)) {
+          $subCatObj = new Subcategory($cn, $category['id']);
+        
 
-              <div class='row'>
-                <div class='col h3'>". $row['name'] ."</div>
-              </div>";
+          $container .=
+          "<div class='card border rounded my-3'>
+            <div class='card-header' id='heading-'". $category['id'] ." >
+              <h2 class='mb-0'>
+                <button class='btn text-uppercase font-weight-bold text-primary btn-block text-left' type='button' data-toggle='collapse' data-target='#collapse". $category['id'] ."' aria-expanded='true' aria-controls='collapse". $category['id'] ."'>
+                  ". $category['name'] ."
+                </button>
+              </h2>
+            </div>";
 
-              foreach($subCatObj->subcategories() as $row) {
-                $productsObj = new Product($cn, $row['id']);
-                $container .= "<div class='container m-2'>
-                  <div class='row'>
-                    <div class='col h4'>
-                      <span>". $row['name'] ."</span>
-                      <button class='btn btn-outline-secondary create-product float-right' id='". $row['id'] ."'
-                        data-toggle='modal' data-target='#createProductModal'>Add Product</button>
-                    </div>
-                  </div>";
 
-                  foreach($productsObj->products() as $row) {
-                    $packingDetailsObj = new PackingDetail($cn, $row['id']);
-                    $container .= "<div class='row border rounded p-1 m-1 border-info'>
-                      <div class='card mb-3 border-0'>
-                        <div class='row g-0'>
-                          <div class='col-md-4'>
-                            <img src='". $row['image'] ."' class='w-100 img rounded img-fluid h-auto' alt='...'>
-                            <div class='d-flex justify-content-between'>
-                              <button class='btn btn-sm m-1 packing-specification btn-outline-primary' data-toggle='modal' data-target='#packingModal' id='". $row['id'] ."'>New Packing Specification</button>
-                              <button class='btn btn-sm m-1 btn-outline-warning edit-product' id='". $row['id'] ."'>Edit</button>
-                              <form action='' method='POST'>
-                                <input type='hidden' name='productId' value='". $row['id'] ."'>
-                                <button class='btn btn-sm m-1 btn-outline-danger' type='submit' name='deleteProduct'>Delete</button>
-                              </form>
-                            </div>
-                          </div>
 
-                          <div class='col-md-8 details'>
-                            <div class='card-body'>
-                              <h5 class='card-title'>". $row['title'] ."</h5>
-                              <p class='card-text description'>". $row['description'] ."</p>
-                              <p class='card-text'>Varieties : <small class='text-muted varieties'>". $row['varieties'] ."</small></p>
-                              <p class='card-text'>Color : <small class='text-muted color'>". $row['color'] ."</small></p>
-                              <p class='card-text'>Size : <small class='text-muted size'>". $row['size'] ."</small></p>
-                              <p class='card-text'>Weight : <small class='text-muted weight'>". $row['weight'] ."</small></p>
-                              <p class='card-text'>TSS : <small class='text-muted tss'>". $row['tss'] ."</small></p>
-                              <p class='card-text'>Calender : <small class='text-muted calender'>". $row['calender'] ."</small></p>
-                              <p class='card-text'>Container Capacity : <small class='text-muted containercapacity'>". $row['containercapacity'] ."</small></p>
-                              <p class='card-text'>INCOTERMS : <small class='text-muted incoterms'>". $row['incoterms'] ."</small></p>
-                              <p class='card-text'>Payment Terms : <small class='text-muted paymenterms'>". $row['paymenterms'] ."</small></p>
-                              <p class='card-text'>Certifications : <small class='text-muted certifications'>". $row['certifications'] ."</small></p>    
-                            </div>
-                          </div>
-                          
-                          <div class='col-md-12'>
+            $container .= "<div id='collapse". $category['id'] ."' class='collapse show' aria-labelledby='heading-'". $category['id'] ."  data-parent='#accordionProducts'>
+              <div class='card-body'>";
+                
+
+              foreach($subCatObj->subcategories() as $subcategory) {
+                $productsObj = new Product($cn, $subcategory['id']);
+                $subcategoryBlock = "";
+                
+                $subcategoryBlock .= "<div id='collapseOne' class='collapse show' aria-labelledby='headingOne' data-parent='#accordionSubcategory'>
+                  <div class='card-body'>
+                    <button class='btn text-center mx-3 btn-sm btn-success' type='button' data-toggle='collapse' data-target='#sub". $subcategory['id'] ."' aria-expanded='false' aria-controls='sub". $subcategory['id'] ."'>
+                      ". $subcategory['name'] ."
+                    </button>
+
+                    <div class='collapse' id='sub". $subcategory['id'] ."'>
+                      <div class='card my-2 card-body'>";
+
+                      foreach($productsObj->products() as $row) {
+                        $packingDetailsObj = new PackingDetail($cn, $row['id']);  
+                        $productBlock = "";
+                        $productBlock .= "<div class='row border rounded p-1 m-1 border-info'>
+                          <div class='card mb-3 border-0'>
                             <div class='row g-0'>
-                              <div class='table-responsive'>
-                                <table class='table'>
-                                  <thead>
-                                    <tr>
-                                      <th scope='col'>Country</th>
-                                      <th scope='col'>Packing Specs</th>
-                                      <th scope='col'>Net Wt Per Box/Beg</th>
-                                      <th scope='col'>Gross Wt Per Box/Beg</th>
-                                      <th scope='col'>No. of Boxes</th>
-                                      <th scope='col'>Container Type</th>
-                                      <th scope='col'>Container Loadability</th>
-                                      <th scope='col'>Other Details</th>
-                                      <th scope='col'>Delete</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>";
-
-                                  foreach($packingDetailsObj->packingDetails() as $row) {
-
-                                    $container .= "<tr>
-                                      <th scope='row'>". $row['country'] ."</th>
-                                      <td>". $row['specs'] ."</td>
-                                      <td>". $row['net_wt'] ."</td>
-                                      <td>". $row['gross_wt'] ."</td>
-                                      <td>". $row['boxes'] ."</td>
-                                      <td>". $row['container_type'] ."</td>
-                                      <td>". $row['container_loadability'] ."</td>
-                                      <td>". $row['other_details'] ."</td>
-                                      <td>
-                                        <form method='POST' action=''>
-                                          <input type='hidden' name='packingId' id='packingId' value='". $row['id'] ."' >
-                                          <button class='btn btn-sm m-1 btn-outline-danger' type='submit' name='deletePackingDetail'>Delete</button>
-                                        </form>
-                                      </td>
-                                    </tr>";
-
-                                  }
-
-                                   
-
-
-                                  $container .= "</tbody>
-                                </table>
+                              <div class='col-md-4'>
+                                <img src='". $row['image'] ."' class='w-100 img rounded img-fluid h-auto' alt='...'>
+                                <div class='d-flex justify-content-between'>
+                                  <button class='btn btn-sm m-1 packing-specification btn-outline-primary' data-toggle='modal' data-target='#packingModal' id='". $row['id'] ."'>New Packing Specification</button>
+                                  <button class='btn btn-sm m-1 btn-outline-warning edit-product' id='". $row['id'] ."'>Edit</button>
+                                  <form action='' method='POST'>
+                                    <input type='hidden' name='productId' value='". $row['id'] ."'>
+                                    <button class='btn btn-sm m-1 btn-outline-danger' type='submit' name='deleteProduct'>Delete</button>
+                                  </form>
+                                </div>
                               </div>
+
+                              <div class='col-md-8 details'>
+                                <div class='card-body'>
+                                  <h5 class='card-title'>". $row['title'] ."</h5>
+                                  <p class='card-text description'>". $row['description'] ."</p>
+                                  <p class='card-text'>Varieties : <small class='text-muted varieties'>". $row['varieties'] ."</small></p>
+                                  <p class='card-text'>Color : <small class='text-muted color'>". $row['color'] ."</small></p>
+                                  <p class='card-text'>Size : <small class='text-muted size'>". $row['size'] ."</small></p>
+                                  <p class='card-text'>Weight : <small class='text-muted weight'>". $row['weight'] ."</small></p>
+                                  <p class='card-text'>TSS : <small class='text-muted tss'>". $row['tss'] ."</small></p>
+                                  <p class='card-text'>Calender : <small class='text-muted calender'>". $row['calender'] ."</small></p>
+                                  <p class='card-text'>Container Capacity : <small class='text-muted containercapacity'>". $row['containercapacity'] ."</small></p>
+                                  <p class='card-text'>INCOTERMS : <small class='text-muted incoterms'>". $row['incoterms'] ."</small></p>
+                                  <p class='card-text'>Payment Terms : <small class='text-muted paymenterms'>". $row['paymenterms'] ."</small></p>
+                                  <p class='card-text'>Certifications : <small class='text-muted certifications'>". $row['certifications'] ."</small></p>    
+                                </div>
+                              </div>
+                              
+                              <div class='col-md-12'>
+                                <div class='row g-0'>
+                                  <div class='table-responsive'>
+                                    <table class='table'>
+                                      <thead>
+                                        <tr>
+                                          <th scope='col'>Country</th>
+                                          <th scope='col'>Packing Specs</th>
+                                          <th scope='col'>Net Wt Per Box/Beg</th>
+                                          <th scope='col'>Gross Wt Per Box/Beg</th>
+                                          <th scope='col'>No. of Boxes</th>
+                                          <th scope='col'>Container Type</th>
+                                          <th scope='col'>Container Loadability</th>
+                                          <th scope='col'>Other Details</th>
+                                          <th scope='col'>Delete</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>";
+
+                                      foreach($packingDetailsObj->packingDetails() as $row) {
+
+                                        $productBlock .= "<tr>
+                                          <th scope='row'>". $row['country'] ."</th>
+                                          <td>". $row['specs'] ."</td>
+                                          <td>". $row['net_wt'] ."</td>
+                                          <td>". $row['gross_wt'] ."</td>
+                                          <td>". $row['boxes'] ."</td>
+                                          <td>". $row['container_type'] ."</td>
+                                          <td>". $row['container_loadability'] ."</td>
+                                          <td>". $row['other_details'] ."</td>
+                                          <td>
+                                            <form method='POST' action=''>
+                                              <input type='hidden' name='packingId' id='packingId' value='". $row['id'] ."' >
+                                              <button class='btn btn-sm m-1 btn-outline-danger' type='submit' name='deletePackingDetail'>Delete</button>
+                                            </form>
+                                          </td>
+                                        </tr>";
+
+                                      }
+
+                                      $productBlock .= "</tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                              </div>
+
+
                             </div>
                           </div>
+                        </div>";
 
+                        $subcategoryBlock .= $productBlock;
+                      }
+                      
+                      $subcategoryBlock .= 
+                      "</div>
+                    </div>
+                  </div>
+                </div>";
 
-                        </div>
-                      </div>
-                    </div>";
-                  }
+                $container .= $subcategoryBlock;
 
-                $container .= "</div>";
               }
-  
-            $container .= "</div>
-          </div>
 
-        </div>
-      </div>";
-      echo $container;
-    }
+            $container .= "</div>";
 
-    ?>
 
+            $container .=
+            "</div>
+          </div>";
+
+
+
+        }
+
+        echo $container;
+        ?>
+
+      </div>
     </div>
 
     <div class="modal fade" id="createProductModal" tabindex="-1" aria-labelledby="createProductModalLabel"
@@ -389,7 +417,7 @@ $months = mysqli_query($cn, $query);
               while($row = mysqli_fetch_array($months)) {
                 echo "<div class='col-md-2'>
                     <div class='form-check mb-3'>
-                      <input type='checkbox' class='form-check-input' id='". $row['id'] ."' value='". $row['id'] ."' name='calender[]'>
+                      <input type='checkbox' class='form-check-input' id='". $row['name'] . "-" . $row['id'] ."' value='". $row['id'] ."' name='calender[]'>
                       <label class='form-check-label'>". $row['name'] ."</label>
                     </div>
                   </div>";
@@ -562,8 +590,6 @@ $months = mysqli_query($cn, $query);
       </div>
     </div>
 
-
-
   </main>
 
 </body>
@@ -588,9 +614,6 @@ $months = mysqli_query($cn, $query);
       }
     }
   }
-
-  CKEDITOR.replace('paymenterms');
-  CKEDITOR.replace('certifications');
 
   $(document).ready(function () {
 
@@ -664,6 +687,9 @@ $months = mysqli_query($cn, $query);
 
 
   });
+  
+  CKEDITOR.replace('paymenterms');
+  CKEDITOR.replace('certifications');
 </script>
 
 </html>

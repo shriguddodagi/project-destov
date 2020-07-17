@@ -55,7 +55,7 @@ $feedbacks = mysqli_query($cn, $query);
     </div>
   </div>
 
-  <div class="promo-section overflow-h">
+  <div class="promo-section bg-color-sky-light overflow-h">
     <div class="container">
       <div class="clearfix">
         <div class="ver-center">
@@ -196,7 +196,7 @@ $feedbacks = mysqli_query($cn, $query);
     </div>
   </div>
 
-  <div class="bg-color-sky-light" data-auto-height="true">
+  <div data-auto-height="true">
     <div class="content-lg container">
       <h2 class="text-center text-uppercase">We are proud members of</h2>
       <div class="row row-space-1 margin-b-10">
@@ -251,7 +251,13 @@ $feedbacks = mysqli_query($cn, $query);
     </div>
   </div>
 
-  
+  <div class="bg-color-sky-light content container-fluid">
+  <div class="row">
+  <div class="col-md-12 text-center">
+    <a href="contact.php" class="btn" style="padding: 15px; background: #000; font-weight: 500; color: #fff; border-radius: 5px;">GET IN TOUCH</a>
+  </div>
+  </div>
+  </div>
 
 
   

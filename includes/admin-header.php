@@ -25,8 +25,8 @@ if(isset($_POST['logout'])) {
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand">
-          <img src="./img/logo3.png" alt="" class="img-fluid w-50 h-auto">
+        <a class="navbar-brand w-25">
+          <img src="./img/500px.png" alt="logo" class="img-fluid w-50 rounded img h-auto">
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"

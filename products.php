@@ -1,6 +1,7 @@
 <?php 
 include_once('./includes/header.php');
 include_once('./includes/productUtil.php');
+include_once('./includes/classes/Product.php');
 
 $query = "SELECT id, title, description, image FROM `products` ORDER BY id DESC";
 $products = mysqli_query($cn, $query);
@@ -10,6 +11,8 @@ if(isset($_GET['term']) && isset($_GET['search'])) {
   $search = mysqli_query($cn, "SELECT * FROM `products` WHERE title LIKE '$term%'");
   unset($_GET['search']);
 }
+
+$subcategories = mysqli_query($cn, "SELECT * FROM subcategories");
 
 ?>
 
@@ -47,7 +50,13 @@ if(isset($_GET['term']) && isset($_GET['search'])) {
       ?>
     </div>
   </div>
-
+  <style>
+  .accordion [aria-expanded="true"],
+  .accordion .collapse.in {
+    color: #000000;
+    background: #fafafa;
+  }
+</style>
   <div class="content-lg container">
     <div class="row margin-b-40">
       <div class="col-sm-6">
@@ -55,17 +64,52 @@ if(isset($_GET['term']) && isset($_GET['search'])) {
       </div>
     </div>
     
-
-    <div class="row margin-b-50">
-      <?php
-
-      while($row = mysqli_fetch_array($products)) {
-        echo thumbnail($row['image'], $row['title'], $row['description'], $row['id']);
-      }
+    <div class="accordion">
+      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
       
-      ?>
+      <?php
+        while($row = mysqli_fetch_array($subcategories)) {
+
+          $productsObj = new Product($cn, $row['id']);
+
+          $panel = "<div class='panel panel-default'>
+            <div class='panel-heading' role='tab' id='". $row['id'] ."'>
+              <h4 class='panel-title'>
+                <a class='panel-title-child collapsed' role='button' data-toggle='collapse' data-parent='#accordion' href='#". $row['name'] . "-" . $row['id'] ."' aria-expanded='false' aria-controls='". $row['name'] . "-" . $row['id'] ."'>
+                ". $row['name'] ."
+                </a>
+              </h4>
+            </div>
+            <div id='". $row['name'] . "-" . $row['id'] ."' class='panel-collapse collapse' role='tabpanel' aria-labelledby='". $row['id'] ."' aria-expanded='false' style='height: 0px;'>
+              <div class='panel-body'> 
+              
+                <div class='row margin-b-50'>";
+              
+                  foreach($productsObj->products() as $row) {
+                    $panel .= thumbnail($row['image'], $row['title'], $row['description'], $row['id']);
+                  }
+              
+              $panel .= "</div>
+
+              </div>
+            </div>
+          </div>";
+
+          echo $panel;
+        }
+        ?>
+
+      
+      </div>
     </div>
+
+    
   </div>
+
+ 
+
+
+
 
 <?php include_once('./includes/scripts.php') ?>
 <script src="vendor/jquery.parallax.min.js" type="text/javascript"></script>

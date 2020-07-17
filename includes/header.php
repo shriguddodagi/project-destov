@@ -46,8 +46,9 @@ if (isset($_POST['subscribe'])) {
         
           <div class="logo">
             <a class="logo-wrap" href="index.php">
-              <img class="logo-img logo-img-main" style="height: 110px; margin-top: -30px; width: 100px; border-radius: 0 0 10px 10px;" src="./img/jpg.jpg" alt="Destov Logo">
-              <img class="logo-img logo-img-active" style="height: 110px; margin-top: -30px; width: 100px; border-radius: 0 0 10px 10px;" src="./img/jpg.jpg" alt="Destov Logo">
+            
+              <img class="logo-img-main" style="width: 240px; height: auto; margin-top: -19px;" src="./img/500px.png" alt="Destov Logo">
+              <img class="logo-img-active" style="width: 240px; height: auto; margin-top: -19px;" src="./img/500px.png" alt="Destov Logo">
             </a>
           </div>
         

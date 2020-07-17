@@ -38,14 +38,14 @@ function forCol12 ($image, $title, $description, $id) {
 };
 
 function thumbnail ($image, $title, $description, $id) {
-  return "<div class='col-sm-4 sm-margin-b-50'>
+  return "<div class='col-sm-4 sm-margin-b-50 margin-b-30'>
     <div class='margin-b-20'>
       <div class='wow zoomIn' data-wow-duration='.3' data-wow-delay='.1s'>
         <img class='img-responsive' src='". $image ."' alt='". $title ."'>
       </div>
     </div>
-    <h4><a href='product.php?product=". $id ."'>". $title ."</a></h4>
-    <p>". $description ."</p>
+    <h3><a href='product.php?product=". $id ."'>". $title ."</a></h3>
+    <p class='h5'>". $description ."</p>
     <a class='link' href='product.php?product=". $id ."'>Read More</a>
   </div>";
 }
