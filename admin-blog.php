@@ -9,8 +9,8 @@ if (isset($_POST['submit'])) {
   $description = $_POST['description'];
   $image = $_FILES['image'];
 
-  if(validType($image)){
-    $imagePath = uploadImage($image);
+  if(validType($image, 'image')){
+    $imagePath = uploadFile($image);
     $query = "INSERT INTO `blogs` (title, description, image) VALUES ('$title', '$description', '$imagePath')";
     mysqli_query($cn, $query);
     header('Location: admin-blog.php');
@@ -28,10 +28,10 @@ if (isset($_POST['update'])) {
     mysqli_query($cn, $query);
     header('Location: admin-blog.php');
   } else {
-    if(validType($image)){
+    if(validType($image, 'image')){
       $query = "SELECT image FROM `blogs` WHERE id=$id";
       unlink(mysqli_fetch_array((mysqli_query($cn, $query)))['image']);
-      $imagePath = uploadImage($image);
+      $imagePath = uploadFile($image);
       $query = "UPDATE `blogs` SET title='$title', description='$description', image='$imagePath' WHERE id=$id";
       mysqli_query($cn, $query);
     }
@@ -213,8 +213,6 @@ $result = mysqli_query($cn, $query);
 </body>
 <?php include_once('./includes/admin-script.php'); ?>
 <script>
-  CKEDITOR.replace('descriptionInEditModal');
-  CKEDITOR.replace('description');
   $(document).ready(function () {
 
     // Edit blog
@@ -271,6 +269,8 @@ $result = mysqli_query($cn, $query);
       }
     }
   }
+  CKEDITOR.replace('descriptionInEditModal');
+  CKEDITOR.replace('description');
 </script>
 
 </html>
