@@ -26,7 +26,7 @@ if(isset($_POST['submit'])) {
   if(isset($productId) && $productId == "") {
     // Insert
     if(validType($image)){
-      $imagePath = uploadImage($image);
+      $imagePath = uploadFile($image);
       $query = "INSERT INTO `products` (
         subcategory_id, title, description, varieties, color, size, weight, tss, calender, containercapacity, incoterms, paymenterms, certifications, image) VALUES (
           '$subcategoryId', '$title', '$description', '$varieties', '$color', '$size', '$weight', '$tss', '$calender', '$containercapacity', '$incoterms', '$paymenterms', '$certifications', '$imagePath');";
@@ -62,7 +62,7 @@ if(isset($_POST['submit'])) {
       if(validType($image)){
         $query = "SELECT image FROM `products` WHERE id=$productId";
         unlink(mysqli_fetch_array((mysqli_query($cn, $query)))['image']);
-        $imagePath = uploadImage($image);
+        $imagePath = uploadFile($image);
         $query = "UPDATE `products` 
           SET 
           title='$title', 
@@ -179,6 +179,9 @@ $months = mysqli_query($cn, $query);
                     <button class='btn text-center mx-3 btn-sm btn-success' type='button' data-toggle='collapse' data-target='#sub". $subcategory['id'] ."' aria-expanded='false' aria-controls='sub". $subcategory['id'] ."'>
                       ". $subcategory['name'] ."
                     </button>
+                    <button class='btn btn-sm btn-outline-secondary create-product float-right' id='". $subcategory['id'] ."'	
+                      data-toggle='modal' data-target='#createProductModal'>Add Product</button>	
+                    
 
                     <div class='collapse' id='sub". $subcategory['id'] ."'>
                       <div class='card my-2 card-body'>";
@@ -417,7 +420,7 @@ $months = mysqli_query($cn, $query);
               while($row = mysqli_fetch_array($months)) {
                 echo "<div class='col-md-2'>
                     <div class='form-check mb-3'>
-                      <input type='checkbox' class='form-check-input' id='". $row['name'] . "-" . $row['id'] ."' value='". $row['id'] ."' name='calender[]'>
+                      <input type='checkbox' class='form-check-input' id='". $row['id'] ."' value='". $row['id'] ."' name='calender[]'>
                       <label class='form-check-label'>". $row['name'] ."</label>
                     </div>
                   </div>";

@@ -7,7 +7,7 @@ function uploadFile($file) {
   return (move_uploaded_file($file["tmp_name"], $target_file_path)) ? $target_file_path : false;
 }
 
-function validType($file, $type) {
+function validType($file, $type = "image") {
   $fileType = strtolower(pathinfo($file["name"],PATHINFO_EXTENSION));
   if($type == "video") {
     return ($fileType != "mp4") ? false : true;
