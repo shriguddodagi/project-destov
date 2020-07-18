@@ -61,7 +61,7 @@ $result = mysqli_query($cn, $query);
           <button class="btn font-weight-bold btn-outline-info" data-toggle="modal" data-target="#blogModal">Create Blog</button>
         </div>
       </div>
-      <div class="row">
+      <div class="row g-2">
         <?php
 
         while ($row = mysqli_fetch_array($result)) {          
@@ -71,7 +71,7 @@ $result = mysqli_query($cn, $query);
                 <img src='". $row['image'] ."' class='card-img-top w-100 h-50' alt='".$row['title']."'>
                 <div class='card-body'>
                   <h5 class='card-title'>". $row['title'] ."</h5>
-                  <p class='card-text'>". $row['description'] ."</p>
+                  <div class='card-text'>". $row['description'] ."</div>
                   <button id='". $row['id'] ."' class='btn float-left edit-blog-btn btn-warning' data-toggle='modal' data-target='#editblogModal'>Edit</button>
 
                   <form action='' method='POST'>
@@ -112,14 +112,7 @@ $result = mysqli_query($cn, $query);
 
               <div class="mb-3">
                 <label for="descriptionInEditModal" class="form-label">Description</label>
-                <textarea class="form-control" id="descriptionInEditModal" name="descriptionInEditModal"
-                  placeholder="Required Description" pattern="^\w+(\s+\w+)*$" required></textarea>
-                <div class="valid-feedback">
-                  Looks good!
-                </div>
-                <div class="invalid-feedback">
-                  Invalid Description
-                </div>
+                <div id="des"></div>
               </div>
 
 
@@ -214,13 +207,16 @@ $result = mysqli_query($cn, $query);
 <?php include_once('./includes/admin-script.php'); ?>
 <script>
   $(document).ready(function () {
-
+    const des = CKEDITOR.replace('descriptionInEditModal');
     // Edit blog
     $(document).on('click', '.edit-blog-btn', function () {
       $('#blogIdInEditModal').val($(this).attr('id'));
-      console.log($(this).attr('id'));
       $('#titleInEditModal').val($(this).siblings('.card-title').text());
-      $('#descriptionInEditModal').val($(this).siblings('.card-text').text());
+      const content = $(this).siblings('.card-text').html();
+      $('#des').html(
+      `<textarea class="form-control" id="descriptionInEditModal" name="descriptionInEditModal">${content}</textarea>`
+      );
+      CKEDITOR.replace('descriptionInEditModal');    
       const img = document.createElement('img');
       img.src = $(this).parent().siblings('img').attr('src');
       img.classList = 'img img-fluid';
@@ -269,7 +265,7 @@ $result = mysqli_query($cn, $query);
       }
     }
   }
-  CKEDITOR.replace('descriptionInEditModal');
+  
   CKEDITOR.replace('description');
 </script>
 

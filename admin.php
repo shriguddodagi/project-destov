@@ -85,7 +85,7 @@ $categories = mysqli_query($cn, $query);
                 <button class='btn btn-primary create-sub-category-button' id='". $row['id'] ."' data-toggle='modal'
                   data-target='#createSubCategoryModal'>Add Sub Category</button>
               </div>
-              <p class='text-left terms p-2'>". $row['terms'] ."</p>
+              <div class='text-left terms p-2'>". $row['terms'] ."</div>
               <div class='d-flex mt-3 justify-content-between'>
                 <button id='".  $row['id'] ."' class='btn btn-warning edit-category-button'>Edit</button>
                   <form action='' method='POST'>
@@ -186,14 +186,9 @@ $categories = mysqli_query($cn, $query);
               </div>
               <div class="col-md-12">
                 <label for="categoryTermsInEditModal" class="form-label">Terms & Conditions</label>
-                <textarea name="categoryTermsInEditModal" id="categoryTermsInEditModal" class="form-control" pattern="^\w+(\s+\w+)*$"
-                  required></textarea>
-                <div class="valid-feedback">
-                  Looks good!
-                </div>
-                <div class="invalid-feedback">
-                  Invalid input.
-                </div>
+                <!-- <textarea name="categoryTermsInEditModal" id="categoryTermsInEditModal" class="form-control" pattern="^\w+(\s+\w+)*$"
+                  required></textarea> -->
+                <div id="des"></div>
               </div>
               <button type="submit" name="updateCategory" class="btn btn-primary">Update Category</button>
             </form>
@@ -249,7 +244,12 @@ $categories = mysqli_query($cn, $query);
       const title = $(this).parent().siblings('div').find('h5.card-title').text();
       $('#editCategoryModalLabel').find('.text-primary').text(title);
       $('#categoryNameInEditModal').val(title);
-      $('#categoryTermsInEditModal').text($(this).parent().siblings('p.terms').text());
+      const content = $(this).parent().siblings('div.terms').html();
+      $('#des').html(
+      `<textarea class="form-control" id="categoryTermsInEditModal" name="categoryTermsInEditModal">${content}</textarea>`
+      );
+      CKEDITOR.replace('categoryTermsInEditModal');
+      $('#categoryTermsInEditModal').text();
       $('#editCategoryModal').modal('show');
     });
 
@@ -262,7 +262,7 @@ $categories = mysqli_query($cn, $query);
 </script>
 
 <script>
-  CKEDITOR.replace('categoryTermsInEditModal');
+  
   CKEDITOR.replace('categoryTerms');
 </script>
 </html>

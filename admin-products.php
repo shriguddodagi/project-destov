@@ -16,6 +16,7 @@ if(isset($_POST['submit'])) {
   $weight = $_POST['weight'];
   $tss = $_POST['tss'];
   $calender = implode(',', $_POST['calender']);
+  // die($calender);
   $containercapacity = $_POST['containercapacity'];
   $incoterms = $_POST['incoterms'];
   $paymenterms = $_POST['paymenterms'];
@@ -451,7 +452,9 @@ $months = mysqli_query($cn, $query);
 
               <div class="col-md-6">
                 <label for="paymenterms" class="form-label text-primary h6">Payment Terms</label>
-                <textarea name="paymenterms" id="paymenterms" class="form-control" placeholder="Payment Terms" pattern="[a-zA-Z0-9]+[a-zA-Z0-9 ]+" required></textarea>
+                <div id="paymentermsDes">
+                  <textarea name="paymenterms" id="paymenterms" class="form-control" placeholder="Payment Terms" pattern="[a-zA-Z0-9]+[a-zA-Z0-9 ]+" required></textarea>
+                </div>
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -461,7 +464,9 @@ $months = mysqli_query($cn, $query);
               </div>
               <div class="col-md-6">
                 <label for="certifications" class="form-label text-primary h6">Certifications</label>
-                <textarea name="certifications" id="certifications" class="form-control" placeholder="Certifications" pattern="[a-zA-Z0-9]+[a-zA-Z0-9 ]+" required></textarea>
+                <div id="certificationsDes">
+                  <textarea name="certifications" id="certifications" class="form-control" placeholder="Certifications" pattern="[a-zA-Z0-9]+[a-zA-Z0-9 ]+" required></textarea>
+                </div>
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -649,8 +654,8 @@ $months = mysqli_query($cn, $query);
       var calender = Calender.split(',');
       var ContainerCapacity = details.find('.card-text').find('small.containercapacity').text();
       var INCOTERMS = details.find('.card-text').find('small.incoterms').text();
-      var PaymentTerms = details.find('.card-text').find('small.paymenterms').text();
-      var Certifications = details.find('.card-text').find('small.certifications').text();
+      var PaymentTerms = details.find('.card-text').find('small.paymenterms').html();
+      var Certifications = details.find('.card-text').find('small.certifications').html();
 
 
       $("#title").val(title);
@@ -662,16 +667,33 @@ $months = mysqli_query($cn, $query);
       $("#tss").val(TSS);
       $("#containercapacity").val(ContainerCapacity);
       $("#incoterms").val(INCOTERMS);
-      $("#paymenterms").val(PaymentTerms);
-      $("#certifications").val(Certifications);
 
-
-      var boxes = document.querySelectorAll("input[type=checkbox]");  
+      var boxes = document.querySelectorAll("input[type=checkbox]"); 
+      console.log(calender);
       for (let i = 0; i < boxes.length; i++) {
         if(calender.indexOf(boxes[i].id) >= 0){
           boxes[i].checked = true;
         }        
       }
+
+      // $("#paymentermsDes").empty();
+      // $("#certificationsDes").empty();
+      
+
+      // $('#paymentermsDes').html(
+      // `<textarea class="form-control" id="paymenterms" name="paymenterms">${PaymentTerms}</textarea>`
+      // );
+      // $('#certificationsDes').html(
+      // `<textarea class="form-control" id="certificationsDes" name="certificationsDes">${Certifications}</textarea>`
+      // );
+      // CKEDITOR.replace('paymenterms');
+      // CKEDITOR.replace('certificationsDes');
+
+      $("#paymenterms").val(PaymentTerms);
+      $("#certifications").val(Certifications);
+
+
+      
 
       $('#createProductModal').modal('show');
 
@@ -691,8 +713,8 @@ $months = mysqli_query($cn, $query);
 
   });
   
-  CKEDITOR.replace('paymenterms');
-  CKEDITOR.replace('certifications');
+  // CKEDITOR.replace('paymenterms');
+  // CKEDITOR.replace('certifications');
 </script>
 
 </html>
