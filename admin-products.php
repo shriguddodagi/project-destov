@@ -217,8 +217,8 @@ $months = mysqli_query($cn, $query);
                                   <p class='card-text'>Calender : <small class='text-muted calender'>". $row['calender'] ."</small></p>
                                   <p class='card-text'>Container Capacity : <small class='text-muted containercapacity'>". $row['containercapacity'] ."</small></p>
                                   <p class='card-text'>INCOTERMS : <small class='text-muted incoterms'>". $row['incoterms'] ."</small></p>
-                                  <p class='card-text'>Payment Terms : <small class='text-muted paymenterms'>". $row['paymenterms'] ."</small></p>
-                                  <p class='card-text'>Certifications : <small class='text-muted certifications'>". $row['certifications'] ."</small></p>    
+                                  <div class='card-text'>Payment Terms : <small class='text-muted paymenterms'>". $row['paymenterms'] ."</small></div>
+                                  <div class='card-text'>Certifications : <small class='text-muted certifications'>". $row['certifications'] ."</small></div>    
                                 </div>
                               </div>
                               
@@ -669,28 +669,27 @@ $months = mysqli_query($cn, $query);
       $("#incoterms").val(INCOTERMS);
 
       var boxes = document.querySelectorAll("input[type=checkbox]"); 
-      console.log(calender);
       for (let i = 0; i < boxes.length; i++) {
         if(calender.indexOf(boxes[i].id) >= 0){
           boxes[i].checked = true;
         }        
       }
 
-      // $("#paymentermsDes").empty();
-      // $("#certificationsDes").empty();
+      $("#paymentermsDes").empty();
+      $("#certificationsDes").empty();
       
 
-      // $('#paymentermsDes').html(
-      // `<textarea class="form-control" id="paymenterms" name="paymenterms">${PaymentTerms}</textarea>`
-      // );
-      // $('#certificationsDes').html(
-      // `<textarea class="form-control" id="certificationsDes" name="certificationsDes">${Certifications}</textarea>`
-      // );
-      // CKEDITOR.replace('paymenterms');
-      // CKEDITOR.replace('certificationsDes');
+      $('#paymentermsDes').html(
+      `<textarea class="form-control" id="paymentermsEdit" name="paymenterms">${PaymentTerms}</textarea>`
+      );
+      $('#certificationsDes').html(
+      `<textarea class="form-control" id="certificationsEdit" name="certifications">${Certifications}</textarea>`
+      );
+      CKEDITOR.replace('paymentermsEdit');
+      CKEDITOR.replace('certificationsEdit');
 
-      $("#paymenterms").val(PaymentTerms);
-      $("#certifications").val(Certifications);
+      // $("#paymenterms").val(PaymentTerms);
+      // $("#certifications").val(Certifications);
 
 
       
@@ -713,8 +712,8 @@ $months = mysqli_query($cn, $query);
 
   });
   
-  // CKEDITOR.replace('paymenterms');
-  // CKEDITOR.replace('certifications');
+  CKEDITOR.replace('paymenterms');
+  CKEDITOR.replace('certifications');
 </script>
 
 </html>
