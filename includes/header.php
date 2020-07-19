@@ -33,8 +33,8 @@ if (isset($_POST['subscribe'])) {
 <body>
 
   
-  <header class="header navbar-fixed-top">
   
+  <header class="header navbar-fixed-top">
     <nav class="navbar" role="navigation">
       <div class="container">
         <div class="menu-container">
@@ -46,11 +46,11 @@ if (isset($_POST['subscribe'])) {
         
           <div class="logo">
             <a class="logo-wrap" href="index.php">
-            
-              <img class="logo-img-main" style="width: 240px; height: auto; margin-top: -19px;" src="./img/500px.png" alt="Destov Logo">
-              <img class="logo-img logo-img-active" style="width: 100%; height:auto;" src="./img/jpg.jpg" alt="Destov Logo">
+              <img class="logo-img-main" style="max-width: 240px; margin-top: -18px; height: auto;" src="./img/500px.png" alt="Destov Logo">
+              <img class="logo-img-active" style="max-width: 240px; margin-top: -18px; height: auto;" src="./img/500px.png" alt="Destov Logo">
             </a>
           </div>
+          <div id="google_translate_element" style="float: right; margin-right: -40px"></div>
         
         </div>
         <?php 
@@ -74,7 +74,7 @@ if (isset($_POST['subscribe'])) {
         <div class="collapse navbar-collapse nav-collapse">
           <div class="menu-container">
             <ul class="navbar-nav navbar-nav-right">
-            <div id="google_translate_element" style="float: right"></div>
+              <!-- <div id="google_translate_element" style="float: right"></div> -->
               <li class="nav-item"><a class="nav-item-child nav-item-hover <?php if(isset($home)) {echo "active";} ?>" href="index.php">Home</a></li>
               <!-- <li class="nav-item"><a class="nav-item-child nav-item-hover" href="pricing.html">Pricing</a></li> -->
               <li class="nav-item"><a class="nav-item-child nav-item-hover <?php if(isset($about)) {echo "active";} ?>" href="about.php">About</a>
@@ -85,6 +85,7 @@ if (isset($_POST['subscribe'])) {
             </ul>
           </div>
         </div>
+        
       </div>
     </nav>
   </header>
