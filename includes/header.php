@@ -66,7 +66,7 @@ if (isset($_POST['subscribe'])) {
             if(strpos($_SERVER['REQUEST_URI'],'contact',0)) {
               $contact = true;
             }
-            if(strpos($_SERVER['REQUEST_URI'],'blog',0)) {
+            if(strpos($_SERVER['REQUEST_URI'],'blogs',0)) {
               $blog = true;
             }
           ?>   
@@ -80,7 +80,7 @@ if (isset($_POST['subscribe'])) {
               <li class="nav-item"><a class="nav-item-child nav-item-hover <?php if(isset($about)) {echo "active";} ?>" href="about.php">About</a>
               </li>
               <li class="nav-item"><a class="nav-item-child nav-item-hover <?php if(isset($products)) {echo "active";} ?>" href="products.php">Products</a></li>
-              <li class="nav-item"><a class="nav-item-child nav-item-hover <?php if(isset($blog)) {echo "active";} ?>" href="blog.php">Blog</a></li>
+              <li class="nav-item"><a class="nav-item-child nav-item-hover <?php if(isset($blog)) {echo "active";} ?>" href="blogs.php">Blog</a></li>
               <li class="nav-item"><a class="nav-item-child nav-item-hover <?php if(isset($contact)) {echo "active";} ?>" href="contact.php">Contact</a></li>
             </ul>
           </div>

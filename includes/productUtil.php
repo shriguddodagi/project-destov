@@ -40,7 +40,6 @@ function thumbnail ($image, $title, $description, $id) {
       </div>
     </div>
     <h3><a href='product.php?product=". $id ."'>". $title ."</a></h3>
-    <p class='h5'>". $description ."</p>
     <a class='link' href='product.php?product=". $id ."'>Read More</a>
   </div>";
 }
