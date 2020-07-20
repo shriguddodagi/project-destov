@@ -60,7 +60,7 @@ $subcategories = mysqli_query($cn, "SELECT * FROM subcategories");
   <div class="content-lg container">
     <div class="row margin-b-40">
       <div class="col-sm-6">
-        <h2>Our Exceptional Products</h2>
+        <h2>Our Product Range</h2>
       </div>
     </div>
     

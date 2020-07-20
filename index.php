@@ -4,16 +4,47 @@ include_once('./includes/util.php');
 include_once('./FormSanitizer.php');
 include_once('./includes/productUtil.php');
 
+
+if(isset($_POST['submit'])) {
+  mysqli_query($cn, sanitizeInquiryForm($_POST));
+  unset($_POST);  
+  header('Location: index.php');
+}
+
 $query = "SELECT * FROM `slides` ORDER BY id DESC";
 $slides = mysqli_query($cn, $query);
 
 $query = "SELECT id, title, description, image FROM `products` WHERE display_on_home='on' ORDER BY position ASC LIMIT 8";
 $products = mysqli_query($cn, $query);
 
-$query = "SELECT `name`, `message` FROM `feedbacks`";
+$query = "SELECT `name`, `message` FROM `feedbacks` WHERE `status`='1'";
 $feedbacks = mysqli_query($cn, $query);
-
 ?>
+
+<style>
+@-webkit-keyframes zoom {
+  from {
+    -webkit-transform: scale(1, 1);
+  }
+  to {
+    -webkit-transform: scale(1.5, 1.5);
+  }
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(1, 1);
+  }
+  to {
+    transform: scale(1.5, 1.5);
+  }
+}
+
+.carousel-inner .item {
+  -webkit-animation: zoom 20s;
+  animation: zoom 20s;
+}
+</style>
 
   <div id="carousel-example-generic" class="carousel slide margin-b-40" data-ride="carousel">
     <div class="container">
@@ -36,7 +67,7 @@ $feedbacks = mysqli_query($cn, $query);
         $slide .= ($row['type'] == "image") ? 
         "<img src='". $row['file'] ."' class='img-responsive' alt='".$row['title']."'>"
         :
-        "<video src='". $row['file'] ."' class='img-responsive' alt='".$row['title']."' autoplay controls></video>";
+        "<video src='". $row['file'] ."' style='cursor: pointer' data-toggle='modal' data-target='#video' class='img-responsive video' alt='".$row['title']."'></video>";
 
         $slide .= "<div class='container'>
             <div class='carousel-centered'>
@@ -63,17 +94,17 @@ $feedbacks = mysqli_query($cn, $query);
             <div class="promo-section-col">
               <h2>About US</h2>
               <blockquote class="blockquote">
-                <div class="margin-b-20">
+                <div class="margin-b-10">
                 Destov International is based in Mumbai with its wings spread across India. We are Exporters of Fruits and
                 Vegetables, taking a prestige to deliver Quality over Quantity. We deal in pomegranates, mangoes, bananas,
                 onions, potatoes, garlic, and so on.
                 </div>
-                <!-- <div class="margin-b-20">
+                <div class="margin-b-10">
                 We are strategically located in Mumbai, which facilitates International Trade through its largest port of
                 Nhava Sheva. Proximity to different locations like Nashik, Pune, Ratnagiri, Solapur, Nagpur which are part
                 of the Maharashtra State, the agricultural hub of India, helps us to procure products with ease.
-                </div> -->
-                <div class="margin-b-20">
+                </div>
+                <div class="">
                   <a href="about.php"
                   class="btn-theme btn-theme-sm btn-black-brd text-uppercase">Know More</a>
                 </div>
@@ -88,6 +119,7 @@ $feedbacks = mysqli_query($cn, $query);
     </div>
   </div>
 
+  <?php if($feedbacks->num_rows > 0) { ?>
   <div class="content-lg container">
     <div class="row">
       <div class="col-sm-9">
@@ -114,10 +146,6 @@ $feedbacks = mysqli_query($cn, $query);
             </blockquote>
           </div>";
         }
-
-          
-         
-
         ?>
 
           <div class="swiper-slide swiper-slide-duplicate swiper-slide-next" data-swiper-slide-index="2" style="width: 686px;">
@@ -134,12 +162,13 @@ $feedbacks = mysqli_query($cn, $query);
       </div>
     </div>
   </div>
+  <?php } ?>
   
   <div class="bg-color-sky-light overflow-h">
     <div class="content-lg container">
       <div class="row margin-b-40">
         <div class="col-sm-6">
-          <h2>Products</h2>
+          <h2>Our Product Range</h2>
         </div>
       </div>
       
@@ -252,14 +281,76 @@ $feedbacks = mysqli_query($cn, $query);
   </div>
 
   <div class="bg-color-sky-light content container-fluid">
-  <div class="row">
-  <div class="col-md-12 text-center">
-    <a href="contact.php" class="btn" style="padding: 15px; background: #000; font-weight: 500; color: #fff; border-radius: 5px;">GET IN TOUCH</a>
-  </div>
-  </div>
+    <div class="row">
+      <div class="col-md-12 text-center text-uppercase">
+        <h2>we'd love to hear from you</h2>
+      </div>
+      <div class="col-md-12 text-center">
+        Whether it's a silly doubt or a major concern, we are here to answer all your questions.
+      </div>
+      <div class="col-md-12 text-center margin-b-40">
+        Feel free to reach out to us.
+      </div>
+      <div class="col-md-12 text-center">
+        <a href="contact.php" 
+          class="btn" 
+          style="padding: 10px 20px; background: #000; font-weight: 500; color: #fff; border-radius: 5px;">
+          GET IN TOUCH</a>
+      </div>
+    </div>
   </div>
 
 
+<div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title text-center">Inquiry Now</h3>
+      </div>
+      <div class="modal-body">
+      <p class="text-center" style="color: #000">
+        I'm intrested in <strong class="product-name">Title</strong>. Kindly send us the details.
+      </p>
+      <form id="form" action="" method="POST">
+        <input type="hidden" id="productTitle" name="productTitle">
+        <input name="name" id="name" type="text" class="form-control footer-input margin-b-20" placeholder="Name" required pattern="^\w+(\s+\w+)*$">
+        <input name="position" id="position" type="text" class="form-control footer-input margin-b-20" placeholder="Position (optional)" pattern="^\w+(\s+\w+)*$">
+        <input name="company" id="company" type="text" class="form-control footer-input margin-b-20" placeholder="Company Name  (optional)" pattern="^\w+(\s+\w+)*$">
+        <input name="email" id="email" type="email" class="form-control footer-input margin-b-20" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+        <input name="phone" id="phone" type="text" class="form-control footer-input margin-b-20" placeholder="Phone" required pattern="[0-9]{6,}">
+        <textarea name="message" id="message" class="form-control footer-input margin-b-30" rows="6" placeholder="Message" required pattern="^\w+(\s+\w+)*$"></textarea>
+        <button name="submit" id="submit" type="submit" class="btn-theme btn-block btn-theme-sm btn-base-bg text-center text-uppercase">Submit</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="video" tabindex="-1" aria-labelledby="video" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <video id="video-slider" style='width:100%' autoplay controls></video>
+      </div>
+    </div>
+  </div>
+</div>
   
 <?php include_once('./includes/scripts.php') ?>
+<script>
+  $(document).ready(function () {
+    $(document).on('click', '.inquiry-btn', function () {
+      let name = $(this).attr('id');
+      $('#form').find('#productTitle').val(name);
+      $('#modal').find('.product-name').text(name);
+    });
+    $(document).on('click', '.video', function () {
+      $('#video-slider').attr('src', $(this).attr('src'));
+    });
+    $('#video').on('hidden.bs.modal', function (e) {
+      // do something...
+      $(this).find('video').attr('src', null);
+    })
+  });
+</script>
 <?php include_once('./includes/footer.php') ?>

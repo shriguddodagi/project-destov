@@ -7,14 +7,11 @@ function forCol6 ($image, $title, $description, $id) {
         <div class='work-overlay'>
           <img class='full-width img-responsive' src='". $image ."' alt='". $title ."'>
         </div>
-        <div class='work-content'>
-          <h3 class='color-white margin-b-5'>". $title ."</h3>
-          <p class='color-white margin-b-0'>". $description ."</p>
+        <div class='work-content colo-white'>
+          <h3 class='color-white margin-b-5'><a class='color-white' href='product.php?product=". $id ."'>". $title ."</a></h3>
+          <i id='". $title ."' data-toggle='modal' data-target='#modal' style='cursor: pointer' class='fa fa-lg fa-telegram color-white inquiry-btn'></i>
         </div>
-        <a class='content-wrapper-link'
-          href='product.php?product=". $id ."'></a>
       </div>
-      
     </div>";
 };
 
@@ -28,10 +25,8 @@ function forCol12 ($image, $title, $description, $id) {
       </div>
       <div class='work-content'>
         <h3 class='color-white margin-b-5'>". $title ."</h3>
-        <p class='color-white margin-b-0'>". $description ."</p>
+        <i id='". $title ."' data-toggle='modal' data-target='#modal' style='cursor: pointer' class='fa fa-lg fa-telegram color-white inquiry-btn'></i>
       </div>
-      <a class='content-wrapper-link'
-      href='product.php?product=". $id ."'></a>
     </div>
 
   </div>";

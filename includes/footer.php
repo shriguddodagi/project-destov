@@ -69,6 +69,18 @@
   </div>
 
   <div class="content text-black bg-color-white container-fluid">
+    <div class="row">
+      <div class="col text-center">
+        Copyright &copy;
+        <script>document.write(new Date().getFullYear());</script> <strong>Destov International</strong> All rights
+        reserved
+      </div>
+      <div class="col text-center">
+        Designed and Developed by <strong>Destov Tech</strong>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="content text-black bg-color-white container-fluid">
     <div style="display: flex; justify-content: space-between;">
       <div>
         Copyright &copy;
@@ -79,7 +91,7 @@
         Designed and Developed by <strong>Destov Tech</strong>
       </div>
     </div>
-  </div>
+  </div> -->
   
 </footer>
 <script type="text/javascript">
