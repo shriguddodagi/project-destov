@@ -5,6 +5,7 @@ include_once('./includes/util.php');
 include_once('./includes/classes/Category.php');
 include_once('./includes/classes/Product.php');
 include_once('./includes/classes/PackingDetail.php');
+include_once('./includes/classes/Gallery.php');
 
 if(isset($_POST['submit'])) {
   $subcategoryId = $_POST['subcategoryIdIncreateProductModal'];
@@ -128,6 +129,28 @@ if(isset($_POST['deletePackingDetail'])) {
   header('Location: admin-products.php');
 }
 
+if(isset($_POST['submitImage'])) {
+  $productId = $_POST['productId'];
+  $image = $_FILES['image'];
+  
+  if(validType($image)){
+    $imagePath = uploadFile($image);
+    $query = "INSERT INTO `images` (image, productId) VALUES ('$imagePath', '$productId')";
+    mysqli_query($cn, $query);
+    unset($_POST);
+    header('Location: admin-products.php');
+  }
+}
+
+if(isset($_POST['deleteGalleryImage'])) {
+  $id = $_POST['imageId'];
+  $query = "SELECT image FROM `images` WHERE id=$id";
+  unlink(mysqli_fetch_array((mysqli_query($cn, $query)))['image']); 
+  $query = "DELETE FROM `images` WHERE id=$id";
+  mysqli_query($cn, $query);
+  unset($_POST);
+  header('Location: admin-products.php');
+}
 
 $query = "SELECT * FROM `categories`";
 $categories = mysqli_query($cn, $query);
@@ -189,19 +212,51 @@ $months = mysqli_query($cn, $query);
 
                       foreach($productsObj->products() as $row) {
                         $packingDetailsObj = new PackingDetail($cn, $row['id']);  
+                        $imageGalleryObj = new Gallery($cn, $row['id']);
+
+                        $images = "";
+
+                        foreach($imageGalleryObj->images() as $image) {
+                          $images .= "<div class='col-6'>
+                            <div class='row justify-content-center text-center g-2'>
+                              <div class='col-6'>
+                                <img class='img w-100 img-fluid' src='". $image['image'] ."' alt=''>    
+                              </div>
+                              <div class='col-6'>
+                                <form action='' method='POST'>
+                                  <input type='hidden' name='imageId' value='". $image['id'] ."'>
+                                  <button class='btn-sm btn-danger btn' type='submit' name='deleteGalleryImage'>Delete</button>
+                                </form>
+                              </div>
+                            </div>
+                          </div>";
+                        }
+
                         $productBlock = "";
                         $productBlock .= "<div class='row border rounded p-1 m-1 border-info'>
                           <div class='card mb-3 border-0'>
                             <div class='row g-0'>
                               <div class='col-md-4'>
                                 <img src='". $row['image'] ."' class='w-100 img rounded img-fluid h-auto' alt='...'>
-                                <div class='d-flex justify-content-between'>
-                                  <button class='btn btn-sm m-1 packing-specification btn-outline-primary' data-toggle='modal' data-target='#packingModal' id='". $row['id'] ."'>New Packing Specification</button>
-                                  <button class='btn btn-sm m-1 btn-outline-warning edit-product' id='". $row['id'] ."'>Edit</button>
-                                  <form action='' method='POST'>
-                                    <input type='hidden' name='productId' value='". $row['id'] ."'>
-                                    <button class='btn btn-sm m-1 btn-outline-danger' type='submit' name='deleteProduct'>Delete</button>
-                                  </form>
+                                <div class='row'>
+                                  <div class='col-6'>
+                                    <button class='btn btn-block btn-sm m-1 packing-specification btn-outline-primary' data-toggle='modal' data-target='#packingModal' id='". $row['id'] ."'>New Packing Specification</button>
+                                  </div>
+                                  <div class='col-6'>
+                                    <button class='btn btn-block btn-lg font-weight-light m-1 btn-outline-warning edit-product' id='". $row['id'] ."'>Edit</button>
+                                  </div>
+                                  <div class='col-6'>
+                                    <button class='btn btn-block btn-sm m-1 gallery-image btn-outline-info' data-toggle='modal' data-target='#gallery' id='". $row['id'] ."'>New Gallery Image</button>
+                                  </div>
+                                  <div class='col-6'>
+                                    <form action='' method='POST'>
+                                      <input type='hidden' name='productId' value='". $row['id'] ."'>
+                                      <button class='btn btn-block btn-sm m-1 btn-outline-danger' type='submit' name='deleteProduct'>Delete</button>
+                                    </form>
+                                  </div>
+                                </div>
+                                <div class='row mt-5'>
+                                  $images
                                 </div>
                               </div>
 
@@ -598,6 +653,42 @@ $months = mysqli_query($cn, $query);
       </div>
     </div>
 
+    <div class="modal fade" id="gallery" data-backdrop="static" data-keyboard="false" tabindex="-1"
+      aria-labelledby="galleryLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="galleryLabel">New Gallery Image</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="" method="POST" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
+              <div class="form-file mb-3">
+                <input type="hidden" name="productId" id="productIdInGalleryModal">
+                <input type="file" class="form-file-input" name="image" id="galleryImage" onchange="return fileValidationForGalleryImage()" required>
+                <label class="form-file-label" for="galleryImage">
+                  <span class="form-file-text">Choose file...</span>
+                  <span class="form-file-button">Browse</span>
+                </label>
+                <div class="valid-feedback">
+                  Looks good!
+                </div>
+                <div class="invalid-feedback">
+                  Invalid File
+                </div>
+                <div id="imagePreviewForGallery" class="text-center d-block m-3"></div>
+              </div>
+              <div class="mb-3">
+                <button class="btn btn-primary btn-block" name="submitImage" type="submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </main>
 
 </body>
@@ -622,6 +713,25 @@ $months = mysqli_query($cn, $query);
       }
     }
   }
+  function fileValidationForGalleryImage() {
+    var fileInput = document.getElementById('galleryImage');
+    var filePath = fileInput.value;
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+    if (!allowedExtensions.exec(filePath)) {
+      alert('Please upload file having extensions .jpeg, .jpg, .png, .gif only.');
+      fileInput.value = '';
+      return false;
+    } else {
+      //Image preview
+      if (fileInput.files && fileInput.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+          document.getElementById('imagePreviewForGallery').innerHTML = '<img src="' + e.target.result + '" class="img img-fluid" style="max-width: 300px; margin-top:35px; max-height:auto"/>';
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+      }
+    }
+  }
 
   $(document).ready(function () {
 
@@ -637,12 +747,11 @@ $months = mysqli_query($cn, $query);
       $('#productIdInCreateProductModal').val($(this).attr('id'));
   
       const img = document.createElement('img');
-      img.src = $(this).parent().siblings('img').attr('src');
+      img.src = $(this).parent().parent().siblings('img').attr('src');
       img.classList = 'img img-fluid';
       $('#imagePreview').html(img);
 
-      var details = $(this).parent().parent().siblings('div.details').find('.card-body');
-
+      var details = $(this).parent().parent().parent().siblings('div.details').find('.card-body');
       var title = details.find('.card-title').text();
       var description = details.find('.card-text.description').text();
       var Varieties = details.find('.card-text').find('small.varieties').text();
@@ -707,6 +816,9 @@ $months = mysqli_query($cn, $query);
     $(document).on('click', '.packing-specification', function () {
       $('#productIdInPackingModal').val($(this).attr('id'));
       $('#createProductModalLabel').find('.text-primary').text($(this).siblings('span').text());
+    });
+    $(document).on('click', '.gallery-image', function () {
+      $('#productIdInGalleryModal').val($(this).attr('id'));
     });
 
 

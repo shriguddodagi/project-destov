@@ -2,6 +2,7 @@
 include_once('./includes/header.php');
 include_once('./FormSanitizer.php');
 include_once('./includes/classes/PackingDetail.php');
+include_once('./includes/classes/Gallery.php');
 include_once('./includes/util.php');
 
 if(isset($_POST['submit'])) {
@@ -26,12 +27,33 @@ $categoryId = mysqli_fetch_array(mysqli_query($cn, "SELECT category_id FROM `sub
 $terms = mysqli_fetch_array(mysqli_query($cn, "SELECT terms FROM `categories` WHERE id='$categoryId'"))['terms'];
 
 $packingDetailsObj = new PackingDetail($cn, $productId);
+$gallery = new Gallery($cn, $productId);
 ?>
 
 <div class="parallax-window" data-parallax="scroll" data-image-src="<?php echo $product['image'] ?>">
   <div class="parallax-content container">
     <h1 class="carousel-title"><?php echo $product['title'] ?></h1>
     <p><?php echo $product['description'] ?></p>
+  </div>
+</div>
+
+
+<div class="bg-color-light">
+  <div class="content-lg container">
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Show Case</h2>
+      </div>
+    </div>
+    <div class="row">
+      <?php
+      foreach($gallery->images() as $image) {
+        echo "<div class='col-md-4'>
+          <img src='". $image['image'] ."' class='full-width img-responsive' alt=''>
+        </div>";
+      }
+      ?>
+    </div>
   </div>
 </div>
 
@@ -110,7 +132,8 @@ $packingDetailsObj = new PackingDetail($cn, $productId);
     </div>
 </div>
 
-<div class="bg-color-sky-light">
+
+<div class="bg-color-light">
   <div class="content-lg container">
       <div class="row">
           <div class="col-md-5 col-sm-5 md-margin-b-60">
@@ -145,7 +168,7 @@ $packingDetailsObj = new PackingDetail($cn, $productId);
                               </h4>
                           </div>
                           <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true" style="">
-                              <div class="panel-body"><?php echo $product['paymenterms'] ?></div>
+                              <div style="color: #fff" class="panel-body"><?php echo $product['paymenterms'] ?></div>
                           </div>
                       </div>    
                       <div class="panel panel-default">
@@ -155,7 +178,7 @@ $packingDetailsObj = new PackingDetail($cn, $productId);
                               </h4>
                           </div>
                           <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
-                              <div class="panel-body"><?php echo $product['certifications'] ?></div>
+                              <div style="color: #fff" class="panel-body"><?php echo $product['certifications'] ?></div>
                           </div>
                       </div>
                       <div class="panel panel-default">
@@ -167,7 +190,7 @@ $packingDetailsObj = new PackingDetail($cn, $productId);
                               </h4>
                           </div>
                           <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false" style="height: 0px;">
-                              <div class="panel-body"><?php echo $terms ?></div>
+                              <div style="color: #fff" class="panel-body"><?php echo $terms ?></div>
                           </div>
                       </div>
                   </div>
@@ -178,52 +201,54 @@ $packingDetailsObj = new PackingDetail($cn, $productId);
   </div>
 </div>
 
-<div class="content container">
-  <div class="row margin-b-10">
-    <div class="col-sm-6">
-      <h2>Packing Specifications</h2>
+<div class="bg-color-sky-light">
+  <div class="content-lg container">
+    <div class="row margin-b-10">
+      <div class="col-sm-6">
+        <h2>Packing Specifications</h2>
+      </div>
     </div>
-  </div>
-  <div class="table-responsive">    
-    <table class="table">
-      <thead>
-        <tr>
-        <th scope='col'>Country</th>
-        <th scope='col'>Packing Specs</th>
-        <th scope='col'>Net Wt Per Box/Beg</th>
-        <th scope='col'>Gross Wt Per Box/Beg</th>
-        <th scope='col'>No. of Boxes</th>
-        <th scope='col'>Container Type</th>
-        <th scope='col'>Container Loadability</th>
-        <th scope='col'>Other Details</th>
-        </tr>
-      </thead>
-      <tbody>
+    <div class="table-responsive">    
+      <table class="table">
+        <thead>
+          <tr>
+          <th scope='col'>Country</th>
+          <th scope='col'>Packing Specs</th>
+          <th scope='col'>Net Wt Per Box/Beg</th>
+          <th scope='col'>Gross Wt Per Box/Beg</th>
+          <th scope='col'>No. of Boxes</th>
+          <th scope='col'>Container Type</th>
+          <th scope='col'>Container Loadability</th>
+          <th scope='col'>Other Details</th>
+          </tr>
+        </thead>
+        <tbody>
 
-      <?php
+        <?php
 
-      foreach($packingDetailsObj->packingDetails() as $row) {
+        foreach($packingDetailsObj->packingDetails() as $row) {
 
-       echo "<tr>
-          <th scope='row'>". $row['country'] ."</th>
-          <td>". $row['specs'] ."</td>
-          <td>". $row['net_wt'] ."</td>
-          <td>". $row['gross_wt'] ."</td>
-          <td>". $row['boxes'] ."</td>
-          <td>". $row['container_type'] ."</td>
-          <td>". $row['container_loadability'] ."</td>
-          <td>". $row['other_details'] ."</td>
-        </tr>";
+        echo "<tr>
+            <th scope='row'>". $row['country'] ."</th>
+            <td>". $row['specs'] ."</td>
+            <td>". $row['net_wt'] ."</td>
+            <td>". $row['gross_wt'] ."</td>
+            <td>". $row['boxes'] ."</td>
+            <td>". $row['container_type'] ."</td>
+            <td>". $row['container_loadability'] ."</td>
+            <td>". $row['other_details'] ."</td>
+          </tr>";
 
-      }
-      
-      ?>
-
+        }
         
-      </tbody>
-    </table>
-  </div>
+        ?>
 
+          
+        </tbody>
+      </table>
+    </div>
+
+  </div>
 </div>
 
 

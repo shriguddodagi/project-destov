@@ -1318,8 +1318,8 @@ fieldset[disabled] .btn-theme {
 }
 .accordion [aria-expanded="true"],
 .accordion .collapse.in {
-  color: #fff;
-  background: #17bed2;
+  color: #000000;
+  background: #f1f1f1;
 }
 .calender {
   border: 1px solid #000;
