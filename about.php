@@ -38,6 +38,7 @@
    
   </div>
 
+  <?php include_once('./includes/certificates.php'); ?>
 
   <!-- <div class="bg-color-sky-light">
     <div class="content-lg container">
