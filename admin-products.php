@@ -130,15 +130,19 @@ if(isset($_POST['deletePackingDetail'])) {
 }
 
 if(isset($_POST['submitImage'])) {
+  $file = $_FILES['image'];
+  $type = $_POST['type'];
   $productId = $_POST['productId'];
-  $image = $_FILES['image'];
   
-  if(validType($image)){
-    $imagePath = uploadFile($image);
-    $query = "INSERT INTO `images` (image, productId) VALUES ('$imagePath', '$productId')";
+  if(validType($file, $type)){
+    $filePath = uploadFile($file);
+    $query = "INSERT INTO `images` (image, productId, type) VALUES ('$filePath', '$productId', '$type')";
     mysqli_query($cn, $query);
     unset($_POST);
     header('Location: admin-products.php');
+  } else {
+    // unset($_POST['submit']);
+    echo "<script>alert('File type and file are not matched')</script>";
   }
 }
 
@@ -212,19 +216,24 @@ $months = mysqli_query($cn, $query);
 
                       foreach($productsObj->products() as $row) {
                         $packingDetailsObj = new PackingDetail($cn, $row['id']);  
-                        $imageGalleryObj = new Gallery($cn, $row['id']);
+                        $galleryObj = new Gallery($cn, $row['id']);
 
                         $images = "";
 
-                        foreach($imageGalleryObj->images() as $image) {
+                        foreach($galleryObj->images() as $file) {
                           $images .= "<div class='col-6'>
                             <div class='row justify-content-center text-center g-2'>
-                              <div class='col-6'>
-                                <img class='img w-100 img-fluid' src='". $image['image'] ."' alt=''>    
-                              </div>
+                              <div class='col-6'>";
+
+                              $images .= ($file['type'] == "image") ? 
+                              "<img src='". $file['file'] ."' class='img w-100 img-fluid'>"
+                              :
+                              "<video src='". $file['file'] ."' class='img w-100 img-fluid' controls></video>";
+                              
+                              $images .= "</div>
                               <div class='col-6'>
                                 <form action='' method='POST'>
-                                  <input type='hidden' name='imageId' value='". $image['id'] ."'>
+                                  <input type='hidden' name='imageId' value='". $file['id'] ."'>
                                   <button class='btn-sm btn-danger btn' type='submit' name='deleteGalleryImage'>Delete</button>
                                 </form>
                               </div>
@@ -255,7 +264,7 @@ $months = mysqli_query($cn, $query);
                                     </form>
                                   </div>
                                 </div>
-                                <div class='row mt-5'>
+                                <div class='row g-3 mt-5'>
                                   $images
                                 </div>
                               </div>
@@ -665,6 +674,18 @@ $months = mysqli_query($cn, $query);
           </div>
           <div class="modal-body">
             <form action="" method="POST" enctype="multipart/form-data" class="row g-3 needs-validation" novalidate>
+              
+              <div class="form-check d-flex justify-content-between">
+                <div>  
+                  <input class="form-check-input" type="radio" name="type" value="image" id="image" checked>
+                  <label class="form-check-label" for="image">Image</label>
+                </div>
+                <div>
+                  <input class="form-check-input" type="radio" name="type" value="video" id="video">
+                  <label class="form-check-label" for="video">Video</label>
+                </div>
+              </div>
+              
               <div class="form-file mb-3">
                 <input type="hidden" name="productId" id="productIdInGalleryModal">
                 <input type="file" class="form-file-input" name="image" id="galleryImage" onchange="return fileValidationForGalleryImage()" required>
@@ -688,6 +709,8 @@ $months = mysqli_query($cn, $query);
         </div>
       </div>
     </div>
+
+    
 
   </main>
 
@@ -715,10 +738,11 @@ $months = mysqli_query($cn, $query);
   }
   function fileValidationForGalleryImage() {
     var fileInput = document.getElementById('galleryImage');
+    var radio = $('#gallery').find('.form-check-input');
     var filePath = fileInput.value;
-    var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.mp4)$/i;
     if (!allowedExtensions.exec(filePath)) {
-      alert('Please upload file having extensions .jpeg, .jpg, .png, .gif only.');
+      alert('File must jpeg, .jpg, .png, .gif, mp4 only.');
       fileInput.value = '';
       return false;
     } else {
@@ -726,7 +750,10 @@ $months = mysqli_query($cn, $query);
       if (fileInput.files && fileInput.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
-          document.getElementById('imagePreviewForGallery').innerHTML = '<img src="' + e.target.result + '" class="img img-fluid" style="max-width: 300px; margin-top:35px; max-height:auto"/>';
+          document.getElementById('imagePreviewForGallery').innerHTML = (!radio[1].checked) ?  
+            '<img src="' + e.target.result + '" class="img img-fluid" style="max-width: 300px; margin-top:35px; max-height:auto"/>'
+            :
+            '<video controls src="' + e.target.result + '" class="img img-fluid" style="max-width: 300px; margin-top:35px; max-height:auto"></video>';
         };
         reader.readAsDataURL(fileInput.files[0]);
       }

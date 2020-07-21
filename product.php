@@ -33,10 +33,8 @@ $gallery = new Gallery($cn, $productId);
 <div class="parallax-window" data-parallax="scroll" data-image-src="<?php echo $product['image'] ?>">
   <div class="parallax-content container">
     <h1 class="carousel-title"><?php echo $product['title'] ?></h1>
-    <p><?php echo $product['description'] ?></p>
   </div>
 </div>
-
 
 <div class="bg-color-light">
   <div class="content-lg container">
@@ -46,13 +44,27 @@ $gallery = new Gallery($cn, $productId);
       </div>
     </div>
     <div class="row">
-      <?php
-      foreach($gallery->images() as $image) {
-        echo "<div class='col-md-4'>
-          <img src='". $image['image'] ."' class='full-width img-responsive' alt=''>
-        </div>";
-      }
-      ?>
+      <div class="col-md-10">
+        <div class="row">
+          <?php
+          foreach($gallery->images() as $file) {
+
+            echo ($file['type'] == "image") ? 
+            "<div class='col-md-4 margin-b-30'>
+              <img src='". $file['file'] ."' class='full-width img-responsive'>
+            </div>"
+              :
+            "<div class='col-md-4 margin-b-30'>
+              <video src='". $file['file'] ."' class='full-width img-responsive' controls></video>
+            </div>";
+            
+          }
+          ?>
+        </div>  
+      </div>
+      <div class="col-md-2 float-right">
+       <?php echo $product['description'] ?>
+      </div>
     </div>
   </div>
 </div>
@@ -92,33 +104,14 @@ $gallery = new Gallery($cn, $productId);
         </div>
 
         <div class="row row-space-1 margin-b-2">
-            <div class="col-sm-4 sm-margin-b-2">
-                <div class="wow fadeInLeft animated" data-wow-duration=".3" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
-                    <div class="service" data-height="height" style="height: 171px;">
-                        <h3>Sizes</h3>
-                        <p class="margin-b-5"><?php echo $product['size'] ?></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-4">
+          <div class="col-sm-4 sm-margin-b-2">
               <div class="wow fadeInLeft animated" data-wow-duration=".3" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
                   <div class="service" data-height="height" style="height: 171px;">
-                      <h3>Container Preferred Capacity</h3>
-                      <p class="margin-b-5"><?php echo $product['containercapacity'] ?></p> 
+                      <h3>Sizes</h3>
+                      <p class="margin-b-5"><?php echo $product['size'] ?></p>
                   </div>
               </div>
           </div>
-          <div class="col-sm-4">
-              <div class="wow fadeInLeft animated" data-wow-duration=".3" data-wow-delay=".3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInLeft;">
-                  <div class="service" data-height="height" style="height: 171px;">
-                      <h3>INCOTERMS</h3>
-                      <p class="margin-b-5"><?php echo $product['incoterms'] ?></p> 
-                  </div>
-              </div>
-          </div>
-        </div>
-
-        <div class="row row-space-1">
           <div class="col-sm-4 sm-margin-b-2">
               <div class="wow fadeInLeft animated" data-wow-duration=".3" data-wow-delay=".4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInLeft;">
                   <div class="service" data-height="height" style="height: 171px;">
@@ -127,18 +120,16 @@ $gallery = new Gallery($cn, $productId);
                   </div>
               </div>
           </div>
-         
         </div>
     </div>
 </div>
-
 
 <div class="bg-color-light">
   <div class="content-lg container">
       <div class="row">
           <div class="col-md-5 col-sm-5 md-margin-b-60">
               <div class="margin-t-50 margin-b-30">
-                  <h2>Calender</h2>
+                  <h2>Season Calender</h2>
                   <div class="row">
 
                     <?php
@@ -153,48 +144,48 @@ $gallery = new Gallery($cn, $productId);
                     
                   </div>
               </div>
-              <button data-toggle='modal' data-target='#modal' class="btn-theme btn-theme-sm btn-white-bg text-uppercase">Inquiry Now</button>
+              <button data-toggle='modal' data-target='#modal' class="btn-theme btn-theme-sm btn-white-bg text-uppercase">Make An Inquiry</button>
           </div>
           <div class="col-md-5 col-sm-7 col-md-offset-2">
          
-              <div class="accordion">
-                  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                      <div class="panel panel-default">
-                          <div class="panel-heading" role="tab" id="headingOne">
-                              <h4 class="panel-title">
-                                  <a class="panel-title-child" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                  Payment Terms
-                                  </a>
-                              </h4>
-                          </div>
-                          <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true" style="">
-                              <div style="color: #fff" class="panel-body"><?php echo $product['paymenterms'] ?></div>
-                          </div>
-                      </div>    
-                      <div class="panel panel-default">
-                          <div class="panel-heading" role="tab" id="headingTwo">
-                              <h4 class="panel-title">
-                                  <a class="panel-title-child collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Certifications</a>
-                              </h4>
-                          </div>
-                          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
-                              <div style="color: #fff" class="panel-body"><?php echo $product['certifications'] ?></div>
-                          </div>
-                      </div>
-                      <div class="panel panel-default">
-                          <div class="panel-heading" role="tab" id="headingThree">
-                              <h4 class="panel-title">
-                                  <a class="panel-title-child collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                  Terms & Conditions
-                                  </a>
-                              </h4>
-                          </div>
-                          <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false" style="height: 0px;">
-                              <div style="color: #fff" class="panel-body"><?php echo $terms ?></div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
+            <div class="accordion">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a class="panel-title-child" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Payment Terms
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true" style="">
+                            <div style="color: #a0a0a0;" class="panel-body"><?php echo $product['paymenterms'] ?></div>
+                        </div>
+                    </div>    
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            <h4 class="panel-title">
+                                <a class="panel-title-child collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Certifications</a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
+                            <div style="color: #a0a0a0;" class="panel-body"><?php echo $product['certifications'] ?></div>
+                        </div>
+                    </div>           
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingThree">
+                            <h4 class="panel-title">
+                                <a class="panel-title-child collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                INCOTERMS
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false" style="height: 0px;">
+                            <div style="color: #a0a0a0;" class="panel-body"><?php echo $product['incoterms'] ?></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
          
           </div>
     </div>  
@@ -208,7 +199,7 @@ $gallery = new Gallery($cn, $productId);
         <h2>Packing Specifications</h2>
       </div>
     </div>
-    <div class="table-responsive">    
+    <div class="table-responsive margin-b-50">    
       <table class="table">
         <thead>
           <tr>
@@ -247,10 +238,27 @@ $gallery = new Gallery($cn, $productId);
         </tbody>
       </table>
     </div>
-
+    <div class="row margin-b-10">
+      <div class="col-md-12">
+        <h3>Container Preferred Capacity</h3>
+      </div>
+      <div class="col-md-12">
+        <p class="margin-b-5"><?php echo $product['containercapacity'] ?></p> 
+      </div>
+    </div>
   </div>
 </div>
 
+<div class="bg-color-light">
+  <div class="content-lg container">
+    <div class="col-md-12">
+      <h2>Terms & Conditions</h2>
+    </div>
+    <div class="col-md-12">
+      <p><?php echo $terms ?></p>
+    </div>
+  </div>
+</div>
 
 
 <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
@@ -268,6 +276,7 @@ $gallery = new Gallery($cn, $productId);
         <input name="name" id="name" type="text" class="form-control footer-input margin-b-20" placeholder="Name" required pattern="^\w+(\s+\w+)*$">
         <input name="position" id="position" type="text" class="form-control footer-input margin-b-20" placeholder="Position (optional)" pattern="^\w+(\s+\w+)*$">
         <input name="company" id="company" type="text" class="form-control footer-input margin-b-20" placeholder="Company Name  (optional)" pattern="^\w+(\s+\w+)*$">
+        <input name="destinationPort" id="destinationPort" type="text" class="form-control footer-input margin-b-20" placeholder="Nearest Port of Destination (optional)" pattern="^\w+(\s+\w+)*$">
         <input name="email" id="email" type="email" class="form-control footer-input margin-b-20" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
         <input name="phone" id="phone" type="text" class="form-control footer-input margin-b-20" placeholder="Phone" required pattern="[0-9]{6,}">
         <textarea name="message" id="message" class="form-control footer-input margin-b-30" rows="6" placeholder="Message" required pattern="^\w+(\s+\w+)*$"></textarea>

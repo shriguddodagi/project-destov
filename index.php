@@ -40,10 +40,10 @@ $feedbacks = mysqli_query($cn, $query);
   }
 }
 
-.carousel-inner .item {
+/* .carousel-inner .item video {
   -webkit-animation: zoom 20s;
   animation: zoom 20s;
-}
+} */
 </style>
 
   <div id="carousel-example-generic" class="carousel slide margin-b-40" data-ride="carousel">
@@ -65,9 +65,9 @@ $feedbacks = mysqli_query($cn, $query);
         $slide = "<div class='item'>";
 
         $slide .= ($row['type'] == "image") ? 
-        "<img src='". $row['file'] ."' class='img-responsive' alt='".$row['title']."'>"
+        "<img src='". $row['file'] ."' data-color='red' class='img-responsive' alt='".$row['title']."'>"
         :
-        "<video src='". $row['file'] ."' style='cursor: pointer' data-toggle='modal' data-target='#video' class='img-responsive video' alt='".$row['title']."'></video>";
+        "<video src='". $row['file'] ."' style='cursor: pointer' data-toggle='modal' data-target='#video' class='img-responsive full-screen video' alt='".$row['title']."'></video>";
 
         $slide .= "<div class='container'>
             <div class='carousel-centered'>
@@ -263,6 +263,7 @@ $feedbacks = mysqli_query($cn, $query);
         <input name="name" id="name" type="text" class="form-control footer-input margin-b-20" placeholder="Name" required pattern="^\w+(\s+\w+)*$">
         <input name="position" id="position" type="text" class="form-control footer-input margin-b-20" placeholder="Position (optional)" pattern="^\w+(\s+\w+)*$">
         <input name="company" id="company" type="text" class="form-control footer-input margin-b-20" placeholder="Company Name  (optional)" pattern="^\w+(\s+\w+)*$">
+        <input name="destinationPort" id="destinationPort" type="text" class="form-control footer-input margin-b-20" placeholder="Nearest Port of Destination (optional)" pattern="^\w+(\s+\w+)*$">
         <input name="email" id="email" type="email" class="form-control footer-input margin-b-20" placeholder="Email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
         <input name="phone" id="phone" type="text" class="form-control footer-input margin-b-20" placeholder="Phone" required pattern="[0-9]{6,}">
         <textarea name="message" id="message" class="form-control footer-input margin-b-30" rows="6" placeholder="Message" required pattern="^\w+(\s+\w+)*$"></textarea>
