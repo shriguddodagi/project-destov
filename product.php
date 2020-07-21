@@ -36,6 +36,23 @@ $gallery = new Gallery($cn, $productId);
   </div>
 </div>
 
+<div class="bg-color-sky-light">
+  <div class="content-lg container">
+    <div class="row margin-b-10">
+      <div class="col-md-12">
+        <button data-toggle='modal' data-target='#modal' class="btn-theme btn-theme-sm btn-white-bg text-uppercase">Make An Inquiry</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+          <h2>Description</h2>
+          <p><?php echo $product['description'] ?></p>
+        </div>
+    </div>
+  </div>
+</div>
+
+
 <div class="bg-color-light">
   <div class="content-lg container">
     <div class="row">
@@ -44,7 +61,7 @@ $gallery = new Gallery($cn, $productId);
       </div>
     </div>
     <div class="row">
-      <div class="col-md-10">
+      <div class="col-md-12">
         <div class="row">
           <?php
           foreach($gallery->images() as $file) {
@@ -61,9 +78,6 @@ $gallery = new Gallery($cn, $productId);
           }
           ?>
         </div>  
-      </div>
-      <div class="col-md-2 float-right">
-       <?php echo $product['description'] ?>
       </div>
     </div>
   </div>
