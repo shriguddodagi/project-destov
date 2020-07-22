@@ -28,6 +28,7 @@ $terms = mysqli_fetch_array(mysqli_query($cn, "SELECT terms FROM `categories` WH
 
 $packingDetailsObj = new PackingDetail($cn, $productId);
 $gallery = new Gallery($cn, $productId);
+$calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productId");
 ?>
 
 <div class="parallax-window" data-parallax="scroll" data-image-src="<?php echo $product['image'] ?>">
@@ -147,13 +148,26 @@ $gallery = new Gallery($cn, $productId);
                   <div class="row">
 
                     <?php
-                    $calender = $product['calender'];
-                    while($row = mysqli_fetch_array($months)) {
-                      if(strpos($calender, $row['id']) === false)
-                        echo "<div class='col-md-3 margin-b-5 margin-r-5 margin-l-5 text-center calender calender-off'>". $row['name'] ."</div>";
-                      else 
-                        echo "<div class='col-md-3 margin-b-5 margin-r-5 margin-l-5 text-center calender calender-on'>". $row['name'] ."</div>";
+
+                    $calArray = [];
+                   
+                    $cnt = 0;
+                    // print_r($calender);
+                    while($month = mysqli_fetch_array($calender)) {
+                      
+                      while ($row = mysqli_fetch_array($months)) {
+                        
+                        if($month[$row['name']] == "Lean") {
+                          echo "<div class='col-md-3 margin-b-5 margin-r-5 margin-l-5 text-center calender calender-on'>". $row['name'] ."</div>";
+                        } else if ($month[$row['name']] == "Peak") {
+                          echo "<div class='col-md-3 margin-b-5 margin-r-5 margin-l-5 text-center calender calender-off'>". $row['name'] ."</div>";
+                        } else if ($month[$row['name']] == "N/A") {
+                          echo "<div class='col-md-3 margin-b-5 margin-r-5 margin-l-5 text-center calender'>". $row['name'] ."</div>";
+                        }
+
+                      }
                     }
+
                     ?>
                     
                   </div>
