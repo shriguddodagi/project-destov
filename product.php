@@ -143,9 +143,9 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
   <div class="content-lg container">
       <div class="row">
           <div class="col-md-5 col-sm-5 md-margin-b-60">
-              <div class="margin-t-50 margin-b-30">
+              <div class="margin-t-50 margin-b-20">
                   <h2>Season Calender</h2>
-                  <div class="row">
+                  <div class="row margin-b-10">
 
                     <?php
 
@@ -157,9 +157,9 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
                       
                       while ($row = mysqli_fetch_array($months)) {
                         
-                        if($month[$row['name']] == "Lean") {
+                        if($month[$row['name']] == "Peak") {
                           echo "<div class='col-md-3 margin-b-5 margin-r-5 margin-l-5 text-center calender calender-on'>". $row['name'] ."</div>";
-                        } else if ($month[$row['name']] == "Peak") {
+                        } else if ($month[$row['name']] == "Lean") {
                           echo "<div class='col-md-3 margin-b-5 margin-r-5 margin-l-5 text-center calender calender-off'>". $row['name'] ."</div>";
                         } else if ($month[$row['name']] == "N/A") {
                           echo "<div class='col-md-3 margin-b-5 margin-r-5 margin-l-5 text-center calender'>". $row['name'] ."</div>";
@@ -169,7 +169,15 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
                     }
 
                     ?>
-                    
+                  </div>
+                  <div class="row">
+                    <div class="col-md-5">
+                      <ul style="list-style: none;">
+                        <li class="text-center color-white margin-b-5" style="background-color: #17bed2; border-radius: 5px; border: 1px solid #000; font-weight: 600;">Peak Season</li>
+                        <li class="text-center color-white margin-b-5" style="background-color: #515769; border-radius: 5px; border: 1px solid #000; font-weight: 600;">Lean Season</li>
+                        <li class="text-center color-black margin-b-5" style="background-color: #FFFFFF; border-radius: 5px; border: 1px solid #000; font-weight: 600;">Not Avaliable</li>
+                      </ul>
+                    </div>
                   </div>
               </div>
               <button data-toggle='modal' data-target='#modal' class="btn-theme btn-theme-sm btn-white-bg text-uppercase">Make An Inquiry</button>
