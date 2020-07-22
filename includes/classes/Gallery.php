@@ -3,7 +3,7 @@
 class Gallery {
   private $id;
   private $cn;
-  private $imagesArray = array();
+  public $imagesArray = array();
 
   function __construct($cn, $id) {
     $this->id = $id;

@@ -56,6 +56,7 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
   </div>
 </div>
 
+<?php if(count($gallery->imagesArray) > 0) { ?>
 
 <div class="bg-color-light">
   <div class="content-lg container">
@@ -86,6 +87,8 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
     </div>
   </div>
 </div>
+
+<?php } ?>
 
 <div class="bg-color-sky-light" data-auto-height="true">
     <div class="content-lg container">
@@ -296,6 +299,8 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
   </div>
 </div>
 
+<?php if($related_products->num_rows > 0) { ?>
+
 <div class="bg-color-sky-light">
   <div class="content-lg container">
     <div class="row margin-b-40">
@@ -312,6 +317,8 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
     </div>
   </div>
 </div>
+
+<?php } ?>
 
 <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
   <div class="modal-dialog modal-xl">
@@ -338,8 +345,6 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
     </div>
   </div>
 </div>
-
-
 
 <?php include_once('./includes/scripts.php'); ?>
 <script src="vendor/jquery.parallax.min.js" type="text/javascript"></script>
