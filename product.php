@@ -4,6 +4,7 @@ include_once('./FormSanitizer.php');
 include_once('./includes/classes/PackingDetail.php');
 include_once('./includes/classes/Gallery.php');
 include_once('./includes/util.php');
+include_once('./includes/productUtil.php');
 
 if(isset($_POST['submit'])) {
   mysqli_query($cn, sanitizeInquiryForm($_POST));
@@ -17,6 +18,8 @@ $query = "SELECT * FROM `months`";
 $months = mysqli_query($cn, $query);
 $query = "SELECT * FROM `products` WHERE id='$productId'";
 $product = mysqli_fetch_array(mysqli_query($cn, $query));
+
+$related_products = mysqli_query($cn, "SELECT * FROM `products` WHERE subcategory_id=" . $product['subcategory_id'] . " LIMIT 3");
 
 if(!count($product)) {
   header('Location: products.php');
@@ -148,11 +151,8 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
                   <div class="row margin-b-10">
 
                     <?php
-
-                    $calArray = [];
                    
                     $cnt = 0;
-                    // print_r($calender);
                     while($month = mysqli_fetch_array($calender)) {
                       
                       while ($row = mysqli_fetch_array($months)) {
@@ -296,6 +296,22 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
   </div>
 </div>
 
+<div class="bg-color-sky-light">
+  <div class="content-lg container">
+    <div class="row margin-b-40">
+      <div class="col-md-12">
+        <h2>Related Product</h2>
+      </div>
+    </div>
+    <div class="row">
+      <?php
+      while($row = mysqli_fetch_array($related_products)) {
+        echo thumbnail($row['image'], $row['title'], $row['description'], $row['id']);
+      }
+      ?>
+    </div>
+  </div>
+</div>
 
 <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
   <div class="modal-dialog modal-xl">
