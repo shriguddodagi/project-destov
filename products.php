@@ -3,8 +3,41 @@ include_once('./includes/header.php');
 include_once('./includes/productUtil.php');
 include_once('./includes/classes/Product.php');
 
-$query = "SELECT id, title, description, image FROM `products` ORDER BY id DESC";
-$products = mysqli_query($cn, $query);
+// Pagination
+$page_no = 1;
+$total_records_per_page = 1;
+
+if(isset($_GET['page_no']) && $_GET['page_no'] != "") {
+  $page_no = $_GET['page_no'];
+}
+
+$offset = ($page_no - 1) * $total_records_per_page;
+$previous_page = $page_no - 1;
+$next_page = $page_no + 1;
+
+$total_records = mysqli_fetch_array(mysqli_query($cn, "SELECT COUNT(*) AS total_records FROM `products`"))['total_records'];
+
+$total_no_of_pages = ceil($total_records / $total_records_per_page);
+$second_last = $total_no_of_pages - 1; // total pages minus 1
+
+$products = mysqli_query($cn, "SELECT id, title, image, description FROM `products` LIMIT $offset, $total_records_per_page");
+
+if(isset($_GET['category']) && $_GET['category'] != "") {
+  $category_id = $_GET['category'];
+  $products = mysqli_query($cn, "SELECT id, title, image, description FROM `products` WHERE subcategory_id=$category_id");
+}
+
+if(isset($_GET['calender']) && $_GET['calender'] != "") {
+  $month_name = $_GET['calender'];
+  $query = 
+  "SELECT *
+    FROM products 
+    CROSS JOIN calender  
+    ON products.id = calender.product_id 
+    WHERE calender.$month_name = 'Peak' OR calender.$month_name = 'Lean'";
+    
+  $products = mysqli_query($cn, $query);
+}
 
 if(isset($_GET['term']) && isset($_GET['search'])) {
   $term = $_GET['term'];
@@ -12,34 +45,96 @@ if(isset($_GET['term']) && isset($_GET['search'])) {
   unset($_GET['search']);
 }
 
-$subcategories = mysqli_query($cn, "SELECT * FROM subcategories");
-
+$categories = mysqli_query($cn, "SELECT * FROM categories");
+$months = mysqli_query($cn, "SELECT * FROM months");
 ?>
 
   <div class="parallax-window" data-parallax="scroll" data-image-src="img/1920x1080/01.jpg">
     <div class="parallax-content container">
       <h1 class="carousel-title">Products</h1>
     </div>
-  </div>
+  </div> 
 
-  <div class="content-lg container">
-    <div class="row margin-b-10 text-center">
+<style>
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -1px;
+}
+</style>
+
+  <div class="content container">
+    <div class="row">
       <form action="" method="get">
-        <div class="col-md-10">
+
+        <div class="col-md-7 margin-b-10 text-left">
+
+          <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">All Category <span class="caret"></span></button>
+            <ul class="dropdown-menu">
+
+              <?php
+              
+              $cat = "";
+              while($category = mysqli_fetch_array($categories)) {
+
+                $subcategories = mysqli_query($cn, "SELECT * FROM subcategories WHERE category_id=" . $category['id']);
+                
+                $cat .= "<li class='dropdown-submenu'>
+                  <a tabindex='-1' href='#'>". $category['name'] ." <span class='caret'></span></a>
+                  <ul class='dropdown-menu'>";
+
+
+                  while ($subcategory = mysqli_fetch_array($subcategories)) {
+                    $cat .= "<li><a href='products.php?category=". $subcategory['id'] ."'>". $subcategory['name'] ."</a></li>";
+                  }
+
+
+                  $cat .= "</ul>
+                </li>";
+              }
+              echo $cat;
+
+              ?>
+                <li class="dropdown-submenu">
+                <a class="test" tabindex="-1" href="#">Calender <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  
+                  <?php
+                  while ($month = mysqli_fetch_array($months)) {
+                    echo "<li><a href='products.php?calender=". $month['name'] ."'>". $month['name'] ."</a></li>";
+                  }
+                  ?>
+                </ul>
+              </li>
+
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="col-md-4 margin-b-10 col-xs-8 text-right">
           <input name="term" 
             id="term" 
             type="text" 
             value="<?php echo isset($_GET['term'])? $_GET['term'] : '' ?>"
-            class="form-control margin-b-10" 
+            class="form-control" 
+            style="height: 35px;"
             placeholder="Start Typing..." 
             required 
-            pattern="^\w+(\s+\w+)*$">
+            pattern="^\w+(\s+\w+)*$" />
         </div>
-        <div class="col-md-2">
-          <button name="search" id="search" type="submit" class="btn-theme btn-theme-sm btn-base-bg text-uppercase">Search</button>
+
+        <div class="col-md-1 margin-b-10 col-xs-2">
+          <button name="search" id="search" type="submit" class="btn btn-info text-uppercase">Search</button>
         </div>
       </form>
     </div>
+
     <div class="row">
       <?php
       if(isset($search)) {
@@ -50,67 +145,99 @@ $subcategories = mysqli_query($cn, "SELECT * FROM subcategories");
       ?>
     </div>
   </div>
-  <style>
-  .accordion [aria-expanded="true"],
-  .accordion .collapse.in {
-    color: #000000;
-    background: #fafafa;
-  }
-</style>
+  
+  <?php if(!isset($_GET['term'])) { ?>
+
   <div class="content-lg container">
     <div class="row margin-b-40">
       <div class="col-sm-6">
-        <h2>Our Product Range</h2>
+        <h2>
+          <?php
+          if(isset($_GET['term'])) {
+            echo "Related to " . $_GET['term'];
+          } else if (isset($_GET['calender'])) {
+            echo "Products are available in " . $_GET['calender'];
+          } else {
+            echo "Our Product Range";
+          }
+          
+          ?>
+        </h2>
       </div>
     </div>
+    <?php if(!isset($_GET['category']) && !isset($_GET['calender'])) { ?>
     
-    <div class="accordion">
-      <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-      
-      <?php
-        while($row = mysqli_fetch_array($subcategories)) {
-
-          $productsObj = new Product($cn, $row['id']);
-
-          $panel = "<div class='panel panel-default'>
-            <div class='panel-heading' role='tab' id='". $row['id'] ."'>
-              <h4 class='panel-title'>
-                <a class='panel-title-child collapsed' role='button' data-toggle='collapse' data-parent='#accordion' href='#". $row['name'] . "-" . $row['id'] ."' aria-expanded='false' aria-controls='". $row['name'] . "-" . $row['id'] ."'>
-                ". $row['name'] ."
-                </a>
-              </h4>
-            </div>
-            <div id='". $row['name'] . "-" . $row['id'] ."' class='panel-collapse collapse' role='tabpanel' aria-labelledby='". $row['id'] ."' aria-expanded='false' style='height: 0px;'>
-              <div class='panel-body'> 
-              
-                <div class='row margin-b-50'>";
-              
-                  foreach($productsObj->products() as $row) {
-                    $panel .= thumbnail($row['image'], $row['title'], $row['description'], $row['id']);
-                  }
-              
-              $panel .= "</div>
-
-              </div>
-            </div>
-          </div>";
-
-          echo $panel;
-        }
-        ?>
-
-      
+      <div class="row">
+        <div class="text-center margin-b-20">
+          <strong>Page <?php echo $page_no." of ".$total_no_of_pages; ?></strong>
+        </div>
       </div>
-    </div>
 
+    <?php } ?>
+
+    <div class="row">
+    <?php
+      while($row = mysqli_fetch_array($products)) {
+        echo thumbnail($row['image'], $row['title'], $row['description'], $row['id']);
+      }
+    ?>
+    </div>
     
   </div>
 
- 
+  <?php } ?>
+
+  <?php if(!isset($_GET['term']) && !isset($_GET['calender'])) { ?>
+
+  <div class="text-center">
+    <ul class="pagination">
+      <?php 
+      if($page_no > 1){
+        echo "<li><a href='?page_no=1'>First Page</a></li>";
+      } 
+      ?>      
+      <li <?php if($page_no <= 1){ echo "class='disabled'"; } ?>>
+        <a 
+          <?php 
+          if($page_no > 1){
+            echo "href='?page_no=$previous_page'";
+          } 
+          ?>>
+          Previous
+        </a>
+      </li>
+          
+      <li <?php if($page_no >= $total_no_of_pages){
+        echo "class='disabled'";
+      } ?>>
+      <a <?php if($page_no < $total_no_of_pages) {
+        echo "href='?page_no=$next_page'";
+      } ?>>Next</a>
+      </li>
+      
+      <?php if($page_no < $total_no_of_pages){
+      echo "<li><a href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
+    } ?>
+    </ul>
+  </div>
+
+  <?php } ?>
 
 
 
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <?php include_once('./includes/scripts.php') ?>
 <script src="vendor/jquery.parallax.min.js" type="text/javascript"></script>
+
+
+<script>
+$(document).ready(function(){
+  $('.dropdown-submenu a.test').on("click", function(e){
+    $(this).next('ul').toggle();
+    e.stopPropagation();
+    e.preventDefault();
+  });
+});
+</script>
+
 <?php include_once('./includes/footer.php') ?>
