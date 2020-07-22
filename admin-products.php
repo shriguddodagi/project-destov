@@ -16,23 +16,43 @@ if(isset($_POST['submit'])) {
   $size = $_POST['size'];
   $weight = $_POST['weight'];
   $tss = $_POST['tss'];
-  $calender = implode(',', $_POST['calender']);
-  // die($calender);
   $containercapacity = $_POST['containercapacity'];
   $incoterms = $_POST['incoterms'];
   $paymenterms = $_POST['paymenterms'];
   $certifications = $_POST['certifications'];
   $image = $_FILES['image'];
 
+  $December = $_POST['December'];
+  $November = $_POST['November'];
+  $October = $_POST['October'];
+  $September = $_POST['September'];
+  $August = $_POST['August'];
+  $July = $_POST['July'];
+  $June = $_POST['June'];
+  $May = $_POST['May'];
+  $April = $_POST['April'];
+  $March = $_POST['March'];
+  $February = $_POST['February'];
+  $January = $_POST['January'];
+  
   $productId = $_POST['productIdInCreateProductModal'];
+
   if(isset($productId) && $productId == "") {
     // Insert
     if(validType($image)){
       $imagePath = uploadFile($image);
       $query = "INSERT INTO `products` (
-        subcategory_id, title, description, varieties, color, size, weight, tss, calender, containercapacity, incoterms, paymenterms, certifications, image) VALUES (
-          '$subcategoryId', '$title', '$description', '$varieties', '$color', '$size', '$weight', '$tss', '$calender', '$containercapacity', '$incoterms', '$paymenterms', '$certifications', '$imagePath');";
-        $data = mysqli_query($cn, $query);
+        subcategory_id, title, description, varieties, color, size, weight, tss, containercapacity, incoterms, paymenterms, certifications, image) VALUES (
+          '$subcategoryId', '$title', '$description', '$varieties', '$color', '$size', '$weight', '$tss', '$containercapacity', '$incoterms', '$paymenterms', '$certifications', '$imagePath');";
+      mysqli_query($cn, $query);
+      
+      $id = mysqli_fetch_array(mysqli_query($cn, "SELECT id FROM products ORDER BY id DESC LIMIT 1"))['id'];
+
+      $query = "INSERT INTO calender
+       (product_id, December, November, October, September, August, July, June, May, April, March, February, January) VALUE (
+          '$id', '$December', '$November', '$October', '$September', '$August', '$July', '$June', '$May', '$April', '$March', '$February', '$January')";
+      mysqli_query($cn, $query);
+      
       unset($_POST);
       header('Location: admin-products.php');
     } else {
@@ -40,6 +60,27 @@ if(isset($_POST['submit'])) {
     }
   } else {
     // die('update');
+
+
+    $query = "UPDATE `calender` 
+        SET 
+        December = '$December', 
+        November = '$November', 
+        October = '$October', 
+        September = '$September', 
+        August = '$August', 
+        July = '$July', 
+        June = '$June', 
+        May = '$May', 
+        April = '$April',
+        March = '$March', 
+        February = '$February', 
+        January = '$January' WHERE product_id=$productId";
+      mysqli_query($cn, $query);
+
+
+
+
     if($image['error'] > 0) {
       $query = "UPDATE `products` 
       SET 
@@ -50,7 +91,6 @@ if(isset($_POST['submit'])) {
       size='$size',
       weight='$weight',
       tss='$tss',
-      calender='$calender',
       containercapacity='$containercapacity',
       incoterms='$incoterms',
       paymenterms='$paymenterms',
@@ -74,7 +114,6 @@ if(isset($_POST['submit'])) {
           size='$size',
           weight='$weight',
           tss='$tss',
-          calender='$calender',
           containercapacity='$containercapacity',
           incoterms='$incoterms',
           paymenterms='$paymenterms',
@@ -88,7 +127,6 @@ if(isset($_POST['submit'])) {
     }
   }
   
-
 }
 
 if(isset($_POST['deleteProduct'])) {
@@ -215,11 +253,23 @@ $months = mysqli_query($cn, $query);
                       <div class='card my-2 card-body'>";
 
                       foreach($productsObj->products() as $row) {
-                        $packingDetailsObj = new PackingDetail($cn, $row['id']);  
-                        $galleryObj = new Gallery($cn, $row['id']);
+                        $productId = $row['id'];
+                        $packingDetailsObj = new PackingDetail($cn, $productId);  
+                        $galleryObj = new Gallery($cn, $productId);
+
+                        $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productId");
+                        $calender = mysqli_fetch_array($calender);
+
+                        
+                        $m = mysqli_query($cn, "SELECT * FROM `months`");
+                        $cal = "";
+                        while ($month = mysqli_fetch_array($m)) {
+                          $name = $month['name'];
+                          $cal .= $name ." : <small class='text-muted mb-1 ". $name ."'>". $calender[$name] ."</small><br />";
+                        }
+
 
                         $images = "";
-
                         foreach($galleryObj->images() as $file) {
                           $images .= "<div class='col-6'>
                             <div class='row justify-content-center text-center g-2'>
@@ -272,17 +322,22 @@ $months = mysqli_query($cn, $query);
                               <div class='col-md-8 details'>
                                 <div class='card-body'>
                                   <h5 class='card-title'>". $row['title'] ."</h5>
-                                  <p class='card-text description'>". $row['description'] ."</p>
-                                  <p class='card-text'>Varieties : <small class='text-muted varieties'>". $row['varieties'] ."</small></p>
-                                  <p class='card-text'>Color : <small class='text-muted color'>". $row['color'] ."</small></p>
-                                  <p class='card-text'>Size : <small class='text-muted size'>". $row['size'] ."</small></p>
-                                  <p class='card-text'>Weight : <small class='text-muted weight'>". $row['weight'] ."</small></p>
-                                  <p class='card-text'>TSS : <small class='text-muted tss'>". $row['tss'] ."</small></p>
-                                  <p class='card-text'>Calender : <small class='text-muted calender'>". $row['calender'] ."</small></p>
-                                  <p class='card-text'>Container Capacity : <small class='text-muted containercapacity'>". $row['containercapacity'] ."</small></p>
-                                  <p class='card-text'>INCOTERMS : <small class='text-muted incoterms'>". $row['incoterms'] ."</small></p>
-                                  <div class='card-text'>Payment Terms : <small class='text-muted paymenterms'>". $row['paymenterms'] ."</small></div>
-                                  <div class='card-text'>Certifications : <small class='text-muted certifications'>". $row['certifications'] ."</small></div>    
+                                  <p class='card-text font-weight-bold description'>". $row['description'] ."</p>
+                                  <p class='card-text text-primary font-weight-bold'>Varieties : <small class='text-muted varieties'>". $row['varieties'] ."</small></p>
+                                  <p class='card-text text-primary font-weight-bold'>Color : <small class='text-muted color'>". $row['color'] ."</small></p>
+                                  <p class='card-text text-primary font-weight-bold'>Size : <small class='text-muted size'>". $row['size'] ."</small></p>
+                                  <p class='card-text text-primary font-weight-bold'>Weight : <small class='text-muted weight'>". $row['weight'] ."</small></p>
+                                  <p class='card-text text-primary font-weight-bold'>TSS : <small class='text-muted tss'>". $row['tss'] ."</small></p>
+                                  
+                                  <p class='card-text text-primary font-weight-bold'>Calender</p>
+                                  <p class='card-text ml-5 calender text-primary'>
+                                    $cal
+                                  </p>
+
+                                  <p class='card-text text-primary font-weight-bold'>Container Capacity : <small class='text-muted containercapacity'>". $row['containercapacity'] ."</small></p>
+                                  <p class='card-text text-primary font-weight-bold'>INCOTERMS : <small class='text-muted incoterms'>". $row['incoterms'] ."</small></p>
+                                  <div class='card-text text-primary font-weight-bold'>Payment Terms : <small class='text-muted paymenterms'>". $row['paymenterms'] ."</small></div>
+                                  <div class='card-text text-primary font-weight-bold'>Certifications : <small class='text-muted certifications'>". $row['certifications'] ."</small></div>    
                                 </div>
                               </div>
                               
@@ -384,7 +439,7 @@ $months = mysqli_query($cn, $query);
               <input type="hidden" name="productIdInCreateProductModal" id="productIdInCreateProductModal">
               <div class="form-file col-md-12 p-3" style="box-sizing: border-box;">
                 <input type="file" class="form-file-input" name="image" id="image"
-                  onchange="return fileValidation()">
+                  onchange="return fileValidation()" required>
                 <label class="form-file-label" for="image">
                   <span class="form-file-text">Product Image</span>
                   <span class="form-file-button">Browse</span>
@@ -481,17 +536,24 @@ $months = mysqli_query($cn, $query);
               </div>
 
               <?php
-
               while($row = mysqli_fetch_array($months)) {
-                echo "<div class='col-md-2'>
-                    <div class='form-check mb-3'>
-                      <input type='checkbox' class='form-check-input' id='". $row['id'] ."' value='". $row['id'] ."' name='calender[]'>
-                      <label class='form-check-label'>". $row['name'] ."</label>
-                    </div>
-                  </div>";
+                echo "<div class='col-md-6 col-lg-4 calender-box col-sm-12 d-flex justify-content-evenly'>
+                  <div class='form-label text-primary font-weight-bold'>". $row['name'] ."</div>
+                  <div class='form-check form-check-inline'>
+                    <input class='form-check-input' type='radio' name='". $row['name'] ."' id='". $row['id'] ."1' value='Peak' required>
+                    <label class='form-check-label' for='". $row['id'] ."1'>Peak</label>
+                  </div>
+                  <div class='form-check form-check-inline'>
+                    <input class='form-check-input' type='radio' name='". $row['name'] ."' id='". $row['id'] ."2' value='Lean' required>
+                    <label class='form-check-label' for='". $row['id'] ."2'>Lean</label>
+                  </div>
+                  <div class='form-check form-check-inline'>
+                    <input class='form-check-input' type='radio' name='". $row['name'] ."' id='". $row['id'] ."3' value='N/A' required>
+                    <label class='form-check-label' for='". $row['id'] ."3'>Not Available</label>
+                  </div>  
+                </div>";
               }
               ?>
-
 
               <div class="col-md-6">
                 <label for="containercapacity" class="form-label text-primary h6">Container Preferred Capacity</label>
@@ -765,9 +827,19 @@ $months = mysqli_query($cn, $query);
     var myModalEl = document.getElementById('createProductModal')
     myModalEl.addEventListener('hide.bs.modal', function (e) {
       $(this).find('input').val('');
-      $(this).find('input[type=checkbox]').prop("checked", false);
+      $(this).find('input[type=radio]').prop("checked", false);
       $(this).find('textarea').val("");  
       $(this).find('img').attr("src", '');  
+    })
+    myModalEl.addEventListener('shown.bs.modal', function (e) {
+      var calValue = ['Peak', 'Lean', 'N/A'];
+      var calcnt = 0;
+      $(".calender-box").each(function () {
+        $(this).find("input[type=radio]").each(function () {
+          $(this).attr('value', calValue[calcnt++]);
+        });
+        calcnt = 0;
+      });
     })
 
     $(document).on('click', '.edit-product', function() {
@@ -786,13 +858,46 @@ $months = mysqli_query($cn, $query);
       var Size = details.find('.card-text').find('small.size').text();
       var Weight = details.find('.card-text').find('small.weight').text();
       var TSS = details.find('.card-text').find('small.tss').text();
-      var Calender = details.find('.card-text').find('small.calender').text();
-      var calender = Calender.split(',');
       var ContainerCapacity = details.find('.card-text').find('small.containercapacity').text();
       var INCOTERMS = details.find('.card-text').find('small.incoterms').text();
       var PaymentTerms = details.find('.card-text').find('small.paymenterms').html();
       var Certifications = details.find('.card-text').find('small.certifications').html();
 
+      var calender = details.find('.card-text.calender');
+
+      var calArray = [];
+
+      calArray.push(calender.find('.January').html());
+      calArray.push(calender.find('.February').html());
+      calArray.push(calender.find('.March').html());
+      calArray.push(calender.find('.April').html());
+      calArray.push(calender.find('.May').html());
+      calArray.push(calender.find('.June').html());
+      calArray.push(calender.find('.July').html());
+      calArray.push(calender.find('.August').html());
+      calArray.push(calender.find('.September').html());
+      calArray.push(calender.find('.October').html());
+      calArray.push(calender.find('.November').html());
+      calArray.push(calender.find('.December').html());
+
+      var cnt = 0;
+
+      var calValue = ['Peak', 'Lean', 'N/A'];
+      var calcnt = 0;
+
+      $(".calender-box").each(function () {
+        $(this).find("input[type=radio]").each(function () {
+          $(this).attr('value', calValue[calcnt++]);
+          if($(this).val() == calArray[cnt]) {
+            $(this).prop('checked', true);
+            return;
+          } else {
+            $(this).prop('checked', false);
+          }
+        });
+        calcnt = 0;
+        cnt++;
+      });
 
       $("#title").val(title);
       $("#description").val(description);
@@ -804,12 +909,7 @@ $months = mysqli_query($cn, $query);
       $("#containercapacity").val(ContainerCapacity);
       $("#incoterms").val(INCOTERMS);
 
-      var boxes = document.querySelectorAll("input[type=checkbox]"); 
-      for (let i = 0; i < boxes.length; i++) {
-        if(calender.indexOf(boxes[i].id) >= 0){
-          boxes[i].checked = true;
-        }        
-      }
+    
 
       $("#paymentermsDes").empty();
       $("#certificationsDes").empty();
@@ -821,8 +921,8 @@ $months = mysqli_query($cn, $query);
       $('#certificationsDes').html(
       `<textarea class="form-control" id="certificationsEdit" name="certifications">${Certifications}</textarea>`
       );
-      CKEDITOR.replace('paymentermsEdit');
-      CKEDITOR.replace('certificationsEdit');
+      // CKEDITOR.replace('paymentermsEdit');
+      // CKEDITOR.replace('certificationsEdit');
 
       // $("#paymenterms").val(PaymentTerms);
       // $("#certifications").val(Certifications);
@@ -851,8 +951,8 @@ $months = mysqli_query($cn, $query);
 
   });
   
-  CKEDITOR.replace('paymenterms');
-  CKEDITOR.replace('certifications');
+  // CKEDITOR.replace('paymenterms');
+  // CKEDITOR.replace('certifications');
 </script>
 
 </html>
