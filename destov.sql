@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 20, 2020 at 02:07 PM
+-- Generation Time: Jul 23, 2020 at 08:10 AM
 -- Server version: 10.4.8-MariaDB
 -- PHP Version: 7.3.11
 
@@ -67,6 +67,38 @@ INSERT INTO `blogs` (`id`, `title`, `description`, `image`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `calender`
+--
+
+CREATE TABLE `calender` (
+  `id` int(11) NOT NULL,
+  `product_id` int(10) NOT NULL,
+  `January` varchar(10) NOT NULL,
+  `February` varchar(10) NOT NULL,
+  `March` varchar(10) NOT NULL,
+  `April` varchar(10) NOT NULL,
+  `May` varchar(10) NOT NULL,
+  `June` varchar(10) NOT NULL,
+  `July` varchar(10) NOT NULL,
+  `August` varchar(10) NOT NULL,
+  `September` varchar(10) NOT NULL,
+  `October` varchar(10) NOT NULL,
+  `November` varchar(10) NOT NULL,
+  `December` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `calender`
+--
+
+INSERT INTO `calender` (`id`, `product_id`, `January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`) VALUES
+(1, 35, 'Lean', 'N/A', 'Lean', 'Peak', 'Peak', 'N/A', 'N/A', 'Peak', 'Peak', 'Peak', 'N/A', 'N/A'),
+(2, 36, 'Peak', 'Peak', 'Peak', 'Peak', 'Peak', 'Peak', 'Peak', 'Peak', 'Peak', 'Peak', 'Peak', 'Peak'),
+(3, 38, 'Lean', 'N/A', 'N/A', 'Lean', 'Lean', 'Peak', 'Peak', 'Peak', 'Lean', 'N/A', 'N/A', 'Peak');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `categories`
 --
 
@@ -82,8 +114,7 @@ CREATE TABLE `categories` (
 
 INSERT INTO `categories` (`id`, `name`, `terms`) VALUES
 (1, 'qwertyuiop', '<p>With edited text</p>\r\n\r\n<p>and other also</p>\r\n'),
-(2, 'xsedignv', 'ddbui'),
-(3, 'new category', 'sdkfjsdklfl');
+(4, 'New Category', '<p>Terms and Condition</p>\r\n');
 
 -- --------------------------------------------------------
 
@@ -119,17 +150,21 @@ INSERT INTO `feedbacks` (`id`, `name`, `email`, `phone`, `message`, `status`, `c
 
 CREATE TABLE `images` (
   `id` int(11) NOT NULL,
-  `image` varchar(100) NOT NULL,
-  `productId` int(10) NOT NULL
+  `file` varchar(100) NOT NULL,
+  `productId` int(10) NOT NULL,
+  `type` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `images`
 --
 
-INSERT INTO `images` (`id`, `image`, `productId`) VALUES
-(2, 'storage/1595243353download.png', 12),
-(5, 'storage/1595244241carbon (4).png', 12);
+INSERT INTO `images` (`id`, `file`, `productId`, `type`) VALUES
+(2, 'storage/1595243353download.png', 12, 'image'),
+(8, 'storage/1595300773download.png', 12, 'image'),
+(9, 'storage/1595300783download.png', 12, 'image'),
+(10, 'storage/1595300792download.png', 12, 'image'),
+(11, 'storage/1595326995Lesson 1. Course Introduction.mp4', 12, 'video');
 
 -- --------------------------------------------------------
 
@@ -147,27 +182,28 @@ CREATE TABLE `inquiries` (
   `message` longtext NOT NULL,
   `product` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `mode` varchar(5) DEFAULT 'open'
+  `mode` varchar(5) DEFAULT 'open',
+  `destination_port` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `inquiries`
 --
 
-INSERT INTO `inquiries` (`id`, `name`, `position`, `company`, `email`, `phone`, `message`, `product`, `created_at`, `mode`) VALUES
-(124, 'dfnskm', '', '', 'hjfdsk@hfjdkf.urefjdsks', '4538920', 'gfhdsjk', '', '2020-07-10 00:00:00', 'open'),
-(125, 'hgdfjk', '', '', 'dfuhsj@gdhfsj.ergufdjs', '348920', 'fdhjsk', '', '2020-07-10 00:00:00', 'open'),
-(126, 'hgdfjk', '', '', 'dfuhsj@gdhfsj.ergufdjs', '348920', 'fdhjsk', '', '2020-07-10 00:00:00', 'close'),
-(127, 'hgdfjk', '', '', 'dfuhsj@gdhfsj.ergufdjs', '348920', 'fdhjsk', '', '2020-07-10 00:00:00', 'open'),
-(128, 'from contact page', '', '', 'my@sajdh.codsin', '3642879289786554534567', 'dfjskcmxkjekhds', '', '2020-07-10 00:00:00', 'open'),
-(129, 'hygh', '', '', 'sdvnk@kdnv.dosm', '238423480918', 'isdhcnsdjc', '', '2020-07-13 00:00:00', 'open'),
-(130, 'sdknf', '', '', 'sksdnf@sdlkm.sd', '8472349881', 'knfdsfsd', '', '2020-07-13 00:00:00', 'open'),
-(131, 'sdkkfmc', '', '', 'klsdmf@oskdfm.asdk', '384572842394', '<p>sdkfnsmdkdf</p>\r\n', '', '2020-07-14 00:00:00', 'open'),
-(132, 'hii', '', '', 'skdn@ksjsndf.saod', '1286371948', 'jsfnsdkf', '', '2020-07-14 00:00:00', 'open'),
-(133, 'sdkgj', '', '', 'sdklfn@ksfnd.wsdlkj', '2839473294', 'kjdvndkmsdl', '', '2020-07-14 00:00:00', 'open'),
-(134, 'dskjfn', '', '', 'skldn@ksdnf.woj', '293329849', 'kdjfmsdkfsd', '', '2020-07-14 00:00:00', 'open'),
-(135, 'asdkj', 'kasnd', 'klsnd', 'kns@ksdnf.sdko', '2834783', 'lsdkfmsld', '', '2020-07-15 20:07:15', 'open'),
-(136, 'test name', 'skfj', 'iodjfds', 'sdkjf@skdjf.sdflih', '3298574857239', 'sjdkfnsdkjfdsf\r\nfrom index page', 'Title', '2020-07-20 10:25:29', 'open');
+INSERT INTO `inquiries` (`id`, `name`, `position`, `company`, `email`, `phone`, `message`, `product`, `created_at`, `mode`, `destination_port`) VALUES
+(124, 'dfnskm', '', '', 'hjfdsk@hfjdkf.urefjdsks', '4538920', 'gfhdsjk', '', '2020-07-10 00:00:00', 'open', ''),
+(125, 'hgdfjk', '', '', 'dfuhsj@gdhfsj.ergufdjs', '348920', 'fdhjsk', '', '2020-07-10 00:00:00', 'open', ''),
+(126, 'hgdfjk', '', '', 'dfuhsj@gdhfsj.ergufdjs', '348920', 'fdhjsk', '', '2020-07-10 00:00:00', 'close', ''),
+(127, 'hgdfjk', '', '', 'dfuhsj@gdhfsj.ergufdjs', '348920', 'fdhjsk', '', '2020-07-10 00:00:00', 'open', ''),
+(128, 'from contact page', '', '', 'my@sajdh.codsin', '3642879289786554534567', 'dfjskcmxkjekhds', '', '2020-07-10 00:00:00', 'open', ''),
+(129, 'hygh', '', '', 'sdvnk@kdnv.dosm', '238423480918', 'isdhcnsdjc', '', '2020-07-13 00:00:00', 'open', ''),
+(130, 'sdknf', '', '', 'sksdnf@sdlkm.sd', '8472349881', 'knfdsfsd', '', '2020-07-13 00:00:00', 'open', ''),
+(131, 'sdkkfmc', '', '', 'klsdmf@oskdfm.asdk', '384572842394', '<p>sdkfnsmdkdf</p>\r\n', '', '2020-07-14 00:00:00', 'open', ''),
+(132, 'hii', '', '', 'skdn@ksjsndf.saod', '1286371948', 'jsfnsdkf', '', '2020-07-14 00:00:00', 'open', ''),
+(133, 'sdkgj', '', '', 'sdklfn@ksfnd.wsdlkj', '2839473294', 'kjdvndkmsdl', '', '2020-07-14 00:00:00', 'open', ''),
+(134, 'dskjfn', '', '', 'skldn@ksdnf.woj', '293329849', 'kdjfmsdkfsd', '', '2020-07-14 00:00:00', 'open', ''),
+(135, 'asdkj', 'kasnd', 'klsnd', 'kns@ksdnf.sdko', '2834783', 'lsdkfmsld', '', '2020-07-15 20:07:15', 'open', ''),
+(136, 'test name', 'skfj', 'iodjfds', 'sdkjf@skdjf.sdflih', '3298574857239', 'sjdkfnsdkjfdsf\r\nfrom index page', 'Title', '2020-07-20 10:25:29', 'open', '');
 
 -- --------------------------------------------------------
 
@@ -244,7 +280,6 @@ CREATE TABLE `products` (
   `size` varchar(100) NOT NULL,
   `weight` varchar(100) NOT NULL,
   `tss` varchar(100) NOT NULL,
-  `calender` varchar(100) NOT NULL,
   `containercapacity` varchar(100) NOT NULL,
   `incoterms` varchar(100) NOT NULL,
   `paymenterms` text NOT NULL,
@@ -258,14 +293,10 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `subcategory_id`, `title`, `description`, `varieties`, `color`, `size`, `weight`, `tss`, `calender`, `containercapacity`, `incoterms`, `paymenterms`, `certifications`, `image`, `display_on_home`, `position`) VALUES
-(4, 1, 'New title', 'update', 'update', 'update', 'update', 'update', 'update', '1,2,3,4,7,8,9,11', 'update', 'update', 'dfjckupdate', 'fdjkupdate', 'storage/159457515302.jpg', 'on', 5),
-(6, 3, 'sdkfjgf', 'kcvxnm', 'dfkbnfo', 'dgfjv', 'jdjfkvn', 'jdjnv', 'dknv', '1,4,8,11', 'ojdfs', 'dfkfnv', 'dkfvn', 'dkfng', 'storage/159461478202.jpg', 'off', 0),
-(12, 2, 'isdhfj', 'odpidfjv', 'odfdfjv', 'oidjf', 'oskdk', 'ojv', 'oissdjf', '1,3,5,8', 'odsijfds', 'osidjifm', '<p>skjfndgsk</p>\r\n\r\n<p>idahsjkd</p>\r\n', '<p>some text</p>\r\n', 'storage/159461479701.jpg', 'on', 4),
-(15, 1, 'Title', 'New Description', 'asjdns', 'black', '12x23', '123', 'sdkdsf', '2,5,9', 'ldkfjgkl', 'lmgdklv', '<ul>\r\n	<li>sldfm,lvsf</li>\r\n	<li>ldkmgfd</li>\r\n</ul>\r\n', '<ul>\r\n	<li>skedgnfksd</li>\r\n	<li>jsdfnd</li>\r\n</ul>\r\n', 'storage/159472230601.jpg', 'on', 3),
-(16, 5, 'sjdfdsj', 'jksdfnsdkjfn', 'kjsdngjdkn', 'dskjsdfnsdjkfn', 'skjndjkn', 'kjnsdj', 'kjsdfn', '1,9', 'zdfkjgsdk', 'kdjfgmkdslf', '<p>sdklfjmdsklf</p>\r\n', '<p>kdlfgmdfklgmdf</p>\r\n', 'storage/1595054920download.png', NULL, NULL),
-(17, 2, 'skdfmsk', 'kgiormkfm', 'dfklmgfm', 'orietuitu', 'ierjeirm', 'odmfdksfm', 'ksdfmds', '1,4,8,11,12', 'kjsdiofjerij', 'oiewjrewiorj', '<p>rijig</p>\r\n\r\n<p>esoirjs</p>\r\n', '<p>wiojmekf</p>\r\n\r\n<p>eofjemf</p>\r\n', 'storage/1595130204download.png', NULL, NULL),
-(18, 2, 'ifdhgj', 'oksjdngdf', 'kldfdmv', 'kfndb', 'kdfdjng', 'kjnd', 'knd', '1,4,7,10,12', 'oidjfsdi', 'kojfgmdk', '<p>okjdmkd</p>\r\n', '<p>oskjdsmdkf</p>\r\n', 'storage/1595136835download.png', NULL, NULL);
+INSERT INTO `products` (`id`, `subcategory_id`, `title`, `description`, `varieties`, `color`, `size`, `weight`, `tss`, `containercapacity`, `incoterms`, `paymenterms`, `certifications`, `image`, `display_on_home`, `position`) VALUES
+(35, 2, 'skfdj', 'kdjmv', 'dklvm', 'lkdmv', 'kdnvm', 'klsdfm', 'sdkdskfm', 'wosfjsi', 'oisjfm', '<p>sidjf</p>\r\n', '<p>diogj</p>\r\n', 'storage/1595390942fruits-bosbes.jpg', NULL, NULL),
+(36, 2, 'title', 'descriptino', 'kdfsngsk', 'klsgmdkm', 'kddfnkdfd', 'ksddsnfds', 'ksdsnf', 'kjsdfnh', 'jsdfnjk', 'lsksjd', 'ijdfn', 'storage/1595388625Rakotzbrücke.jpg', NULL, NULL),
+(38, 2, 'skdfnsdk', ';lksdmfdslkfm', 'sdklfmdslkfm', 'kl', 'lkddfmdslkfm', 'skdklfmdsf', 'dkfmdsklf', 'askdfjksmf', 'kokodsnckm', 'oskdfmdskfm', 'ovkmkm', 'storage/1595391023strawberry-5k-4f.jpg', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -311,13 +342,7 @@ CREATE TABLE `subcategories` (
 --
 
 INSERT INTO `subcategories` (`id`, `name`, `category_id`) VALUES
-(2, 'frybdp', 1),
-(3, 'cfthb', 2),
-(4, 'New Subcategory', 3),
-(5, 'New sub category', 2),
-(6, 'aldskjfds', 2),
-(7, 'skdljf', 3),
-(8, 'asodokjflds', 3);
+(2, 'frybdp', 1);
 
 -- --------------------------------------------------------
 
@@ -355,6 +380,12 @@ ALTER TABLE `blogs`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `calender`
+--
+ALTER TABLE `calender`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
@@ -380,117 +411,3 @@ ALTER TABLE `inquiries`
 
 --
 -- Indexes for table `months`
---
-ALTER TABLE `months`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `packing_specifications`
---
-ALTER TABLE `packing_specifications`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `products`
---
-ALTER TABLE `products`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `slides`
---
-ALTER TABLE `slides`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `subcategories`
---
-ALTER TABLE `subcategories`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `subscribers`
---
-ALTER TABLE `subscribers`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `admin`
---
-ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `blogs`
---
-ALTER TABLE `blogs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `categories`
---
-ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `feedbacks`
---
-ALTER TABLE `feedbacks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `images`
---
-ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `inquiries`
---
-ALTER TABLE `inquiries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
-
---
--- AUTO_INCREMENT for table `months`
---
-ALTER TABLE `months`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `packing_specifications`
---
-ALTER TABLE `packing_specifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `products`
---
-ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
---
--- AUTO_INCREMENT for table `slides`
---
-ALTER TABLE `slides`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- AUTO_INCREMENT for table `subcategories`
---
-ALTER TABLE `subcategories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `subscribers`
---
-ALTER TABLE `subscribers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
