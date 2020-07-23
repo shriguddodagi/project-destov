@@ -151,7 +151,7 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
         <div class="col-md-7 col-sm-5 col-xs-12 md-margin-b-60">
           <div class="row"><h2>Season Calender</h2></div>
           <div class="row margin-b-30">
-            <div class="col-md-8">
+            <div class="col-md-8 col-xs-12 margin-b-20">
               <div class="row">
                 <?php
               
@@ -161,11 +161,11 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
                   while ($row = mysqli_fetch_array($months)) {
                     
                     if($month[$row['name']] == "Peak") {
-                      echo "<div class='col-md-3 text-center calender calender-on'>". $row['name'] ."</div>";
+                      echo "<div class='col-md-3 col-xs-12 xs-margin-b-5 text-center calender calender-on'>". $row['name'] ."</div>";
                     } else if ($month[$row['name']] == "Lean") {
-                      echo "<div class='col-md-3 text-center calender calender-off'>". $row['name'] ."</div>";
+                      echo "<div class='col-md-3 col-xs-12 xs-margin-b-5 text-center calender calender-off'>". $row['name'] ."</div>";
                     } else if ($month[$row['name']] == "N/A") {
-                      echo "<div class='col-md-3 text-center calender'>". $row['name'] ."</div>";
+                      echo "<div class='col-md-3 col-xs-12 xs-margin-b-5 text-center calender'>". $row['name'] ."</div>";
                     }
 
                   }
@@ -174,18 +174,18 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
                 ?>  
               </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-xs-12">
               <div class="row">
-                <div class="col-md-2 calender calender-on"></div>
-                <div class="col-md-8" style="margin-top: 5px">Peak Season</div>
+                <div class="col-md-2 col-xs-2 calender calender-on"></div>
+                <div class="col-md-8 col-xs-8 text-center" style="margin-top: 5px">Pean Season</div>
               </div> 
               <div class="row">
-                <div class="col-md-2 calender calender-off"></div>
-                <div class="col-md-8" style="margin-top: 5px">Lean Season</div>
+                <div class="col-xs-2 col-md-2 calender calender-off"></div>
+                <div class="col-xs-8 text-center col-md-8" style="margin-top: 5px">Lean Season</div>
               </div> 
               <div class="row">
-                <div class="col-md-2 calender"></div>
-                <div class="col-md-8" style="margin-top: 5px">Not Avaliable</div>
+                <div class="col-xs-2 col-md-2 calender"></div>
+                <div class="col-xs-8 text-center col-md-8" style="margin-top: 5px">Not Avaliable</div>
               </div> 
             </div>
           </div>
