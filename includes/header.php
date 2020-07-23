@@ -50,7 +50,7 @@ if (isset($_POST['subscribe'])) {
               <img class="logo-img-active" style="max-width: 240px; margin-top: -18px; height: auto;" src="./img/500px.png" alt="Destov Logo">
             </a>
           </div>
-          <div id="google_translate_element" style="float: right; margin-right: -40px"></div>
+          <!-- <div id="google_translate_element" class="translate" style="float: right; margin-right: -40px"></div> -->
         
         </div>
         <?php 
@@ -85,8 +85,9 @@ if (isset($_POST['subscribe'])) {
             </ul>
           </div>
         </div>
-        
       </div>
+      <!-- <div id="google_translate_element" style="text-align: center" class="xs-translate"></div> -->
     </nav>
+    <div id="google_translate_element" style="text-align: left" class="xs-translate"></div>
   </header>
   
