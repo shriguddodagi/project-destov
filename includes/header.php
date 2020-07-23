@@ -88,6 +88,14 @@ if (isset($_POST['subscribe'])) {
       </div>
       <!-- <div id="google_translate_element" style="text-align: center" class="xs-translate"></div> -->
     </nav>
-    <div id="google_translate_element" style="text-align: left" class="xs-translate"></div>
+    <div style="text-align: left; display: flex; justify-content: space-between;">
+      <div>
+        <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-facebook"></i></a>
+        <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-twitter"></i></a>
+        <a href="https://twitter.com/destovofficial"><i class="margin-r-10 fa fa-lg fa-tag fa-linkedin"></i></a>
+        <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-instagram"></i></a>
+      </div>
+      <div id="google_translate_element" style="text-align: right" class="xs-translate"></div>
+    </div>
   </header>
   
