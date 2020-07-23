@@ -148,85 +148,95 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
 <div class="bg-color-light">
   <div class="content-lg container">
       <div class="row">
-          <div class="col-md-5 col-sm-5 md-margin-b-60">
-              <div class="margin-t-50 margin-b-20">
-                  <h2>Season Calender</h2>
-                  <div class="row margin-b-10">
-
-                    <?php
-                   
-                    $cnt = 0;
-                    while($month = mysqli_fetch_array($calender)) {
-                      
-                      while ($row = mysqli_fetch_array($months)) {
-                        
-                        if($month[$row['name']] == "Peak") {
-                          echo "<div class='col-md-3 margin-b-5 margin-r-5 margin-l-5 text-center calender calender-on'>". $row['name'] ."</div>";
-                        } else if ($month[$row['name']] == "Lean") {
-                          echo "<div class='col-md-3 margin-b-5 margin-r-5 margin-l-5 text-center calender calender-off'>". $row['name'] ."</div>";
-                        } else if ($month[$row['name']] == "N/A") {
-                          echo "<div class='col-md-3 margin-b-5 margin-r-5 margin-l-5 text-center calender'>". $row['name'] ."</div>";
-                        }
-
-                      }
+        <div class="col-md-7 col-sm-5 col-xs-12 md-margin-b-60">
+          <div class="row"><h2>Season Calender</h2></div>
+          <div class="row margin-b-30">
+            <div class="col-md-8">
+              <div class="row">
+                <?php
+              
+                $cnt = 0;
+                while($month = mysqli_fetch_array($calender)) {
+                  
+                  while ($row = mysqli_fetch_array($months)) {
+                    
+                    if($month[$row['name']] == "Peak") {
+                      echo "<div class='col-md-3 text-center calender calender-on'>". $row['name'] ."</div>";
+                    } else if ($month[$row['name']] == "Lean") {
+                      echo "<div class='col-md-3 text-center calender calender-off'>". $row['name'] ."</div>";
+                    } else if ($month[$row['name']] == "N/A") {
+                      echo "<div class='col-md-3 text-center calender'>". $row['name'] ."</div>";
                     }
 
-                    ?>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-5">
-                      <ul style="list-style: none;">
-                        <li class="text-center color-white margin-b-5" style="background-color: #17bed2; border-radius: 5px; border: 1px solid #000; font-weight: 600;">Peak Season</li>
-                        <li class="text-center color-white margin-b-5" style="background-color: #515769; border-radius: 5px; border: 1px solid #000; font-weight: 600;">Lean Season</li>
-                        <li class="text-center color-black margin-b-5" style="background-color: #FFFFFF; border-radius: 5px; border: 1px solid #000; font-weight: 600;">Not Avaliable</li>
-                      </ul>
-                    </div>
+                  }
+                }
+
+                ?>  
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-md-2 calender calender-on"></div>
+                <div class="col-md-8" style="margin-top: 5px">Peak Season</div>
+              </div> 
+              <div class="row">
+                <div class="col-md-2 calender calender-off"></div>
+                <div class="col-md-8" style="margin-top: 5px">Lean Season</div>
+              </div> 
+              <div class="row">
+                <div class="col-md-2 calender"></div>
+                <div class="col-md-8" style="margin-top: 5px">Not Avaliable</div>
+              </div> 
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <button data-toggle='modal' data-target='#modal' class="btn-theme btn-theme-sm btn-white-bg text-uppercase">Make An Inquiry</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5 col-sm-7 col-xs-12">
+        
+          <div class="accordion">
+              <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                  <div class="panel panel-default">
+                      <div class="panel-heading" role="tab" id="headingOne">
+                          <h4 class="panel-title">
+                              <a class="panel-title-child" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                              Payment Terms
+                              </a>
+                          </h4>
+                      </div>
+                      <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true" style="">
+                          <div style="color: #a0a0a0;" class="panel-body"><?php echo $product['paymenterms'] ?></div>
+                      </div>
+                  </div>    
+                  <div class="panel panel-default">
+                      <div class="panel-heading" role="tab" id="headingTwo">
+                          <h4 class="panel-title">
+                              <a class="panel-title-child collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Certifications</a>
+                          </h4>
+                      </div>
+                      <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
+                          <div style="color: #a0a0a0;" class="panel-body"><?php echo $product['certifications'] ?></div>
+                      </div>
+                  </div>           
+                  <div class="panel panel-default">
+                      <div class="panel-heading" role="tab" id="headingThree">
+                          <h4 class="panel-title">
+                              <a class="panel-title-child collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                              INCOTERMS
+                              </a>
+                          </h4>
+                      </div>
+                      <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false" style="height: 0px;">
+                          <div style="color: #a0a0a0;" class="panel-body"><?php echo $product['incoterms'] ?></div>
+                      </div>
                   </div>
               </div>
-              <button data-toggle='modal' data-target='#modal' class="btn-theme btn-theme-sm btn-white-bg text-uppercase">Make An Inquiry</button>
           </div>
-          <div class="col-md-5 col-sm-7 col-md-offset-2">
-         
-            <div class="accordion">
-                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingOne">
-                            <h4 class="panel-title">
-                                <a class="panel-title-child" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                Payment Terms
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true" style="">
-                            <div style="color: #a0a0a0;" class="panel-body"><?php echo $product['paymenterms'] ?></div>
-                        </div>
-                    </div>    
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingTwo">
-                            <h4 class="panel-title">
-                                <a class="panel-title-child collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">Certifications</a>
-                            </h4>
-                        </div>
-                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
-                            <div style="color: #a0a0a0;" class="panel-body"><?php echo $product['certifications'] ?></div>
-                        </div>
-                    </div>           
-                    <div class="panel panel-default">
-                        <div class="panel-heading" role="tab" id="headingThree">
-                            <h4 class="panel-title">
-                                <a class="panel-title-child collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                INCOTERMS
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree" aria-expanded="false" style="height: 0px;">
-                            <div style="color: #a0a0a0;" class="panel-body"><?php echo $product['incoterms'] ?></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-         
-          </div>
+        
+        </div>
     </div>  
   </div>
 </div>
