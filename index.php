@@ -67,16 +67,19 @@ $feedbacks = mysqli_query($cn, $query);
         $slide .= ($row['type'] == "image") ? 
         "<img src='". $row['file'] ."' data-color='red' class='img-responsive' alt='".$row['title']."'>"
         :
-        "<video src='". $row['file'] ."' style='cursor: pointer' data-toggle='modal' data-target='#video' class='img-responsive full-screen video' alt='".$row['title']."'></video>";
+        "<video src='". $row['file'] ."' class='img-responsive full-screen' alt='".$row['title']."'></video>";
+
+        $play = ($row['type'] == "video") ? "<h1 class='carousel-title text-center video' src='". $row['file'] ."' style='cursor: pointer' data-toggle='modal' data-target='#video'><i class='fa fa-lg fa-play'></i></h1>" : "";
 
         $slide .= "<div class='container'>
             <div class='carousel-centered'>
               <div class='margin-b-40'>
                 <h1 class='carousel-title'>". $row['title'] ."</h1>
                 <p style='color:white; font-size: 20px'>". $row['description'] ."</p>
-              </div>
-              <a href='product.php'
-                class='btn-theme btn-theme-sm btn-white-brd text-uppercase'>Explore</a>
+                </div>
+                <a href='product.php'
+                class='btn-theme margin-b-20 btn-theme-sm btn-white-brd text-uppercase'>Explore</a>
+                $play
             </div>
           </div>
         </div>";
