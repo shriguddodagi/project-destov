@@ -20,11 +20,12 @@ if(!count($blog)) {
 
 <div class="bg-color-sky-light">
   <div class="content-lg container">
-    <div class="row">
+    <div class="row margin-b-20">
       <div class="col-md-12 margin-b-30">
         <p style="color: #000"><?php echo $blog['description'];  ?></p>
       </div>
     </div>
+    <p><i class='fa fa-lg fa-calendar' style='color: #17bed2;'></i> &nbsp <?php echo date('jS F, Y', strtotime($blog['created_at'])) ?></p>
   </div>
 </div>
 

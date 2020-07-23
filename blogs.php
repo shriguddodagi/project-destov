@@ -30,6 +30,7 @@
             echo "<div style='padding: 10px; box-sizing: border-box;' class='masonry-grid-item col-xs-12 col-sm-6 col-md-4 sm-margin-b-30' style='position: absolute; left: 0%; top: 0px;'>
               <div class='margin-b-10'>
                 <h2>". $row['title'] ."</h2>
+                <p><i class='fa fa-lg fa-calendar' style='color: #17bed2;'></i> &nbsp". date('jS F, Y', strtotime($row['created_at'])) ."</p>
                 <a class='link' href='blog.php?blog=". $row['id'] ."'>Read More</a>
               </div>
               <img class='full-width img-responsive wow fadeInUp animated' src='". $row['image'] ."' alt='". $row['title'] ."' data-wow-duration='.3' data-wow-delay='.2s' style='visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;'>
@@ -40,6 +41,7 @@
                 <img class='full-width img-responsive wow fadeInUp animated' src='".  $row['image'] ."' alt='".  $row['title'] ."' data-wow-duration='.3' data-wow-delay='.3s' style='visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;'>
               </div>
               <h2>".  $row['title'] ."</h2>
+              <p><i class='fa fa-lg fa-calendar' style='color: #17bed2;'></i> &nbsp". date('jS F, Y', strtotime($row['created_at'])) ."</p>
               <a class='link' href='blog.php?blog=". $row['id'] ."'>Read More</a>
             </div>";
           } 
