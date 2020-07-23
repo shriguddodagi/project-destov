@@ -43,6 +43,7 @@ $closeInquirie  = mysqli_query($cn, 'SELECT * FROM inquiries WHERE mode="close" 
                 <th scope="col">Name</th>
                 <th scope="col">Position</th>
                 <th scope="col">Company</th>
+                <th scope="col">Port</th>
                 <th scope="col">Email</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Message</th>
@@ -59,6 +60,7 @@ $closeInquirie  = mysqli_query($cn, 'SELECT * FROM inquiries WHERE mode="close" 
                   <td>".$row['name']."</td>
                   <td>".$row['position']."</td>
                   <td>".$row['company']."</td>
+                  <td>".$row['destination_port']."</td>
                   <td>".$row['email']."</td>
                   <td>".$row['phone']."</td>
                   <td>".$row['message']."</td>
@@ -84,6 +86,7 @@ $closeInquirie  = mysqli_query($cn, 'SELECT * FROM inquiries WHERE mode="close" 
                 <th scope="col">Name</th>
                 <th scope="col">Position</th>
                 <th scope="col">Company</th>
+                <th scope="col">Port</th>
                 <th scope="col">Email</th>
                 <th scope="col">Phone</th>
                 <th scope="col">Message</th>
@@ -100,6 +103,7 @@ $closeInquirie  = mysqli_query($cn, 'SELECT * FROM inquiries WHERE mode="close" 
                   <td>".$row['name']."</td>
                   <td>".$row['position']."</td>
                   <td>".$row['company']."</td>
+                  <td>".$row['destination_port']."</td>
                   <td>".$row['email']."</td>
                   <td>".$row['phone']."</td>
                   <td>".$row['message']."</td>

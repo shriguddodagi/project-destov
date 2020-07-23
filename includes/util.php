@@ -25,7 +25,7 @@ function sanitizeInquiryForm($POST) {
   $productTitle = FormSanitizer::sanitizeFormNameNumber($POST['productTitle']);
   $destinationPort = FormSanitizer::sanitizeFormNameNumber($POST['destinationPort']);
   $message = $POST['message'];
-  return "INSERT INTO `inquiries` (name, position, company, email, phone, message, product, destination_port) VALUES('$name', '$position', '$company', '$email', '$phone', '$message', '$productTitle', $destinationPort)";
+  return "INSERT INTO `inquiries` (name, position, company, email, phone, message, product, destination_port) VALUES('$name', '$position', '$company', '$email', '$phone', '$message', '$productTitle', '$destinationPort')";
 }
 
 function recordSanitize($POST) {
