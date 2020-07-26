@@ -3,7 +3,7 @@
   $query = "SELECT * FROM `blogs` ORDER BY id DESC";
   $blogs = mysqli_query($cn, $query);
 ?>
-  <div class="parallax-window" data-parallax="scroll" data-image-src="img/1920x1080/05.jpg">
+  <div class="parallax-window" data-parallax="scroll" data-image-src="img/1920x1080/blog.jpg">
     <div class="parallax-content container">
       <h1 class="carousel-title">Blogs</h1>
     </div>
