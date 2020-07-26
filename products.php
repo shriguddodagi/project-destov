@@ -33,7 +33,7 @@ if(isset($_GET['calender']) && $_GET['calender'] != "") {
   "SELECT 
       products.id AS `id`,
       products.title AS `title`,
-      products.image AS `image`,
+      products.image AS `image`
     FROM products 
     CROSS JOIN calender  
     ON products.id = calender.product_id 
@@ -192,7 +192,7 @@ $months = mysqli_query($cn, "SELECT * FROM months");
     <div class="row">
     <?php
       while($row = mysqli_fetch_array($products)) {
-        echo thumbnail($row['image'], $row['title'], $row['description'], $row['id']);
+        echo thumbnail($row['image'], $row['title'], $row['id']);
       }
     ?>
     </div>
