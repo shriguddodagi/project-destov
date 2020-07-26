@@ -174,7 +174,7 @@ if(isset($_POST['submitImage'])) {
   
   if(validType($file, $type)){
     $filePath = uploadFile($file);
-    $query = "INSERT INTO `images` (image, productId, type) VALUES ('$filePath', '$productId', '$type')";
+    $query = "INSERT INTO `images` (file, productId, type) VALUES ('$filePath', '$productId', '$type')";
     mysqli_query($cn, $query);
     unset($_POST);
     header('Location: admin-products.php');

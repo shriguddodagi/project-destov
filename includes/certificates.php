@@ -42,9 +42,14 @@
         <div class="col-md-6">
           <h2 class="text-center text-uppercase" style="padding: 10px">Our banking partner</h2>
           <div class="row row-space-1 margin-b-2">
-            <div class="col-md-12" style="padding: 30px 60px; box-sizing: border-box">
+            <div class="col-md-6" style="padding: 30px 60px; box-sizing: border-box">
               <div class="wow fadeInLeft" data-wow-duration=".3" data-wow-delay=".1s">
                 <img class="img-responsive" src="./img/certificates/02.png" alt="">
+              </div>
+            </div>
+            <div class="col-md-6" style="padding: 30px 60px; box-sizing: border-box">
+              <div class="wow fadeInLeft" data-wow-duration=".3" data-wow-delay=".1s">
+                <img class="img-responsive" src="./img/certificates/08.png" alt="">
               </div>
             </div>
           </div>

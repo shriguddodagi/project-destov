@@ -5,6 +5,7 @@ include_once('./includes/classes/PackingDetail.php');
 include_once('./includes/classes/Gallery.php');
 include_once('./includes/util.php');
 include_once('./includes/productUtil.php');
+include_once('./config.php');
 
 if(isset($_POST['submit'])) {
   mysqli_query($cn, sanitizeInquiryForm($_POST));
@@ -12,14 +13,14 @@ if(isset($_POST['submit'])) {
   header('Location: product.php?product=' . $_GET['product']);
 }
 
-$productId = $_GET['product'];
+$productId = trim($_GET['product']);
 
 $query = "SELECT * FROM `months`";
 $months = mysqli_query($cn, $query);
 $query = "SELECT * FROM `products` WHERE id='$productId'";
 $product = mysqli_fetch_array(mysqli_query($cn, $query));
 
-$related_products = mysqli_query($cn, "SELECT * FROM `products` WHERE subcategory_id=" . $product['subcategory_id'] . " LIMIT 3");
+$related_products = mysqli_query($cn, "SELECT * FROM `products` WHERE subcategory_id=" . $product['subcategory_id'] . " AND id != $productId LIMIT 3");
 
 if(!count($product)) {
   header('Location: products.php');

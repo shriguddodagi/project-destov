@@ -35,19 +35,29 @@ if (isset($_POST['subscribe'])) {
   
   
   <header class="header navbar-fixed-top">
+    <div style="text-align: left; background: #fff; display: flex; justify-content: space-between;">
+      <div>
+        <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-facebook"></i></a>
+        <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-twitter"></i></a>
+        <a href="https://twitter.com/destovofficial"><i class="margin-r-10 fa fa-lg fa-tag fa-linkedin"></i></a>
+        <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-instagram"></i></a>
+      </div>
+      <div id="google_translate_element" style="text-align: right" class="xs-translate"></div>
+  </div>
     <nav class="navbar" role="navigation">
       <div class="container">
         <div class="menu-container">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <button type="button" style="margin-top: 20px" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
             <span class="sr-only">Toggle navigation</span>
             <span class="toggle-icon"></span>
           </button>
-
+          <!-- style="max-width: 240px; margin-top: -18px; height: auto;"
+style="max-width: 240px; margin-top: -18px; height: auto;" -->
         
           <div class="logo">
             <a class="logo-wrap" href="index.php">
-              <img class="logo-img-main" style="max-width: 240px; margin-top: -18px; height: auto;" src="./img/500px.png" alt="Destov Logo">
-              <img class="logo-img-active" style="max-width: 240px; margin-top: -18px; height: auto;" src="./img/500px.png" alt="Destov Logo">
+              <img class=" logo-img-main" style="max-width: 150px; margin-top: -2px" src="./img/500px.png" alt="Destov Logo">
+              <img class=" logo-img-active" style="max-width: 150px; margin-top: -2px" src="./img/500px.png" alt="Destov Logo">
             </a>
           </div>
           <!-- <div id="google_translate_element" class="translate" style="float: right; margin-right: -40px"></div> -->
@@ -88,14 +98,6 @@ if (isset($_POST['subscribe'])) {
       </div>
       <!-- <div id="google_translate_element" style="text-align: center" class="xs-translate"></div> -->
     </nav>
-    <div style="text-align: left; display: flex; justify-content: space-between;">
-      <div>
-        <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-facebook"></i></a>
-        <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-twitter"></i></a>
-        <a href="https://twitter.com/destovofficial"><i class="margin-r-10 fa fa-lg fa-tag fa-linkedin"></i></a>
-        <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-instagram"></i></a>
-      </div>
-      <div id="google_translate_element" style="text-align: right" class="xs-translate"></div>
-    </div>
+   
   </header>
   

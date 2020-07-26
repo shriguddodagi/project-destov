@@ -118,7 +118,7 @@ $feedbacks = mysqli_query($cn, $query);
       </div>
     </div>
     <div class="promo-section-img-right">
-      <img class="img-responsive" src="./img/1920x1080/01.jpg" alt="Content Image">
+      <img class="img-responsive" src="./img/1920x1080/aboutuscover.png" alt="Content Image">
     </div>
   </div>
 

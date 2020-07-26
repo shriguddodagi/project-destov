@@ -1,6 +1,6 @@
 <?php include_once('./includes/header.php') ?>
 
-  <div class="parallax-window" data-parallax="scroll" data-image-src="img/1920x1080/05.jpg">
+  <div class="parallax-window" data-parallax="scroll" data-image-src="img/1920x1080/about us.jpg">
     <div class="parallax-content container">
       <h1 class="carousel-title">About Us</h1>
     </div>
@@ -17,17 +17,17 @@
     <div class="row">
       <div class="col-sm-7 sm-margin-b-50">
         <div class="margin-b-30">
-          <p> 
+          <p style="font-size: 17px"> 
             Destov International is based in Mumbai with its wings spread across India. We are Exporters of Fruits and Vegetables, taking a prestige to deliver Quality over Quantity. We deal in pomegranates, mangoes, bananas, onions, potatoes, garlic, and so on. Destov International aims to be a reliable sourcing partner to countries across the globe.
           </p>
         </div>
-        <p>
+        <p style="font-size: 17px">
           Before we introduce ourselves, we would like to thank our farmers who support us and ensure to align with international standards right from sowing seeds to cultivation of best quality of fruits and vegetables. We are therefore able to deliver quality products with less of a hassle.  
         </p>
-        <p>
+        <p style="font-size: 17px">
           May it be the World famous Nashik Onions, or may it be the luscious Alphanso Mangoes the path goes through Maharashtra. We are strategically located in Mumbai, which facilitates International Trade through its largest port of Nhava Sheva. Proximity to different locations like Nashik, Pune, Ratnagiri, Solapur, Nagpur which are part of the Maharashtra State, the agricultural hub of India, helps us to procure products with ease.
         </p>
-        <p>
+        <p style="font-size: 17px">
         Destov is initially an acronym for any products which have marked their destination overseas. We therefore look forward to serve the globe, extending our vertical beyond the agricultural commodities, in the near future.
         </p>
       </div>

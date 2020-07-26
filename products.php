@@ -49,7 +49,7 @@ $categories = mysqli_query($cn, "SELECT * FROM categories");
 $months = mysqli_query($cn, "SELECT * FROM months");
 ?>
 
-  <div class="parallax-window" data-parallax="scroll" data-image-src="img/1920x1080/01.jpg">
+  <div class="parallax-window" data-parallax="scroll" data-image-src="img/1920x1080/our products.jpg">
     <div class="parallax-content container">
       <h1 class="carousel-title">Products</h1>
     </div>
@@ -84,33 +84,44 @@ $months = mysqli_query($cn, "SELECT * FROM months");
 
                 $subcategories = mysqli_query($cn, "SELECT * FROM subcategories WHERE category_id=" . $category['id']);
                 
-                $cat .= "<li class='dropdown-submenu'>
-                  <a tabindex='-1' href='#'>". $category['name'] ." <span class='caret'></span></a>
-                  <ul class='dropdown-menu'>";
-
-
+                echo  "
+                  <li class='dropdown-submenu'>
+                    <a class='test' tabindex='-1' href='#'>". $category['name'] ." <span class='caret'></span></a>
+                    <ul class='dropdown-menu'>";
+                     
                   while ($subcategory = mysqli_fetch_array($subcategories)) {
-                    $cat .= "<li><a href='products.php?category=". $subcategory['id'] ."'>". $subcategory['name'] ."</a></li>";
+                    echo "<li><a tabindex='-1' href='products.php?category=". $subcategory['id'] ."'>". $subcategory['name'] ."</a></li>";
                   }
+                    echo "</ul>
+                  </li>";
+
+                // $cat .= "<li class='dropdown-submenu'>
+                //   <a tabindex='-1' href='#'>". $category['name'] ." <span class='caret'></span></a>
+                //   <ul class='dropdown-menu'>";
 
 
-                  $cat .= "</ul>
-                </li>";
+                //   while ($subcategory = mysqli_fetch_array($subcategories)) {
+                //     $cat .= "<li><a tabindex='-1' href='#' href='products.php?category=". $subcategory['id'] ."'>". $subcategory['name'] ."</a></li>";
+                //   }
+
+
+                //   $cat .= "</ul>
+                // </li>";
               }
-              echo $cat;
+              // echo $cat;
 
               ?>
                 <li class="dropdown-submenu">
-                <a class="test" tabindex="-1" href="#">Calender <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                  
-                  <?php
-                  while ($month = mysqli_fetch_array($months)) {
-                    echo "<li><a href='products.php?calender=". $month['name'] ."'>". $month['name'] ."</a></li>";
-                  }
-                  ?>
-                </ul>
-              </li>
+                  <a class="test" tabindex="-1" href="#">Calender <span class="caret"></span></a>
+                  <ul class="dropdown-menu">
+                    
+                    <?php
+                    while ($month = mysqli_fetch_array($months)) {
+                      echo "<li><a href='products.php?calender=". $month['name'] ."'>". $month['name'] ."</a></li>";
+                    }
+                    ?>
+                  </ul>
+                </li>
 
             </ul>
           </div>
