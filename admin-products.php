@@ -482,7 +482,7 @@ $months = mysqli_query($cn, $query);
               </div>
               <div class="col-md-4">
                 <label for="varieties" class="form-label text-small h6">Varieties</label>
-                <input type="text" name="varieties" id="varieties" class="form-control" placeholder="Varieties" pattern="[a-zA-Z0-9]+[a-zA-Z0-9 ]+" >
+                <input type="text" name="varieties" id="varieties" class="form-control" placeholder="Varieties" >
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -502,7 +502,7 @@ $months = mysqli_query($cn, $query);
               </div>
               <div class="col-md-4">
                 <label for="size" class="form-label h6">Size</label>
-                <input type="text" name="size" id="size" class="form-control" placeholder="Size" pattern="[a-zA-Z0-9]+[a-zA-Z0-9 ]+" >
+                <input type="text" name="size" id="size" class="form-control" placeholder="Size" >
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -512,7 +512,7 @@ $months = mysqli_query($cn, $query);
               </div>
               <div class="col-md-4">
                 <label for="weight" class="form-label h6">Weight</label>
-                <input type="text" name="weight" id="weight" class="form-control" placeholder="Weight" pattern="[a-zA-Z0-9]+[a-zA-Z0-9 ]+" >
+                <input type="text" name="weight" id="weight" class="form-control" placeholder="Weight" >
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -522,7 +522,7 @@ $months = mysqli_query($cn, $query);
               </div>
               <div class="col-md-4">
                 <label for="tss" class="form-label h6">Total Soluble Solids (T.S.S.)</label>
-                <input type="text" name="tss" id="tss" class="form-control" placeholder="Total Soluble Solids (T.S.S.)" pattern="[a-zA-Z0-9]+[a-zA-Z0-9 ]+" >
+                <input type="text" name="tss" id="tss" class="form-control" placeholder="Total Soluble Solids (T.S.S.)" >
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -557,7 +557,7 @@ $months = mysqli_query($cn, $query);
 
               <div class="col-md-6">
                 <label for="containercapacity" class="form-label text-primary h6">Container Preferred Capacity</label>
-                <input type="text" name="containercapacity" id="containercapacity" class="form-control" placeholder="Container Preferred Capacity" pattern="[a-zA-Z0-9]+[a-zA-Z0-9 ]+" >
+                <input type="text" name="containercapacity" id="containercapacity" class="form-control" placeholder="Container Preferred Capacity" >
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -567,7 +567,7 @@ $months = mysqli_query($cn, $query);
               </div>
               <div class="col-md-6">
                 <label for="incoterms" class="form-label text-primary h6">INCOTERMS</label>
-                <input type="text" name="incoterms" id="incoterms" class="form-control" placeholder="INCOTERMS" pattern="[a-zA-Z0-9]+[a-zA-Z0-9 ]+" >
+                <input type="text" name="incoterms" id="incoterms" class="form-control" placeholder="INCOTERMS" >
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -579,7 +579,7 @@ $months = mysqli_query($cn, $query);
               <div class="col-md-6">
                 <label for="paymenterms" class="form-label text-primary h6">Payment Terms</label>
                 <div id="paymentermsDes">
-                  <textarea name="paymenterms" id="paymenterms" class="form-control" placeholder="Payment Terms" pattern="[a-zA-Z0-9]+[a-zA-Z0-9 ]+" ></textarea>
+                  <textarea name="paymenterms" id="paymenterms" class="form-control" placeholder="Payment Terms" ></textarea>
                 </div>
                 <div class="valid-feedback">
                   Looks good!
@@ -591,7 +591,7 @@ $months = mysqli_query($cn, $query);
               <div class="col-md-6">
                 <label for="certifications" class="form-label text-primary h6">Certifications</label>
                 <div id="certificationsDes">
-                  <textarea name="certifications" id="certifications" class="form-control" placeholder="Certifications" pattern="[a-zA-Z0-9]+[a-zA-Z0-9 ]+" ></textarea>
+                  <textarea name="certifications" id="certifications" class="form-control" placeholder="Certifications" ></textarea>
                 </div>
                 <div class="valid-feedback">
                   Looks good!
@@ -629,7 +629,7 @@ $months = mysqli_query($cn, $query);
               <div class="col-md-6">
                 <label for="country" class="form-label">Country</label>
                 <input type="text" class="form-control" id="country" name="country" placeholder="Country"
-                 ></textarea>
+                 >
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -640,7 +640,7 @@ $months = mysqli_query($cn, $query);
               <div class="col-md-6">
                 <label for="packagingSpecs" class="form-label">Packaging Specs</label>
                 <input type="text" class="form-control" id="packagingSpecs" name="packagingSpecs" placeholder="Packaging Specs"
-                 ></textarea>
+                 >
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -651,7 +651,7 @@ $months = mysqli_query($cn, $query);
               <div class="col-md-6">
                 <label for="netWT" class="form-label">Net Wt Per Box / Bag</label>
                 <input type="text" class="form-control" id="netWT" name="netWT" placeholder="Net Wt Per Box / Bag"
-                 ></textarea>
+                 >
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -662,7 +662,7 @@ $months = mysqli_query($cn, $query);
               <div class="col-md-6">
                 <label for="grossWT" class="form-label">Gross Wt Per Box / Bag</label>
                 <input type="text" class="form-control" id="grossWT" name="grossWT" placeholder="Gross Wt Per Box / Bag"
-                 ></textarea>
+                 >
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -673,7 +673,7 @@ $months = mysqli_query($cn, $query);
               <div class="col-md-6">
                 <label for="boxes" class="form-label">No. of Boxes / Bags</label>
                 <input type="text" class="form-control" id="boxes" name="boxes" placeholder="No. of Boxes / Bags"
-                 ></textarea>
+                 >
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -684,7 +684,7 @@ $months = mysqli_query($cn, $query);
               <div class="col-md-6">
                 <label for="containerType" class="form-label">Container Type</label>
                 <input type="text" class="form-control" id="containerType" name="containerType" placeholder="Container Type"
-                 ></textarea>
+                 >
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -695,7 +695,7 @@ $months = mysqli_query($cn, $query);
               <div class="col-md-6">
                 <label for="containerLoadability" class="form-label">Container Loadability</label>
                 <input type="text" class="form-control" id="containerLoadability" name="containerLoadability" placeholder="Container Loadability"
-                 ></textarea>
+                 >
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -706,7 +706,7 @@ $months = mysqli_query($cn, $query);
               <div class="col-md-6">
                 <label for="other" class="form-label">Other Details</label>
                 <input type="text" class="form-control" id="other" name="other" placeholder="Other Details"
-                 ></textarea>
+                 >
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -921,8 +921,8 @@ $months = mysqli_query($cn, $query);
       $('#certificationsDes').html(
       `<textarea class="form-control" id="certificationsEdit" name="certifications">${Certifications}</textarea>`
       );
-      // CKEDITOR.replace('paymentermsEdit');
-      // CKEDITOR.replace('certificationsEdit');
+      CKEDITOR.replace('paymentermsEdit');
+      CKEDITOR.replace('certificationsEdit');
 
       // $("#paymenterms").val(PaymentTerms);
       // $("#certifications").val(Certifications);
@@ -951,8 +951,8 @@ $months = mysqli_query($cn, $query);
 
   });
   
-  // CKEDITOR.replace('paymenterms');
-  // CKEDITOR.replace('certifications');
+  CKEDITOR.replace('paymenterms');
+  CKEDITOR.replace('certifications');
 </script>
 
 </html>

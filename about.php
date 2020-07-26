@@ -2,7 +2,7 @@
 
   <div class="parallax-window" data-parallax="scroll" data-image-src="img/1920x1080/about us.jpg">
     <div class="parallax-content container">
-      <h1 class="carousel-title">About Us</h1>
+      <h1 class="carousel-title" style="color: #FFC107;">About Us</h1>
     </div>
   </div>
 
@@ -32,7 +32,7 @@
         </p>
       </div>
       <div class="col-sm-4 col-sm-offset-1">
-        <img class="img-responsive margin-b-40" src="img/1920x1080/01.jpg" alt="Our Office">
+        <img class="img-responsive margin-b-40" src="img/1920x1080/apples-bananas-basket-bunch.png" alt="Our Office">
       </div>
     </div>
    

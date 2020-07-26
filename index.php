@@ -14,7 +14,7 @@ if(isset($_POST['submit'])) {
 $query = "SELECT * FROM `slides` ORDER BY id DESC";
 $slides = mysqli_query($cn, $query);
 
-$query = "SELECT id, title, description, image FROM `products` WHERE display_on_home='on' ORDER BY position ASC LIMIT 8";
+$query = "SELECT id, title, description, image FROM `products` WHERE display_on_home='on' ORDER BY position ASC LIMIT 5";
 $products = mysqli_query($cn, $query);
 
 $query = "SELECT `name`, `message` FROM `feedbacks` WHERE `status`='1'";
@@ -207,7 +207,7 @@ $feedbacks = mysqli_query($cn, $query);
         echo "<div class='masonry-grid-item col-xs-6 col-sm-6 col-md-4'>             
           <div class='work wow fadeInUp' data-wow-duration='.3' data-wow-delay='.4s'>
             <div class='work-overlay'>
-              <img class='full-width img-responsive' src='img/970x647/01.jpg' alt='Portfolio Image'>
+              <img class='full-width img-responsive' src='img/1920x1080/EXPLORE US.jpg' alt='Portfolio Image'>
             </div>
             <div class='work-content'>
               <h3 class='color-white margin-b-5'>Show All</h3>

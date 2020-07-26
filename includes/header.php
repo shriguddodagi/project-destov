@@ -35,14 +35,14 @@ if (isset($_POST['subscribe'])) {
   
   
   <header class="header navbar-fixed-top">
-    <div style="text-align: left; background: #fff; display: flex; justify-content: space-between;">
+    <div style="background: #f1f1f1; display: flex; justify-content: space-between;">
+      <div id="google_translate_element" style="text-align: left" class="xs-translate"></div>
       <div>
         <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-facebook"></i></a>
         <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-twitter"></i></a>
         <a href="https://twitter.com/destovofficial"><i class="margin-r-10 fa fa-lg fa-tag fa-linkedin"></i></a>
         <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-instagram"></i></a>
       </div>
-      <div id="google_translate_element" style="text-align: right" class="xs-translate"></div>
   </div>
     <nav class="navbar" role="navigation">
       <div class="container">
