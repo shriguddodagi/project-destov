@@ -5,7 +5,7 @@ include_once('./includes/classes/Product.php');
 
 // Pagination
 $page_no = 1;
-$total_records_per_page = 1;
+$total_records_per_page = 3;
 
 if(isset($_GET['page_no']) && $_GET['page_no'] != "") {
   $page_no = $_GET['page_no'];
@@ -30,7 +30,11 @@ if(isset($_GET['category']) && $_GET['category'] != "") {
 if(isset($_GET['calender']) && $_GET['calender'] != "") {
   $month_name = $_GET['calender'];
   $query = 
-  "SELECT *
+  "SELECT 
+      products.id AS `id`,
+      products.title AS `title`,
+      products.image AS `image`,
+      products.description AS `description`
     FROM products 
     CROSS JOIN calender  
     ON products.id = calender.product_id 
@@ -69,7 +73,7 @@ $months = mysqli_query($cn, "SELECT * FROM months");
 
   <div class="content container">
     <div class="row">
-      <form action="" method="get">
+      
 
         <div class="col-md-7 margin-b-10 text-left">
 
@@ -127,7 +131,7 @@ $months = mysqli_query($cn, "SELECT * FROM months");
           </div>
 
         </div>
-
+      <form action="" method="get">
         <div class="col-md-4 margin-b-10 col-xs-8 text-right">
           <input name="term" 
             id="term" 
@@ -135,7 +139,7 @@ $months = mysqli_query($cn, "SELECT * FROM months");
             value="<?php echo isset($_GET['term'])? $_GET['term'] : '' ?>"
             class="form-control" 
             style="height: 35px;"
-            placeholder="Start Typing..." 
+            placeholder="Search For products..." 
             required 
             pattern="^\w+(\s+\w+)*$" />
         </div>
@@ -198,7 +202,7 @@ $months = mysqli_query($cn, "SELECT * FROM months");
 
   <?php } ?>
 
-  <?php if(!isset($_GET['term']) && !isset($_GET['calender'])) { ?>
+  <?php if(!isset($_GET['term']) && !isset($_GET['calender']) && !isset($_GET['category'])) { ?>
 
   <div class="text-center">
     <ul class="pagination">
