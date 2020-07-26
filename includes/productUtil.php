@@ -32,7 +32,7 @@ function forCol12 ($image, $title, $description, $id) {
   </div>";
 };
 
-function thumbnail ($image, $title, $description, $id) {
+function thumbnail ($image, $title, $id) {
   return "<div class='col-sm-4 sm-margin-b-30 margin-b-20'>
     <div class='margin-b-10'>
       <div class='wow zoomIn' data-wow-duration='.3' data-wow-delay='.1s'>
