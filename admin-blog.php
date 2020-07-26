@@ -101,7 +101,7 @@ $result = mysqli_query($cn, $query);
               <input type="hidden" name="blogId" id="blogIdInEditModal">
               <div class="mb-3">
                 <label for="titleInEditModal" class="form-label">Title</label>
-                <input type="text" class="form-control" id="titleInEditModal" name="titleInEditModal" placeholder="Title" pattern="^\w+(\s+\w+)*$" required>
+                <input type="text" class="form-control" id="titleInEditModal" name="titleInEditModal" placeholder="Title">
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -155,7 +155,7 @@ $result = mysqli_query($cn, $query);
               <div class="mb-3">
                 <label for="description" class="form-label">Title</label>
                 <input type="text" class="form-control" id="title" name="title" placeholder="Title"
-                  pattern="^\w+(\s+\w+)*$" required>
+                >
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -167,7 +167,7 @@ $result = mysqli_query($cn, $query);
               <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
                 <textarea class="form-control" id="description" name="description" placeholder="Required Description"
-                  pattern="^\w+(\s+\w+)*$" required></textarea>
+                ></textarea>
                 <div class="valid-feedback">
                   Looks good!
                 </div>
@@ -178,7 +178,7 @@ $result = mysqli_query($cn, $query);
 
 
               <div class="form-file mb-3">
-                <input type="file" class="form-file-input" name="image" id="blogImage" onchange="return fileValidation()" required>
+                <input type="file" class="form-file-input" name="image" id="blogImage" onchange="return fileValidation()">
                 <label class="form-file-label" for="blogImage">
                   <span class="form-file-text">Choose file...</span>
                   <span class="form-file-button">Browse</span>
