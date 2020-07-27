@@ -64,14 +64,14 @@ $result = mysqli_query($cn, $query);
       <div class="row g-2">
         <?php
 
-        while ($row = mysqli_fetch_array($result)) {          
+        while ($row = mysqli_fetch_array($result)) {
           echo "
             <div class='col-sm-12 col-md-6 col-lg-4 col-xl-3'>
               <div class='card'>
                 <img src='". $row['image'] ."' class='card-img-top w-100 h-50' alt='".$row['title']."'>
                 <div class='card-body'>
                   <h5 class='card-title'>". $row['title'] ."</h5>
-                  <div class='card-text'>". $row['description'] ."</div>
+                  <div class='card-text'>". substr(strip_tags($row['description']), 0, 19) ."...</div>
                   <button id='". $row['id'] ."' class='btn float-left edit-blog-btn btn-warning' data-toggle='modal' data-target='#editblogModal'>Edit</button>
 
                   <form action='' method='POST'>

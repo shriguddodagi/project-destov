@@ -271,20 +271,20 @@ $months = mysqli_query($cn, $query);
 
                         $images = "";
                         foreach($galleryObj->images() as $file) {
-                          $images .= "<div class='col-6'>
-                            <div class='row justify-content-center text-center g-2'>
-                              <div class='col-6'>";
-
+                          $images .= "<div class='col-4'>
+                            <div class='row mb-2 text-center'>
+                              <div class='col'>";
                               $images .= ($file['type'] == "image") ? 
                               "<img src='". $file['file'] ."' class='img w-100 img-fluid'>"
                               :
                               "<video src='". $file['file'] ."' class='img w-100 img-fluid' controls></video>";
-                              
                               $images .= "</div>
-                              <div class='col-6'>
+                            </div>
+                            <div class='row text-center'>
+                              <div class='col'>
                                 <form action='' method='POST'>
                                   <input type='hidden' name='imageId' value='". $file['id'] ."'>
-                                  <button class='btn-sm btn-danger btn' type='submit' name='deleteGalleryImage'>Delete</button>
+                                  <button class='btn-sm btn-block btn-danger btn' type='submit' name='deleteGalleryImage'>Delete</button>
                                 </form>
                               </div>
                             </div>
@@ -314,15 +314,15 @@ $months = mysqli_query($cn, $query);
                                     </form>
                                   </div>
                                 </div>
-                                <div class='row g-3 mt-5'>
-                                  $images
-                                </div>
                               </div>
 
                               <div class='col-md-8 details'>
                                 <div class='card-body'>
                                   <h5 class='card-title'>". $row['title'] ."</h5>
-                                  <p class='card-text font-weight-bold description'>". $row['description'] ."</p>
+                                  <p class='card-text font-weight-bold text-muted description'>". $row['description'] ."</p>
+                                  <div class='row g-3 mt-5'>
+                                    $images
+                                  </div>
                                   <p class='card-text text-primary font-weight-bold'>Varieties : <small class='text-muted varieties'>". $row['varieties'] ."</small></p>
                                   <p class='card-text text-primary font-weight-bold'>Color : <small class='text-muted color'>". $row['color'] ."</small></p>
                                   <p class='card-text text-primary font-weight-bold'>Size : <small class='text-muted size'>". $row['size'] ."</small></p>
@@ -823,7 +823,7 @@ $months = mysqli_query($cn, $query);
   }
 
   $(document).ready(function () {
-
+    $('.card-text.text-primary').css({display: 'none'});
     var myModalEl = document.getElementById('createProductModal')
     myModalEl.addEventListener('hide.bs.modal', function (e) {
       $(this).find('input').val('');
