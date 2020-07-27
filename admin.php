@@ -25,6 +25,11 @@ if(isset($_POST['updateCategory'])) {
 if(isset($_POST['deleteCategory'])) {
   $id = $_POST['id'];
   $query = "DELETE FROM `categories` WHERE id=$id";
+  $subcategories = mysqli_query($cn, "SELECT id FROM `subcategories` WHERE category_id=$id");
+  while($subcategory = mysqli_fetch_array($subcategories)) {
+    mysqli_query($cn, "DELETE FROM `products` WHERE subcategory_id=" . $subcategory['id']);
+  }
+  mysqli_query($cn, "DELETE FROM `subcategories` WHERE category_id=$id");
   mysqli_query($cn, $query);
   unset($_POST);
   header('Location: admin.php');
@@ -41,8 +46,8 @@ if(isset($_POST['createSubcategory'])) {
 
 if(isset($_POST['deleteSubcategory'])) {
   $id = $_POST['subcategoryId'];
-  $query = "DELETE FROM `subcategories` WHERE id=$id";
-  mysqli_query($cn, $query);
+  mysqli_query($cn, "DELETE FROM `products` WHERE subcategory_id=$id");
+  mysqli_query($cn, "DELETE FROM `subcategories` WHERE id=$id");
   unset($_POST);
   header('Location: admin.php');
 }
@@ -85,7 +90,7 @@ $categories = mysqli_query($cn, $query);
                 <button class='btn btn-primary create-sub-category-button' id='". $row['id'] ."' data-toggle='modal'
                   data-target='#createSubCategoryModal'>Add Sub Category</button>
               </div>
-              <div class='text-left terms p-2'>". $row['terms'] ."</div>
+              <div class='text-left terms p-2'>". substr(strip_tags($row['terms']), 0, 19) ."</div>
               <div class='d-flex mt-3 justify-content-between'>
                 <button id='".  $row['id'] ."' class='btn btn-warning edit-category-button'>Edit</button>
                   <form action='' method='POST'>
