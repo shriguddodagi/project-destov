@@ -54,7 +54,20 @@ $months = mysqli_query($cn, "SELECT * FROM months");
 
   <div class="parallax-window" data-parallax="scroll" data-image-src="img/1920x1080/our products.jpg">
     <div class="parallax-content container">
-      <h1 class="carousel-title">Products</h1>
+      <h1 class="carousel-title">
+        
+          <?php
+          if(isset($_GET['term'])) {
+            echo "Related to " . $_GET['term'];
+          } else if (isset($_GET['calender'])) {
+            echo "Products are available in " . $_GET['calender'];
+          } else {
+            echo "Our Product Range";
+          }
+          
+          ?>
+        
+      </h1>
     </div>
   </div> 
 
@@ -169,22 +182,6 @@ $months = mysqli_query($cn, "SELECT * FROM months");
   <?php if(!isset($_GET['term'])) { ?>
 
   <div class="content-lg container">
-    <div class="row margin-b-40">
-      <div class="col-sm-6">
-        <h2>
-          <?php
-          if(isset($_GET['term'])) {
-            echo "Related to " . $_GET['term'];
-          } else if (isset($_GET['calender'])) {
-            echo "Products are available in " . $_GET['calender'];
-          } else {
-            echo "Our Product Range";
-          }
-          
-          ?>
-        </h2>
-      </div>
-    </div>
     <?php if(!isset($_GET['category']) && !isset($_GET['calender'])) { ?>
     
       <div class="row">

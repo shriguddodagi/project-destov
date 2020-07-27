@@ -10,16 +10,6 @@
   </div>
 
     <div class="content-lg container">
-      <div class="row margin-b-20">
-        <div class="col-sm-6">
-          <h1>Blogs</h1>
-        </div>
-      </div>
-    </div>
-     
-      
-     
-    <div class="content-lg container">
       <div class="masonry-grid row" style="position: relative; height: 1106.08px;">
         <div class="masonry-grid-sizer col-xs-6 col-sm-6 col-md-1"></div>
         <?php

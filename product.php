@@ -20,7 +20,7 @@ $months = mysqli_query($cn, $query);
 $query = "SELECT * FROM `products` WHERE id='$productId'";
 $product = mysqli_fetch_array(mysqli_query($cn, $query));
 
-$related_products = mysqli_query($cn, "SELECT * FROM `products` WHERE subcategory_id=" . $product['subcategory_id'] . " AND id != $productId LIMIT 3");
+$related_products = mysqli_query($cn, "SELECT `id`, `title`, `image` FROM `products` WHERE subcategory_id=" . $product['subcategory_id'] . " AND id != $productId LIMIT 3");
 
 if(!count($product)) {
   header('Location: products.php');
@@ -322,7 +322,7 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
     <div class="row">
       <?php
       while($row = mysqli_fetch_array($related_products)) {
-        echo thumbnail($row['image'], $row['title'], $row['description'], $row['id']);
+        echo thumbnail($row['image'], $row['title'], $row['id']);
       }
       ?>
     </div>

@@ -2,25 +2,18 @@
 
   <div class="parallax-window" data-parallax="scroll" data-image-src="img/1920x1080/about us.jpg">
     <div class="parallax-content container">
-      <h1 class="carousel-title" style="color: #FFC107;">About Us</h1>
+      <h1 class="carousel-title" style="color: #FFC107;">About Destov International</h1>
     </div>
   </div>
 
   <div class="content-lg container">
-    <div class="row margin-b-20">
-      <div class="col-sm-6">
-        <h2>About Destov International</h2>
-      </div>
-    </div>
-   
-
     <div class="row">
       <div class="col-sm-7 sm-margin-b-50">
-        <div class="margin-b-30">
+       
           <p style="font-size: 17px"> 
             Destov International is based in Mumbai with its wings spread across India. We are Exporters of Fruits and Vegetables, taking a prestige to deliver Quality over Quantity. We deal in pomegranates, mangoes, bananas, onions, potatoes, garlic, and so on. Destov International aims to be a reliable sourcing partner to countries across the globe.
           </p>
-        </div>
+       
         <p style="font-size: 17px">
           Before we introduce ourselves, we would like to thank our farmers who support us and ensure to align with international standards right from sowing seeds to cultivation of best quality of fruits and vegetables. We are therefore able to deliver quality products with less of a hassle.  
         </p>
