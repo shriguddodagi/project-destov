@@ -168,19 +168,18 @@ if(isset($_POST['deletePackingDetail'])) {
 }
 
 if(isset($_POST['submitImage'])) {
-  $file = $_FILES['image'];
+  $files = $_FILES['image'];
   $type = $_POST['type'];
   $productId = $_POST['productId'];
-  
-  if(validType($file, $type)){
-    $filePath = uploadFile($file);
-    $query = "INSERT INTO `images` (file, productId, type) VALUES ('$filePath', '$productId', '$type')";
-    mysqli_query($cn, $query);
-    unset($_POST);
-    header('Location: admin-products.php');
-  } else {
-    // unset($_POST['submit']);
-    echo "<script>alert('File type and file are not matched')</script>";
+
+  for ($i=0; $i < count($_FILES['image']['name']); $i++) { 
+    if(checkFileType(strtolower(pathinfo($_FILES['image']['name'][$i],PATHINFO_EXTENSION)))) {
+      $filePath = movefile($_FILES['image']['tmp_name'][$i], basename($_FILES['image']['name'][$i]));
+      $query = "INSERT INTO `images` (file, productId, type) VALUES ('$filePath', '$productId', '$type')";
+      mysqli_query($cn, $query);
+      unset($_POST);
+      header('Location: admin-products.php');
+    }  
   }
 }
 
@@ -726,7 +725,7 @@ $months = mysqli_query($cn, $query);
 
     <div class="modal fade" id="gallery" data-backdrop="static" data-keyboard="false" tabindex="-1"
       aria-labelledby="galleryLabel" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="galleryLabel">New Gallery Image</h5>
@@ -750,7 +749,7 @@ $months = mysqli_query($cn, $query);
               
               <div class="form-file mb-3">
                 <input type="hidden" name="productId" id="productIdInGalleryModal">
-                <input type="file" class="form-file-input" name="image" id="galleryImage" onchange="return fileValidationForGalleryImage()" >
+                <input type="file" class="form-file-input" name="image[]" multiple accept="image/*" id="galleryImage" onchange="return fileValidationForGalleryImage()" >
                 <label class="form-file-label" for="galleryImage">
                   <span class="form-file-text">Choose file...</span>
                   <span class="form-file-button">Browse</span>
@@ -761,7 +760,7 @@ $months = mysqli_query($cn, $query);
                 <div class="invalid-feedback">
                   Invalid File
                 </div>
-                <div id="imagePreviewForGallery" class="text-center d-block m-3"></div>
+                <div id="imagePreviewForGallery" class="text-center row d-block m-3"></div>
               </div>
               <div class="mb-3">
                 <button class="btn btn-primary btn-block" name="submitImage" type="submit">Submit</button>
@@ -809,15 +808,21 @@ $months = mysqli_query($cn, $query);
       return false;
     } else {
       //Image preview
-      if (fileInput.files && fileInput.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-          document.getElementById('imagePreviewForGallery').innerHTML = (!radio[1].checked) ?  
-            '<img src="' + e.target.result + '" class="img img-fluid" style="max-width: 300px; margin-top:35px; max-height:auto"/>'
-            :
-            '<video controls src="' + e.target.result + '" class="img img-fluid" style="max-width: 300px; margin-top:35px; max-height:auto"></video>';
-        };
-        reader.readAsDataURL(fileInput.files[0]);
+      $('#imagePreviewForGallery').empty();
+      if(fileInput.files) {
+        for (let i = 0; i < fileInput.files.length; i++) {
+          
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            $('#imagePreviewForGallery').append(
+              (!radio[1].checked) ?  
+              '<img src="' + e.target.result + '" class="img img-fluid col-6" style="max-width: 300px; margin-top:35px; max-height:auto"/>'
+              :
+              '<video controls src="' + e.target.result + '" class="img img-fluid col-6" style="max-width: 300px; margin-top:35px; max-height:auto"></video>'
+            );
+          };
+          reader.readAsDataURL(fileInput.files[i]);
+        }
       }
     }
   }

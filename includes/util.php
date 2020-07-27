@@ -7,6 +7,21 @@ function uploadFile($file) {
   return (move_uploaded_file($file["tmp_name"], $target_file_path)) ? $target_file_path : false;
 }
 
+function movefile($temp_name, $basename) {
+  $target_dir = "storage/";
+  $target_file_path = $target_dir . time() . $basename;
+
+  return (move_uploaded_file($temp_name, $target_file_path)) ? $target_file_path : false;
+}
+
+function checkFileType($extension, $type = "image") {
+  if($type == "video") {
+    return ($extension != "mp4") ? false : true;
+  } elseif($type == "image") {
+    return ($extension != "jpg" && $extension != "png" && $extension != "jpeg" && $extension != "gif") ? false : true;
+  }
+}
+
 function validType($file, $type = "image") {
   $fileType = strtolower(pathinfo($file["name"],PATHINFO_EXTENSION));
   if($type == "video") {
