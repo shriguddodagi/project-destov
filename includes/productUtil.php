@@ -33,14 +33,25 @@ function forCol12 ($image, $title, $description, $id) {
 };
 
 function thumbnail ($image, $title, $id) {
-  return "<div class='col-sm-4 sm-margin-b-30 margin-b-20'>
-    <div class='margin-b-10'>
+  // return "<div class='col-sm-4 sm-margin-b-30 margin-b-20'>
+  //   <div class='margin-b-10'>
+  //     <div class='wow zoomIn' data-wow-duration='.3' data-wow-delay='.1s'>
+  //       <img class='img-responsive' src='". $image ."' alt='". $title ."'>
+  //     </div>
+  //   </div>
+  //   <h3><a href='product.php?product=". $id ."'>". $title ."</a></h3>
+  //   <a class='link' href='product.php?product=". $id ."'>Read More</a>
+  // </div>";
+  return "<div class='col-xs-12 col-md-4 list-item sm-margin-b-30 margin-b-20'>
+    <div class='column margin-b-10'>
       <div class='wow zoomIn' data-wow-duration='.3' data-wow-delay='.1s'>
         <img class='img-responsive' src='". $image ."' alt='". $title ."'>
       </div>
     </div>
-    <h3><a href='product.php?product=". $id ."'>". $title ."</a></h3>
-    <a class='link' href='product.php?product=". $id ."'>Read More</a>
+    <div class='column'>
+      <h3><a href='product.php?product=". $id ."'>". $title ."</a></h3>
+      <a class='link' href='product.php?product=". $id ."'>Read More</a>
+    </div>
   </div>";
 }
 

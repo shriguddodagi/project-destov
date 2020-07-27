@@ -74,7 +74,7 @@ $months = mysqli_query($cn, "SELECT * FROM months");
     <div class="row">
       
 
-        <div class="col-md-7 margin-b-10 text-left">
+        <div class="col-md-4 margin-b-10 col-xs-4 text-left">
 
           <div class="dropdown">
             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">All Category <span class="caret"></span></button>
@@ -129,6 +129,12 @@ $months = mysqli_query($cn, "SELECT * FROM months");
             </ul>
           </div>
 
+        </div>
+        <div class="col-md-3 margin-b-10 col-xs-4 text-right">
+          <div id="btnContainer">
+              <button id="listview" class="btn"><i class="fa fa-bars"></i></button> 
+              <button id="gridview" class="btn active"><i class="fa fa-th-large"></i></button>
+            </div>
         </div>
       <form action="" method="get">
         <div class="col-md-4 margin-b-10 col-xs-8 text-right">
@@ -251,6 +257,23 @@ $(document).ready(function(){
     e.stopPropagation();
     e.preventDefault();
   });
+
+  var cols = $('.column');
+  var items = $('.list-item');
+
+  $('#listview').on('click', function() {
+    cols.addClass('col-xs-6');
+    items.addClass('col-xs-12').removeClass('col-md-4');
+    $(this).addClass('active');
+    $('#gridview').removeClass('active');
+  });
+  $('#gridview').on('click', function() {
+    cols.removeClass('col-xs-6');
+    items.removeClass('col-xs-12').addClass('col-md-4');
+    $(this).addClass('active');
+    $('#listview').removeClass('active');
+  });
+
 });
 </script>
 
