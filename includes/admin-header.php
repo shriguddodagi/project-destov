@@ -56,6 +56,9 @@ if(isset($_POST['logout'])) {
           if(strpos($_SERVER['REQUEST_URI'],'feedback',0)) {
             $feedback = true;
           }
+          if(strpos($_SERVER['REQUEST_URI'],'users',0)) {
+            $user = true;
+          }
         ?>    
           <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
             <li class="nav-item">
