@@ -43,7 +43,7 @@ li,
 li a,
 p,
 span {
-  font-family: Hind, sans-serif;
+  font-family: sans-serif;
 }
 .back-to-top:focus,
 .back-to-top:hover,
@@ -83,7 +83,7 @@ html a {
   -webkit-font-smoothing: antialiased;
 }
 p {
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 400;
   color: #a6a7aa;
   margin-bottom: 15px;
