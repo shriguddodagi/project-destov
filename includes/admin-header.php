@@ -23,10 +23,10 @@ if(isset($_POST['logout'])) {
 
 <body>
   <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light font-weight-bold">
       <div class="container-fluid">
         <a class="navbar-brand w-25">
-          <img src="./img/500px.png" alt="logo" class="img-fluid w-50 rounded img h-auto">
+          <img src="./img/500px.png" alt="logo" class="img-fluid w-50 rounded-pill img h-auto">
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar"
@@ -59,30 +59,36 @@ if(isset($_POST['logout'])) {
         ?>    
           <ul class="navbar-nav mr-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link <?php if(isset($categories)) {echo "active";} ?>" aria-current="page" href="admin.php">Categories</a>
+              <a class="nav-link btn-light rounded m-1 btn-sm <?php if(isset($home)) {echo "active";} ?>" aria-current="page" href="admin-home.php">Home Page Product</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link <?php if(isset($home)) {echo "active";} ?>" aria-current="page" href="admin-home.php">Home Page Product</a>
+              <a class="nav-link btn-light rounded m-1 btn-sm <?php if(isset($categories)) {echo "active";} ?>" aria-current="page" href="admin.php">Categories</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link <?php if(isset($products)) {echo "active";} ?>" href="admin-products.php">products</a>
+              <a class="nav-link btn-light rounded m-1 btn-sm <?php if(isset($products)) {echo "active";} ?>" href="admin-products.php">products</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link <?php if(isset($slider)) {echo "active";} ?>" href="slider.php">Slider</a>
+              <a class="nav-link btn-light rounded m-1 btn-sm <?php if(isset($slider)) {echo "active";} ?>" href="slider.php">Sliders</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link <?php if(isset($blog)) {echo "active";} ?>" href="admin-blog.php">Blog</a>
+              <a class="nav-link btn-light rounded m-1 btn-sm <?php if(isset($blog)) {echo "active";} ?>" href="admin-blog.php">Blogs</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link <?php if(isset($inquiries)) {echo "active";} ?>" href="inquiries.php">Inquiries</a>
+              <a class="nav-link btn-light rounded m-1 btn-sm <?php if(isset($inquiries)) {echo "active";} ?>" href="inquiries.php">Inquiries</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link <?php if(isset($feedback)) {echo "active";} ?>" href="feedbacks.php">Feedbacks</a>
+              <a class="nav-link btn-light rounded m-1 btn-sm <?php if(isset($feedback)) {echo "active";} ?>" href="feedbacks.php">Feedbacks</a>
             </li>
           </ul>
-          <span class="navbar-text">
+          <span class="navbar-text text-center d-flex">
+            <div class="mx-2">
+              <a class="nav-link btn-light rounded btn-sm <?php if(isset($user)) {echo "active";} ?>" href="users.php">Users</a>
+            </div>
+            <div class="mx-2">
+              <button class="btn btn-light font-weight-bold" type="submit" name="logout">Change Password</button>
+            </div>
             <form action="" method="post">
-              <button class="btn btn-sm btn-info" type="submit" name="logout">Logout</button>
+              <button class="btn btn-info font-weight-bold" type="submit" name="logout">Logout</button>
             </form>
           </span>
         </div>
