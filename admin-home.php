@@ -23,67 +23,79 @@ if (isset($_POST['change'])) {
   header('Location: admin-home.php');  
 }
 
-// if(isset($_POST['removeProduct'])) {
-//   $id = $_POST['deleteProductId'];
-//   $query = "UPDATE `products` SET display_on_home='off', position='0' WHERE id=$id";
-//   mysqli_query($cn, $query);
-//   unset($_POST);
-//   header('Location: admin-home.php');  
-// }
+if(isset($_POST['removeProduct'])) {
+  $id = $_POST['deleteProductId'];
+  $query = "UPDATE `products` SET display_on_home='off', position='0' WHERE id=$id";
+  mysqli_query($cn, $query);
+  unset($_POST);
+  header('Location: admin-home.php');  
+}
 
 $query = "SELECT * FROM `products` WHERE display_on_home='on' ORDER BY position ASC";
 $products = mysqli_query($cn, $query);
-// $positionCounter = mysqli_fetch_array(mysqli_query($cn, "SELECT MAX(position) AS maxi FROM `products` WHERE display_on_home='on'"))['maxi'];
 ?> 
   <main>
 
-    <div class="container-fluid mt-3">
-      <div class="row p-2">
-        <div class="col display-3">
-          
+   <div class="container border p-3 rounded">
+     <div class="row">
+       <div class="col">
+         <h2>Images Order</h2>
+       </div>
+     </div>
+     <div class="row">
+       <div class="col">
+        <div class="alert alert-info alert-dismissible d-none fade show" role="alert">
+          <div id="txtresponse"></div>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-      </div>
+       </div>
+     </div>
+     <div class="row g-2" id="image-list" style="list-style: none;">   
+        <?php
+        if ($products->num_rows > 0) {
+          while($row = mysqli_fetch_array($products)) {
+            echo '<div class="col image-item" id="image_' . $row['id'] . '" >
+              <img class="img rounded img-fluid" src="' . $row['image'] . '" alt="' . $row['title'] . '">
+            </div>';
+          }
+        }
+        ?>
+     </div>
+     <div class="row mt-2">
+       <div class="col text-center">
+        <button class="btn-submit btn btn-primary" name="submit" id='submit'>Submit</button>
+       </div>
+     </div>
+   </div>
+
+   <div class="container my-5 border rounded">
       <div class="row p-2">
-        <div class="col d-flex justify-content-between display-3">
-          <span>Home Page Product</span> 
+        <div class="col d-flex justify-content-between">
+          <h2>Change Product</h2> 
           <button id="0" class="btn font-weight-bold change btn-outline-info" data-toggle="modal" data-target="#modal">New</button>
         </div>
       </div>
       <div class="row g-3">  
         <?php
-        while($row = mysqli_fetch_array($products)) {
-          
-            echo "<div class='col-sm-12 col-md-6 col-lg-4 col-xl-3'>
-              <div class='card'>
-                <img src='". $row['image'] ."' class='card-img-top w-100 h-50' alt='title'>
-                <div class='card-body'>
-                  <h5 class='card-title'>". $row['title'] ."</h5>
-                  <p class='card-text'>". $row['description'] ."</p>
-                </div>
-                <div class='card-footer d-flex justify-content-between'>
-                  <div class='h3'>#". $row['position'] ."</div>
-                  <button id='". $row['id'] ."' class='btn mx-4 font-weight-bold change btn-info' data-toggle='modal' data-target='#modal'>Change</button>
-                  
-                  
-                </div>
+        mysqli_data_seek($products, 0);
+        while($row = mysqli_fetch_array($products)) { 
+          echo "<div class='col'>
+            <div class='card'>
+              <img src='". $row['image'] ."' class='card-img-top w-100 h-50' alt='title'>
+              <div class='card-body'>
+                <h5 class='card-title'>". $row['title'] ."</h5>
               </div>
-            </div>";
-                  
-                //   <form action='' method='post'>
-                //   <input type='hidden' value='". $row['id'] ."' name='deleteProductId'>
-                //   <button type='submit' name='removeProduct' class='btn mx-4 font-weight-bold btn-dark'>Delete</button>
-                // </form>
-            // echo "<div class='col-sm-12 col-md-6 col-lg-4 col-xl-3'>
-            //       <div class='card'>
-            //         <div class='card-body'>
-            //           <h5 class='card-title'>There is just desert</h5>
-            //         </div>
-            //         <div class='card-footer d-flex justify-content-between'>
-            //           <div class='h3'>#". $i ."</div>
-            //           <button id='' class='btn mx-4 font-weight-bold change btn-info' data-toggle='modal' data-target='#modal'>Change</button>
-            //         </div>
-            //       </div>
-            //     </div>";
+              <div class='card-footer d-flex justify-content-between'>
+                <button id='". $row['id'] ."' class='btn font-weight-bold change btn-warning' data-toggle='modal' data-target='#modal'>Change</button> 
+                <form action='' method='post'>
+                  <input type='hidden' value='". $row['id'] ."' name='deleteProductId'>
+                  <button type='submit' name='removeProduct' class='btn font-weight-bold btn-danger'>Delete</button>
+                </form>
+              </div>
+            </div>
+          </div>";
         }
         ?>
       </div>
@@ -141,6 +153,33 @@ $products = mysqli_query($cn, $query);
     });
 
   });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#image-list").sortable({
+            	update: function(event, ui) { 
+            		dropIndex = ui.item.index();
+            }
+        });
+        $('#submit').click(function (e) {
+            var imageIdsArray = [];
+            $('#image-list .image-item').each(function (index) {
+              var id = $(this).attr('id');
+              var split_id = id.split("_");
+              imageIdsArray.push(split_id[1]);
+            });
+            $.ajax({
+                url: 'updateRecord.php',
+                type: 'post',
+                data: {imageIds: imageIdsArray},
+                success: function (response) {
+                   $(".alert").removeClass('d-none').addClass('d-block'); 
+                   $("#txtresponse").text(response);
+                }
+            });
+        });
+    });
+
 </script>
 
 </html>
