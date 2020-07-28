@@ -206,24 +206,15 @@ $feedbacks = mysqli_query($cn, $query);
         }
         echo "<div class='masonry-grid-item col-xs-6 col-sm-6 col-md-4'>             
           <div class='work wow fadeInUp' data-wow-duration='.3' data-wow-delay='.4s'>
-            <div class='work-overlay'>
-              <img class='full-width img-responsive' src='img/1920x1080/EXPLORE US.jpg' alt='Portfolio Image'>
-            </div>
-            <div class='work-content'>
-              <h3 class='color-white margin-b-5'>Show All</h3>
-              <p class='color-white margin-b-0'>Explore Our All Products</p>
-            </div>
-            <a class='content-wrapper-link'
-              href='products.php'></a>
+            <a href='products.php'>
+              <img class='full-width img-responsive' style='relative' src='img/1920x1080/EXPLORE US.jpg' alt='Portfolio Image'>
+              <h3 class='color-white margin-b-5' style='position: absolute; left: 5px; bottom: 20px;'>Show All</h3>
+              <p class='color-white margin-b-0' style='position: absolute; left: 5px; bottom: 1px;'>Explore Our All Products</p>
+            </a>
           </div>
         </div>";
 
-        ?>
-       
-      
-      
-      
-      
+        ?>    
       </div>
     </div>
   </div>
