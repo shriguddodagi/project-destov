@@ -1,16 +1,16 @@
 <?php
-include_once('./includes/header.php');
-include_once('./FormSanitizer.php');
-include_once('./includes/classes/PackingDetail.php');
-include_once('./includes/classes/Gallery.php');
-include_once('./includes/util.php');
-include_once('./includes/productUtil.php');
-include_once('./config.php');
+include_once './includes/header.php';
+include_once './FormSanitizer.php';
+include_once './includes/classes/PackingDetail.php';
+include_once './includes/classes/Gallery.php';
+include_once './includes/util.php';
+include_once './includes/productUtil.php';
+// include_once('./config.php');
 
-if(isset($_POST['submit'])) {
-  mysqli_query($cn, sanitizeInquiryForm($_POST));
-  unset($_POST);  
-  header('Location: product.php?product=' . $_GET['product']);
+if (isset($_POST['submit'])) {
+    mysqli_query($cn, sanitizeInquiryForm($_POST));
+    unset($_POST);
+    header('Location: product.php?product=' . $_GET['product']);
 }
 
 $productId = trim($_GET['product']);
@@ -19,11 +19,10 @@ $query = "SELECT * FROM `months`";
 $months = mysqli_query($cn, $query);
 $query = "SELECT * FROM `products` WHERE id='$productId'";
 $product = mysqli_fetch_array(mysqli_query($cn, $query));
-
 $related_products = mysqli_query($cn, "SELECT `id`, `title`, `image` FROM `products` WHERE subcategory_id=" . $product['subcategory_id'] . " AND id != $productId LIMIT 3");
 
-if(!count($product)) {
-  header('Location: products.php');
+if (!count($product)) {
+    header('Location: products.php');
 }
 
 $subcategoryId = $product['subcategory_id'];
@@ -57,7 +56,7 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
   </div>
 </div>
 
-<?php if(count($gallery->imagesArray) > 0) { ?>
+<?php if (count($gallery->imagesArray) > 0) {?>
 
 <div class="bg-color-light">
   <div class="content-lg container">
@@ -66,30 +65,52 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
         <h2>Show Case</h2>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <?php
-          foreach($gallery->images() as $file) {
+    <div class="row text-center">
+      <div class="col-6">
 
-            echo ($file['type'] == "image") ? 
-            "<div class='col-md-4 margin-b-30'>
-              <img src='". $file['file'] ."' class='full-width img-responsive'>
-            </div>"
-              :
-            "<div class='col-md-4 margin-b-30'>
-              <video src='". $file['file'] ."' class='full-width img-responsive' controls></video>
-            </div>";
-            
-          }
-          ?>
-        </div>  
+      
+        <div id="carousel-example-generic" class="carousel slide margin-b-40" data-ride="carousel">
+          <div class="container">
+            <ol class="carousel-indicators">
+              <?php
+              for($i = 0; $i < count($gallery->images()); $i++) {
+                echo "<li data-target='#carousel-example-generic' data-slide-to='$i'></li>";
+              }        
+              ?>
+            </ol>
+          </div>
+          <div class="carousel-inner" role="listbox">
+            <?php
+              foreach($gallery->images() as $file) {
+
+                  $slide = "<div class='item'>";
+
+                  $slide .= ($file['type'] == "image") ?
+                  "<img src='" . $file['file'] . "' class='img-responsive' alt='not suppoted'>"
+                  :
+                  "<video src='" . $file['file'] . "' class='img-responsive full-screen' alt='not suppoted'></video>";
+
+                  $play = ($file['type'] == "video") ? "<h3 class='carousel-title text-center video' src='" . $file['file'] . "' style='cursor: pointer' data-toggle='modal' data-target='#video'><i class='fa fa-lg fa-play'></i></h3>" : "";
+                  $slide .= "<div class='container'>
+                    <div class='carousel-centered'>
+                      $play
+                    </div>
+                  </div>";
+                  
+                      $slide .= "</div>";
+                  echo $slide;
+              }
+            ?>
+            <div class="carousel-inner" role="listbox">
+          </div>
+        </div>
       </div>
     </div>
+
   </div>
 </div>
 
-<?php } ?>
+<?php }?>
 
 <div class="bg-color-sky-light" data-auto-height="true">
     <div class="content-lg container">
@@ -155,39 +176,39 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
             <div class="col-md-8 col-xs-12 margin-b-20">
               <div class="row">
                 <?php
-              
-                $cnt = 0;
-                while($month = mysqli_fetch_array($calender)) {
-                  
-                  while ($row = mysqli_fetch_array($months)) {
-                    
-                    if($month[$row['name']] == "Peak") {
-                      echo "<div class='col-md-3 col-xs-12 xs-margin-b-5 text-center calender calender-on'>". $row['name'] ."</div>";
-                    } else if ($month[$row['name']] == "Lean") {
-                      echo "<div class='col-md-3 col-xs-12 xs-margin-b-5 text-center calender calender-off'>". $row['name'] ."</div>";
-                    } else if ($month[$row['name']] == "N/A") {
-                      echo "<div class='col-md-3 col-xs-12 xs-margin-b-5 text-center calender'>". $row['name'] ."</div>";
-                    }
 
-                  }
+                $cnt = 0;
+                while ($month = mysqli_fetch_array($calender)) {
+
+                    while ($row = mysqli_fetch_array($months)) {
+
+                        if ($month[$row['name']] == "Peak") {
+                            echo "<div class='col-md-3 col-xs-12 xs-margin-b-5 text-center calender calender-on'>" . $row['name'] . "</div>";
+                        } else if ($month[$row['name']] == "Lean") {
+                            echo "<div class='col-md-3 col-xs-12 xs-margin-b-5 text-center calender calender-off'>" . $row['name'] . "</div>";
+                        } else if ($month[$row['name']] == "N/A") {
+                            echo "<div class='col-md-3 col-xs-12 xs-margin-b-5 text-center calender'>" . $row['name'] . "</div>";
+                        }
+
+                    }
                 }
 
-                ?>  
+                ?>
               </div>
             </div>
             <div class="col-md-4 col-xs-12">
               <div class="row">
                 <div class="col-md-2 col-xs-2 calender calender-on"></div>
                 <div class="col-md-8 col-xs-8 text-center" style="margin-top: 5px">Pean Season</div>
-              </div> 
+              </div>
               <div class="row">
                 <div class="col-xs-2 col-md-2 calender calender-off"></div>
                 <div class="col-xs-8 text-center col-md-8" style="margin-top: 5px">Lean Season</div>
-              </div> 
+              </div>
               <div class="row">
                 <div class="col-xs-2 col-md-2 calender"></div>
                 <div class="col-xs-8 text-center col-md-8" style="margin-top: 5px">Not Avaliable</div>
-              </div> 
+              </div>
             </div>
           </div>
           <div class="row">
@@ -197,7 +218,7 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
           </div>
         </div>
         <div class="col-md-5 col-sm-7 col-xs-12">
-        
+
           <div class="accordion">
               <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                   <div class="panel panel-default">
@@ -211,7 +232,7 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
                       <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true" style="">
                           <div style="color: #a0a0a0;" class="panel-body"><?php echo $product['paymenterms'] ?></div>
                       </div>
-                  </div>    
+                  </div>
                   <div class="panel panel-default">
                       <div class="panel-heading" role="tab" id="headingTwo">
                           <h4 class="panel-title">
@@ -221,7 +242,7 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
                       <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo" aria-expanded="false" style="height: 0px;">
                           <div style="color: #a0a0a0;" class="panel-body"><?php echo $product['certifications'] ?></div>
                       </div>
-                  </div>           
+                  </div>
                   <div class="panel panel-default">
                       <div class="panel-heading" role="tab" id="headingThree">
                           <h4 class="panel-title">
@@ -236,9 +257,9 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
                   </div>
               </div>
           </div>
-        
+
         </div>
-    </div>  
+    </div>
   </div>
 </div>
 
@@ -249,7 +270,7 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
         <h2>Packing Specifications</h2>
       </div>
     </div>
-    <div class="table-responsive margin-b-50">    
+    <div class="table-responsive margin-b-50">
       <table class="table">
         <thead>
           <tr>
@@ -267,24 +288,24 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
 
         <?php
 
-        foreach($packingDetailsObj->packingDetails() as $row) {
+          foreach ($packingDetailsObj->packingDetails() as $row) {
 
-        echo "<tr>
-            <th scope='row'>". $row['country'] ."</th>
-            <td>". $row['specs'] ."</td>
-            <td>". $row['net_wt'] ."</td>
-            <td>". $row['gross_wt'] ."</td>
-            <td>". $row['boxes'] ."</td>
-            <td>". $row['container_type'] ."</td>
-            <td>". $row['container_loadability'] ."</td>
-            <td>". $row['other_details'] ."</td>
-          </tr>";
+              echo "<tr>
+                      <th scope='row'>" . $row['country'] . "</th>
+                      <td>" . $row['specs'] . "</td>
+                      <td>" . $row['net_wt'] . "</td>
+                      <td>" . $row['gross_wt'] . "</td>
+                      <td>" . $row['boxes'] . "</td>
+                      <td>" . $row['container_type'] . "</td>
+                      <td>" . $row['container_loadability'] . "</td>
+                      <td>" . $row['other_details'] . "</td>
+                    </tr>";
 
-        }
-        
-        ?>
+          }
 
-          
+          ?>
+
+
         </tbody>
       </table>
     </div>
@@ -293,7 +314,7 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
         <h3>Container Preferred Capacity</h3>
       </div>
       <div class="col-md-12">
-        <p class="margin-b-5"><?php echo $product['containercapacity'] ?></p> 
+        <p class="margin-b-5"><?php echo $product['containercapacity'] ?></p>
       </div>
     </div>
   </div>
@@ -310,7 +331,7 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
   </div>
 </div>
 
-<?php if($related_products->num_rows > 0) { ?>
+<?php if ($related_products->num_rows > 0) {?>
 
 <div class="bg-color-sky-light">
   <div class="content-lg container">
@@ -321,15 +342,15 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
     </div>
     <div class="row">
       <?php
-      while($row = mysqli_fetch_array($related_products)) {
-        echo thumbnail($row['image'], $row['title'], $row['id']);
-      }
-      ?>
+while ($row = mysqli_fetch_array($related_products)) {
+    echo thumbnail($row['image'], $row['title'], $row['id']);
+}
+    ?>
     </div>
   </div>
 </div>
 
-<?php } ?>
+<?php }?>
 
 <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
   <div class="modal-dialog modal-xl">
@@ -357,6 +378,28 @@ $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productI
   </div>
 </div>
 
-<?php include_once('./includes/scripts.php'); ?>
+<div class="modal fade" id="video" tabindex="-1" aria-labelledby="video" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <video id="video-slider" style='width:100%' autoplay controls></video>
+      </div>
+    </div>
+  </div>
+</div>
+
+<?php include_once './includes/scripts.php'?>
+
+<script>
+  $(document).on('click', '.video', function () {
+    console.log($(this).attr('src'));
+    $('#video-slider').attr('src', $(this).attr('src'));
+  });
+  $('#video').on('hidden.bs.modal', function (e) {
+    // do something...
+    $(this).find('video').attr('src', null);
+  })
+</script>
+
 <script src="vendor/jquery.parallax.min.js" type="text/javascript"></script>
-<?php include_once('./includes/footer.php'); ?>
+<?php include_once './includes/footer.php';?>

@@ -173,7 +173,7 @@ if(isset($_POST['submitImage'])) {
   $productId = $_POST['productId'];
 
   for ($i=0; $i < count($_FILES['image']['name']); $i++) { 
-    if(checkFileType(strtolower(pathinfo($_FILES['image']['name'][$i],PATHINFO_EXTENSION)))) {
+    if(checkFileType(strtolower(pathinfo($_FILES['image']['name'][$i],PATHINFO_EXTENSION)), $type)) {
       $filePath = movefile($_FILES['image']['tmp_name'][$i], basename($_FILES['image']['name'][$i]));
       $query = "INSERT INTO `images` (file, productId, type) VALUES ('$filePath', '$productId', '$type')";
       mysqli_query($cn, $query);
@@ -749,7 +749,7 @@ $months = mysqli_query($cn, $query);
               
               <div class="form-file mb-3">
                 <input type="hidden" name="productId" id="productIdInGalleryModal">
-                <input type="file" class="form-file-input" name="image[]" multiple accept="image/*" id="galleryImage" onchange="return fileValidationForGalleryImage()" >
+                <input type="file" class="form-file-input" name="image[]" multiple accept="image/*|video/*" id="galleryImage" onchange="return fileValidationForGalleryImage()" >
                 <label class="form-file-label" for="galleryImage">
                   <span class="form-file-text">Choose file...</span>
                   <span class="form-file-button">Browse</span>

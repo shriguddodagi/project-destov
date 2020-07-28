@@ -432,7 +432,7 @@ fieldset[disabled] .btn-theme {
 }
 .footer {
   /* background: linear-gradient(45deg, black, transparent); */
-  background-image: url('../img/footer.jpg');
+  background-image: url("../img/footer.jpg");
   background-size: cover;
   color: #000000;
 }
@@ -486,7 +486,7 @@ fieldset[disabled] .btn-theme {
 .header .navbar-toggle .toggle-icon:before {
   position: absolute;
   left: 0;
-  
+
   background: #515769;
   content: " ";
 }
@@ -1336,10 +1336,10 @@ fieldset[disabled] .btn-theme {
   color: #000000;
 }
 .calender-on {
-  background-color: #92D050;
+  background-color: #92d050;
   color: #000000;
 }
 .calender-off {
-  background-color: #C5E0B4;
+  background-color: #c5e0b4;
   color: #000000;
 }
