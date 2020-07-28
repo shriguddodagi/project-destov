@@ -1343,3 +1343,48 @@ fieldset[disabled] .btn-theme {
   background-color: #c5e0b4;
   color: #000000;
 }
+
+.fa {
+  padding: 6px;
+  border-radius: 50px;
+  /* font-size: 30px; */
+  border-radius:50%;
+  width: 30px;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+}
+
+.fa:hover {
+  opacity: 0.7;
+}
+
+.fa-facebook {
+  background: #3B5998;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+}
+
+.fa-linkedin {
+  background: #0077B5;
+}
+
+.fa-instagram {
+  background: #E02D72;
+}
+
+.fa-map-marker {
+  background: rgba(0, 118, 181, 0.767);
+}
+
+.fa-phone {
+  background: #18692c;
+}
+
+.fa-envelope {
+  background: #DA4E41;
+  padding-right: 8px;
+  padding-bottom: 7px;
+}
