@@ -71,7 +71,8 @@ $result = mysqli_query($cn, $query);
                 <img src='". $row['image'] ."' class='card-img-top w-100 h-50' alt='".$row['title']."'>
                 <div class='card-body'>
                   <h5 class='card-title'>". $row['title'] ."</h5>
-                  <div class='card-text'>". substr(strip_tags($row['description']), 0, 19) ."...</div>
+                  <p class='card-text'>". substr(strip_tags($row['description']), 0, 19) ."...</p>
+                  <div class='card-text d-none'>". $row['description'] ."...</div>
                   <button id='". $row['id'] ."' class='btn float-left edit-blog-btn btn-warning' data-toggle='modal' data-target='#editblogModal'>Edit</button>
 
                   <form action='' method='POST'>
@@ -212,7 +213,7 @@ $result = mysqli_query($cn, $query);
     $(document).on('click', '.edit-blog-btn', function () {
       $('#blogIdInEditModal').val($(this).attr('id'));
       $('#titleInEditModal').val($(this).siblings('.card-title').text());
-      const content = $(this).siblings('.card-text').html();
+      const content = $(this).siblings('div.card-text').html();
       $('#des').html(
       `<textarea class="form-control" id="descriptionInEditModal" name="descriptionInEditModal">${content}</textarea>`
       );

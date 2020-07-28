@@ -90,7 +90,8 @@ $categories = mysqli_query($cn, $query);
                 <button class='btn btn-primary create-sub-category-button' id='". $row['id'] ."' data-toggle='modal'
                   data-target='#createSubCategoryModal'>Add Sub Category</button>
               </div>
-              <div class='text-left terms p-2'>". substr(strip_tags($row['terms']), 0, 19) ."</div>
+              <div class='text-left p-2'>". substr(strip_tags($row['terms']), 0, 19) ."</div>
+              <div class='text-left terms d-none p-2'>". $row['terms'] ."</div>
               <div class='d-flex mt-3 justify-content-between'>
                 <button id='".  $row['id'] ."' class='btn btn-warning edit-category-button'>Edit</button>
                   <form action='' method='POST'>
