@@ -801,9 +801,9 @@ $months = mysqli_query($cn, $query);
     var fileInput = document.getElementById('galleryImage');
     var radio = $('#gallery').find('.form-check-input');
     var filePath = fileInput.value;
-    var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.mp4)$/i;
+    var allowedExtensions = /(\.jpg|\.jpeg|\.gif|\.mp4)$/i;
     if (!allowedExtensions.exec(filePath)) {
-      alert('File must jpeg, .jpg, .png, .gif, mp4 only.');
+      alert('File must jpeg, .jpg, .gif, mp4 only.');
       fileInput.value = '';
       return false;
     } else {
