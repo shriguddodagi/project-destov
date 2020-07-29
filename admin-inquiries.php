@@ -1,18 +1,22 @@
 <?php
 include_once('./includes/admin-header.php');
-include_once('./config.php');
+
+if (!in_array('inquiries', $permissions)) {
+  header('Location: admin-' . $permissions[0] . '.php');
+  exit;
+}
 
 if(isset($_POST['close'])) {
   $id = $_POST['id'];
   mysqli_query($cn, "UPDATE `inquiries` SET mode='close' WHERE id=$id");
   unset($_POST);
-  header('Location: inquiries.php');
+  header('Location: admin-inquiries.php');
 }
 if(isset($_POST['open'])) {
   $id = $_POST['id'];
   mysqli_query($cn, "UPDATE `inquiries` SET mode='open' WHERE id=$id");
   unset($_POST);
-  header('Location: inquiries.php');
+  header('Location: admin-inquiries.php');
 }
 
 $openInquirie  = mysqli_query($cn, 'SELECT * FROM inquiries WHERE mode="open" ORDER BY id DESC');
@@ -128,10 +132,5 @@ $closeInquirie  = mysqli_query($cn, 'SELECT * FROM inquiries WHERE mode="close" 
 
     </div>
   </main>
-
-</body>
-
-
-<script src="./vendor/bootstrap 5/js/bootstrap.min.js"></script>
-
-</html>
+<?php include_once('./includes/admin-script.php'); ?>
+<?php include_once('./includes/admin-footer.php'); ?>

@@ -1,12 +1,16 @@
 <?php include_once('./includes/admin-header.php');
-include_once('./config.php');
+
+if (!in_array('users', $permissions)) {
+  header('Location: admin-' . $permissions[0] . '.php');
+  exit;
+}
 
 if(isset($_POST['submit'])) {
   $username = $_POST['username'];
   $password = $_POST['password'];
   mysqli_query($cn, "INSERT INTO `users` (`username`, `password`) VALUE ('$username', '$password')");
   unset($_POST);
-  header('Location: users.php');
+  header('Location: admin-users.php');
 }
 
 if(isset($_POST['change'])) {
@@ -14,14 +18,14 @@ if(isset($_POST['change'])) {
   $id = $_POST['id'];
   mysqli_query($cn, "UPDATE `users` SET `permissions`='$permissions' WHERE id=$id");
   unset($_POST);
-  header('Location: users.php');
+  header('Location: admin-users.php');
 }
 
 if(isset($_POST['delete'])) {
   $id = $_POST['userId'];
   mysqli_query($cn, "DELETE FROM `users` WHERE id=$id");
   unset($_POST);
-  header('Location: users.php');
+  header('Location: admin-users.php');
 }
 
 $users = mysqli_query($cn, "SELECT * FROM `users` WHERE id!=1");
@@ -181,9 +185,6 @@ $users = mysqli_query($cn, "SELECT * FROM `users` WHERE id!=1");
 
   </div>
 
-</body>
-</html>
-
 <?php include_once('./includes/admin-script.php'); ?>
 
 <script>
@@ -220,3 +221,5 @@ $(document).ready(function () {
 });
 
 </script>
+
+<?php include_once('./includes/admin-footer.php'); ?>

@@ -1,7 +1,14 @@
 <?php
 include_once('./includes/admin-header.php');
-include_once('./config.php');
 include_once('./includes/classes/Category.php');
+
+$permissions = explode(', ', $_SESSION['permissions']);
+
+
+if (!in_array('categories', $permissions)) {
+  header('Location: admin-' . $permissions[0] . '.php');
+  exit;
+}
 
 if(isset($_POST['createCategory'])) {
   $name = $_POST['categoryName'];
@@ -9,7 +16,7 @@ if(isset($_POST['createCategory'])) {
   $query = "INSERT INTO `categories` (name, terms) VALUES ('$name', '$terms')";
   mysqli_query($cn, $query);
   unset($_POST);
-  header('Location: admin.php');
+  header('Location: admin-categories.php');
 }
 
 if(isset($_POST['updateCategory'])) {
@@ -19,7 +26,7 @@ if(isset($_POST['updateCategory'])) {
   $query = "UPDATE `categories` SET name='$name', terms='$terms' WHERE id=$id";
   mysqli_query($cn, $query);
   unset($_POST);
-  header('Location: admin.php');
+  header('Location: admin-categories.php');
 }
 
 if(isset($_POST['deleteCategory'])) {
@@ -32,7 +39,7 @@ if(isset($_POST['deleteCategory'])) {
   mysqli_query($cn, "DELETE FROM `subcategories` WHERE category_id=$id");
   mysqli_query($cn, $query);
   unset($_POST);
-  header('Location: admin.php');
+  header('Location: admin-categories.php');
 }
 
 if(isset($_POST['createSubcategory'])) {
@@ -41,7 +48,7 @@ if(isset($_POST['createSubcategory'])) {
   $query = "INSERT INTO `subcategories` (name, category_id) VALUES ('$name', '$categoryId')";
   mysqli_query($cn, $query);
   unset($_POST);
-  header('Location: admin.php');
+  header('Location: admin-categories.php');
 }
 
 if(isset($_POST['deleteSubcategory'])) {
@@ -49,7 +56,7 @@ if(isset($_POST['deleteSubcategory'])) {
   mysqli_query($cn, "DELETE FROM `products` WHERE subcategory_id=$id");
   mysqli_query($cn, "DELETE FROM `subcategories` WHERE id=$id");
   unset($_POST);
-  header('Location: admin.php');
+  header('Location: admin-categories.php');
 }
 
 
@@ -240,7 +247,6 @@ $categories = mysqli_query($cn, $query);
   </div>
 </main>
 
-</body>
 <?php include_once('./includes/admin-script.php'); ?>
 <script>
   $(document).ready(function () {
@@ -265,10 +271,7 @@ $categories = mysqli_query($cn, $query);
       $('#createSubCategoryModalLabel').find('.text-primary').text($(this).siblings('.card-title').text());
     });
   });
-</script>
-
-<script>
   
   CKEDITOR.replace('categoryTerms');
 </script>
-</html>
+<?php include_once('./includes/admin-footer.php'); ?>

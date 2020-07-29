@@ -1,8 +1,11 @@
-<?php include_once('./includes/admin-header.php') ?>
-
-<?php 
-include_once('./config.php');
+<?php include_once('./includes/admin-header.php');
 include_once('./includes/util.php');
+
+if (!in_array('blogs', $permissions)) {
+  header('Location: admin-' . $permissions[0] . '.php');
+  exit;
+}
+
 if (isset($_POST['submit'])) {
 
   $title = $_POST['title'];
@@ -13,7 +16,7 @@ if (isset($_POST['submit'])) {
     $imagePath = uploadFile($image);
     $query = "INSERT INTO `blogs` (title, description, image) VALUES ('$title', '$description', '$imagePath')";
     mysqli_query($cn, $query);
-    header('Location: admin-blog.php');
+    header('Location: admin-blogs.php');
   }
 }
 
@@ -26,7 +29,7 @@ if (isset($_POST['update'])) {
   if($image['error'] > 0) {
     $query = "UPDATE `blogs` SET title='$title', description='$description' WHERE id=$id";
     mysqli_query($cn, $query);
-    header('Location: admin-blog.php');
+    header('Location: admin-blogs.php');
   } else {
     if(validType($image, 'image')){
       $query = "SELECT image FROM `blogs` WHERE id=$id";
@@ -44,7 +47,7 @@ if (isset($_POST['delete'])) {
   unlink(mysqli_fetch_array((mysqli_query($cn, $query)))['image']); 
   $query = "DELETE FROM `blogs` WHERE id=$id";
   mysqli_query($cn, $query);
-  header('Location: admin-blog.php');
+  header('Location: admin-blogs.php');
 }
 
 
@@ -202,10 +205,9 @@ $result = mysqli_query($cn, $query);
       </div>
     </div>
 
-  </main>
 
-</body>
 <?php include_once('./includes/admin-script.php'); ?>
+
 <script>
   $(document).ready(function () {
     const des = CKEDITOR.replace('descriptionInEditModal');
@@ -270,4 +272,4 @@ $result = mysqli_query($cn, $query);
   CKEDITOR.replace('description');
 </script>
 
-</html>
+<?php include_once('./includes/admin-footer.php'); ?>

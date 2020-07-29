@@ -1,11 +1,15 @@
 <?php
 include_once('./includes/admin-header.php');
-include_once('./config.php');
 include_once('./includes/util.php');
 include_once('./includes/classes/Category.php');
 include_once('./includes/classes/Product.php');
 include_once('./includes/classes/PackingDetail.php');
 include_once('./includes/classes/Gallery.php');
+
+if (!in_array('products', $permissions)) {
+  header('Location: admin-' . $permissions[0] . '.php');
+  exit;
+}
 
 if(isset($_POST['submit'])) {
   $subcategoryId = $_POST['subcategoryIdIncreateProductModal'];
@@ -774,8 +778,6 @@ $months = mysqli_query($cn, $query);
     
 
   </main>
-
-</body>
 <?php include_once('./includes/admin-script.php'); ?>
 <script>
   function fileValidation() {
@@ -959,5 +961,4 @@ $months = mysqli_query($cn, $query);
   CKEDITOR.replace('paymenterms');
   CKEDITOR.replace('certifications');
 </script>
-
-</html>
+<?php include_once('./includes/admin-footer.php'); ?>

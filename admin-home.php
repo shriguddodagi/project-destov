@@ -1,7 +1,10 @@
-<?php include_once('./includes/admin-header.php') ?>
+<?php include_once('./includes/admin-header.php');
 
-<?php 
-include_once('./config.php');
+if (!in_array('home', $permissions)) {
+  header('Location: admin-' . $permissions[0] . '.php');
+  exit;
+}
+
 if (isset($_POST['change'])) {
   $oldId = $_POST['oldProductId'];
   $newId = $_POST['newProductId'];
@@ -126,7 +129,6 @@ $products = mysqli_query($cn, $query);
 
   </main>
 
-</body>
 <?php include_once('./includes/admin-script.php'); ?>
 <script>
   $(document).ready(function () {
@@ -152,34 +154,29 @@ $products = mysqli_query($cn, $query);
       });
     });
 
-  });
-</script>
-<script>
-    $(document).ready(function () {
-        $("#image-list").sortable({
-            	update: function(event, ui) { 
-            		dropIndex = ui.item.index();
+    $("#image-list").sortable({
+          update: function(event, ui) { 
+            dropIndex = ui.item.index();
+        }
+    });
+    $('#submit').click(function (e) {
+        var imageIdsArray = [];
+        $('#image-list .image-item').each(function (index) {
+          var id = $(this).attr('id');
+          var split_id = id.split("_");
+          imageIdsArray.push(split_id[1]);
+        });
+        $.ajax({
+            url: 'updateRecord.php',
+            type: 'post',
+            data: {imageIds: imageIdsArray},
+            success: function (response) {
+                $(".alert").removeClass('d-none').addClass('d-block'); 
+                $("#txtresponse").text(response);
             }
         });
-        $('#submit').click(function (e) {
-            var imageIdsArray = [];
-            $('#image-list .image-item').each(function (index) {
-              var id = $(this).attr('id');
-              var split_id = id.split("_");
-              imageIdsArray.push(split_id[1]);
-            });
-            $.ajax({
-                url: 'updateRecord.php',
-                type: 'post',
-                data: {imageIds: imageIdsArray},
-                success: function (response) {
-                   $(".alert").removeClass('d-none').addClass('d-block'); 
-                   $("#txtresponse").text(response);
-                }
-            });
-        });
     });
+  });
 
 </script>
-
-</html>
+<?php include_once('./includes/admin-footer.php'); ?>

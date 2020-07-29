@@ -1,18 +1,22 @@
 <?php
 include_once('./includes/admin-header.php');
-include_once('./config.php');
+
+if (!in_array('feedbacks', $permissions)) {
+  header('Location: admin-' . $permissions[0] . '.php');
+  exit;
+}
 
 if(isset($_POST['hide'])) {
   $id = $_POST['id'];
   mysqli_query($cn, "UPDATE `feedbacks` SET `status`='0' WHERE id=$id");
   unset($_POST);
-  header('Location: feedbacks.php');
+  header('Location: admin-feedbacks.php');
 }
 if(isset($_POST['show'])) {
   $id = $_POST['id'];
   mysqli_query($cn, "UPDATE `feedbacks` SET `status`='1' WHERE id=$id");
   unset($_POST);
-  header('Location: feedbacks.php');
+  header('Location: admin-feedbacks.php');
 }
 
 $feedbacks  = mysqli_query($cn, 'SELECT * FROM feedbacks');
@@ -67,10 +71,5 @@ $feedbacks  = mysqli_query($cn, 'SELECT * FROM feedbacks');
 
     </div>
   </main>
-
-</body>
-
-
-<script src="./vendor/bootstrap 5/js/bootstrap.min.js"></script>
-
-</html>
+<?php include_once('./includes/admin-script.php'); ?>
+<?php include_once('./includes/admin-footer.php'); ?>

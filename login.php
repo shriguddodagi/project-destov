@@ -12,7 +12,7 @@ if(isset($_POST['login'])) {
     $_SESSION['id'] = $data['id'];
     $_SESSION['permissions'] = $data['permissions'];
     unset($_POST);
-    header('Location: admin.php');
+    header('Location: admin-home.php');
   } else {
     echo "<script>alert('Invalid Email and Password');</script>";
     unset($_POST);

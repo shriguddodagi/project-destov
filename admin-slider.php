@@ -1,7 +1,12 @@
 <?php 
 include_once('./includes/admin-header.php'); 
-include_once('./config.php');
 include_once('./includes/util.php');
+
+if (!in_array('slider', $permissions)) {
+  header('Location: admin-' . $permissions[0] . '.php');
+  exit;
+}
+
 if (isset($_POST['submit'])) {
   $title = $_POST['title'];
   $description = $_POST['description'];
@@ -11,7 +16,7 @@ if (isset($_POST['submit'])) {
     $filePath = uploadFile($file);
     $query = "INSERT INTO `slides` (title, description, file, type) VALUES ('$title', '$description', '$filePath', '$type')";
     mysqli_query($cn, $query);
-    header('Location: slider.php');
+    header('Location: admin-slider.php');
   } else {
     unset($_POST['submit']);
     echo "<script>alert('File type and file are not matched')</script>";
@@ -29,7 +34,7 @@ if (isset($_POST['update'])) {
     $query = "UPDATE `slides` SET title='$title', description='$description' WHERE id=$id";
     mysqli_query($cn, $query);
     unset($_POST);
-    header('Location: slider.php');
+    header('Location: admin-slider.php');
   } else {
     if(validType($file, $type)){
       $query = "SELECT `file` FROM `slides` WHERE id=$id";
@@ -38,7 +43,7 @@ if (isset($_POST['update'])) {
       $query = "UPDATE `slides` SET title='$title', description='$description', file='$filePath', type='$type' WHERE id=$id";
       mysqli_query($cn, $query);
       unset($_POST);
-      header('Location: slider.php');
+      header('Location: admin-slider.php');
     }
   }
 }
@@ -49,7 +54,7 @@ if (isset($_POST['delete'])) {
   unlink(mysqli_fetch_array((mysqli_query($cn, $query)))['image']); 
   $query = "DELETE FROM `slides` WHERE id=$id";
   mysqli_query($cn, $query);
-  header('Location: slider.php');
+  header('Location: admin-slider.php');
 }
 
 
@@ -244,7 +249,6 @@ $result = mysqli_query($cn, $query);
 
   </main>
 
-</body>
 <?php include_once('./includes/admin-script.php'); ?>
 <script>
   $(document).ready(function () {
@@ -271,9 +275,7 @@ $result = mysqli_query($cn, $query);
     });
 
   });
-</script>
 
-<script>
   function fileValidation() {
     var fileInput = document.getElementById('sliderImage');
     var radio = $('#sliderModal').find('.form-check-input');
@@ -322,4 +324,5 @@ $result = mysqli_query($cn, $query);
   }
 </script>
 
-</html>
+<?php include_once('./includes/admin-script.php'); ?>
+<?php include_once('./includes/admin-footer.php'); ?>

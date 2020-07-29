@@ -51,8 +51,4 @@ if (isset($_POST['oldPassword']) && isset($_POST['newPassword'])) {
 
 
 
-} else {
-  echo "not okay";
 }
-
-// exit;
