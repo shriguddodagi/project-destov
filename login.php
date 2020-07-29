@@ -2,20 +2,20 @@
 include_once('./config.php');
 
 if(isset($_POST['login'])) {
-  $email = $_POST['adminEmail'];
+  $username = $_POST['adminUsername'];
   $password = $_POST['adminPassword'];
-  $data = mysqli_fetch_array(mysqli_query($cn, "SELECT * FROM `admin` WHERE `email`='$email' AND `password`='$password' LIMIT 1"));
-  
+  $data = mysqli_fetch_array(mysqli_query($cn, "SELECT * FROM `users` WHERE `username`='$username' AND `password`='$password' LIMIT 1"));
   if(count($data) > 0) {
     session_start();
     $_SESSION['auth'] = true;
-    $_SESSION['email'] = $email;
+    $_SESSION['username'] = $data['username'];
+    $_SESSION['id'] = $data['id'];
+    $_SESSION['permissions'] = $data['permissions'];
     unset($_POST);
     header('Location: admin.php');
   } else {
     echo "<script>alert('Invalid Email and Password');</script>";
     unset($_POST);
-    header('Location: login.php');
   }
   
 }
@@ -45,15 +45,15 @@ if(isset($_POST['login'])) {
         <div class="modal-body">
           <form action="" method="POST" class="row g-3 needs-validation" novalidate>
             <div class="col-12">
-              <label for="adminEmail" class="form-label">Your Email</label>
-              <input type="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" name="adminEmail" class="form-control" id="adminEmail" required>
+              <label for="adminEmail" class="form-label">Your Username</label>
+              <input type="text" name="adminUsername" class="form-control" id="adminUsername" placeholder="Your Username" required>
               <div class="invalid-feedback">
-                Email is Invalid
+                Username is Invalid
               </div>
             </div>
             <div class="col-12">
               <label for="adminPassword" class="form-label">Your password</label>
-              <input type="password" pattern=".{5,}" title="Eight or more characters" name="adminPassword" class="form-control" id="adminPassword" required>
+              <input type="password" pattern=".{5,}" title="Eight or more characters" name="adminPassword" class="form-control" id="adminPassword" placeholder="Your Password" required>
               <div class="invalid-feedback">
                 Password is Required
               </div>

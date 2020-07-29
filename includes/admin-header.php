@@ -1,14 +1,15 @@
 <?php
 session_start();
-if(!isset($_SESSION['auth']) && !$_SESSION['auth'] == true && !isset($_SESSION['email'])) {
+if(!isset($_SESSION['auth']) && !$_SESSION['auth'] == true && !isset($_SESSION['username']) && !isset($_SESSION['id']) && !isset($_SESSION['permissions'])) {
   unset($_SESSION['auth'], $_SESSION['email']);
   header('Location: login.php');
 }
 
 if(isset($_POST['logout'])) {
-  unset($_SESSION['auth'], $_SESSION['email']);
+  unset($_SESSION['auth'], $_SESSION['username'], $_SESSION['id'], $_SESSION['permissions']);
   header('Location: index.php');
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -88,7 +89,7 @@ if(isset($_POST['logout'])) {
               <a class="nav-link btn-light rounded btn-sm <?php if(isset($user)) {echo "active";} ?>" href="users.php">Users</a>
             </div>
             <div class="mx-2">
-              <button class="btn btn-light font-weight-bold" type="submit" name="logout">Change Password</button>
+              <button data-toggle="modal" data-target="#changePassword" class="btn btn-light font-weight-bold" type="submit" name="logout">Change Password</button>
             </div>
             <form action="" method="post">
               <button class="btn btn-info font-weight-bold" type="submit" name="logout">Logout</button>
