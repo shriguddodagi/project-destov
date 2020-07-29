@@ -40,6 +40,12 @@
           <div class="col-md-12" id="updateusernameresponse"></div>
           <div class="col-md-12">
             <input type="text" class="form-control" name="newUsername" id="newUsername" value="<?php echo $_SESSION['username']; ?>" placeholder="Username" required>
+            <div class="valid-feedback">
+              Perfect!
+            </div>
+            <div class="invalid-feedback">
+              Already Exist!
+            </div>
           </div>
           <div class="col-md-12">
             <input type="password" class="form-control" name="password" id="existpassword" placeholder="Password" required>
@@ -137,6 +143,19 @@
         }
       });
 
+    });
+
+    $("#newUsername").keyup(function () {
+      const ele = $(this);
+      $.ajax({
+        url: 'ajax/users.php',
+        type: 'post',
+        data: {username: $(this).val()},
+        success: function (res) {
+          ele.removeClass("is-invalid is-valid");
+          ele.addClass((res == "true") ? "is-invalid" : "is-valid");
+        }
+      });
     });
 
     function alert(response) {

@@ -8,9 +8,15 @@ if (!in_array('users', $permissions)) {
 if(isset($_POST['submit'])) {
   $username = $_POST['username'];
   $password = $_POST['password'];
-  mysqli_query($cn, "INSERT INTO `users` (`username`, `password`) VALUE ('$username', '$password')");
-  unset($_POST);
-  header('Location: admin-users.php');
+
+  $user = mysqli_fetch_array(mysqli_query($cn, "SELECT * FROM `users` WHERE username='$username'"));
+  if(!isset($user['id'])) {
+    mysqli_query($cn, "INSERT INTO `users` (`username`, `password`) VALUE ('$username', '$password')");
+    unset($_POST);
+    header('Location: admin-users.php');
+  } else {
+    echo "<script>alert('Username already used.');</script>";
+  }
 }
 
 if(isset($_POST['change'])) {
@@ -79,10 +85,10 @@ $users = mysqli_query($cn, "SELECT * FROM `users` WHERE id!=1");
                 <label for="username" class="form-label">Username</label>
                 <input type="text" class="form-control" name="username" id="username" required>
                 <div class="valid-feedback">
-                  Looks good!
+                  Perfect!
                 </div>
                 <div class="invalid-feedback">
-                  Invalid Username
+                  Already Exist!
                 </div>
               </div>
               <div class="col-md-12">
@@ -215,6 +221,19 @@ $(document).ready(function () {
       })) >= 0 ? true : false;
     
       $(this).prop("checked", check);
+    });
+  });
+
+  $("#username").keyup(function () {
+    const ele = $(this);
+    $.ajax({
+      url: 'ajax/users.php',
+      type: 'post',
+      data: {username: $(this).val()},
+      success: function (res) {
+        ele.removeClass("is-invalid is-valid");
+        ele.addClass((res == "true") ? "is-invalid" : "is-valid");
+      }
     });
   });
 

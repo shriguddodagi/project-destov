@@ -15,13 +15,23 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
       exit;
     }
 
-    if(mysqli_query($cn, "UPDATE `users` SET `username`='$newusername' WHERE id='$id' AND `password`='$password'")) {
-      echo "Username Update Succesfully";
-      $_SESSION['username'] = $newusername;
+    
+    $user = mysqli_fetch_array(mysqli_query($cn, "SELECT * FROM `users` WHERE username='$newusername'"));
+    if(!isset($user['id'])) {
+      if(mysqli_query($cn, "UPDATE `users` SET `username`='$newusername' WHERE id='$id' AND `password`='$password'")) {
+        echo "Username Update Succesfully";
+        $_SESSION['username'] = $newusername;
+        exit;
+      } else {
+        echo "Something went wrong! Please try again later";
+        exit;
+      }
     } else {
-      echo "Something went wrong! Please try again later";
-      exit;
+      echo "Username already used.";
     }
+
+
+    
   }
 }
 
