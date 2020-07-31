@@ -11,6 +11,81 @@ if (!in_array('products', $permissions)) {
   exit;
 }
 
+// Pagination
+$page_no = 1;
+$total_records_per_page = 3;
+
+if(isset($_GET['page_no']) && $_GET['page_no'] != "") {
+  $page_no = $_GET['page_no'];
+}
+
+$offset = ($page_no - 1) * $total_records_per_page;
+$previous_page = $page_no - 1;
+$next_page = $page_no + 1;
+
+$total_records = mysqli_fetch_array(mysqli_query($cn, "SELECT COUNT(*) AS total_records FROM `products`"))['total_records'];
+
+$total_no_of_pages = ceil($total_records / $total_records_per_page);
+$second_last = $total_no_of_pages - 1; // total pages minus 1
+
+
+if(isset($_GET['subcategory']) && $_GET['subcategory'] != "") {
+  $subcategory = $_GET['subcategory'];
+  $query = "SELECT 
+      products.id AS id,
+      products.title AS title,
+      products.subcategory_id AS subcategory_id,
+      products.description AS description,
+      products.varieties AS varieties,
+      products.color AS color,
+      products.size AS size,
+      products.weight AS weight,
+      products.tss AS tss,
+      products.containercapacity AS containercapacity,
+      products.incoterms AS incoterms,
+      products.paymenterms AS paymenterms,
+      products.certifications AS certifications,
+      products.image AS image
+    FROM products 
+    JOIN subcategories  
+    ON products.subcategory_id = subcategories.id 
+    WHERE subcategories.name='$subcategory'";
+  $products = mysqli_query($cn, $query);
+
+} else if(isset($_GET['term']) && isset($_GET['search'])) {
+  $term = $_GET['term'];
+  $products = mysqli_query($cn, "SELECT * FROM `products` WHERE title LIKE '$term%'");
+  unset($_GET['search']);
+} else if(isset($_GET['calender']) && $_GET['calender'] != "") {
+  $month_name = $_GET['calender'];
+  $query = 
+  "SELECT 
+      products.id AS id,
+      products.title AS title,
+      products.subcategory_id AS subcategory_id,
+      products.description AS description,
+      products.varieties AS varieties,
+      products.color AS color,
+      products.size AS size,
+      products.weight AS weight,
+      products.tss AS tss,
+      products.containercapacity AS containercapacity,
+      products.incoterms AS incoterms,
+      products.paymenterms AS paymenterms,
+      products.certifications AS certifications,
+      products.image AS image
+    FROM products 
+    CROSS JOIN calender  
+    ON products.id = calender.product_id 
+    WHERE calender.$month_name = 'Peak' OR calender.$month_name = 'Lean'";
+    
+  $products = mysqli_query($cn, $query);
+} else {
+  $products = mysqli_query($cn, "SELECT * FROM `products` ORDER BY id DESC LIMIT $offset, $total_records_per_page");
+}
+
+
+
 if(isset($_POST['submit'])) {
   $subcategoryId = $_POST['subcategoryIdIncreateProductModal'];
   $title = $_POST['title'];
@@ -199,12 +274,21 @@ if(isset($_POST['deleteGalleryImage'])) {
 
 $query = "SELECT * FROM `categories`";
 $categories = mysqli_query($cn, $query);
+$subcategories = mysqli_query($cn, "SELECT * FROM `subcategories`");
 $query = "SELECT * FROM `months`";
 $months = mysqli_query($cn, $query);
 ?>
-<script>
+<style>
+.dropdown-submenu {
+  position: relative;
+}
 
-</script>
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -1px;
+}
+</style>
   <main>
 
     <div class="container">
@@ -213,218 +297,283 @@ $months = mysqli_query($cn, $query);
           <h2>Products</h2>
         </div>
       </div>
+      <!-- Filter   -->
+      <div class="row mb-5 g-3">
+        <div class="col-2">  
+          <input class="form-control" list="datalistOptions" <?php if(isset($_GET['subcategory'])) { echo "value='". $_GET['subcategory'] ."'"; } ?> id="dataList" placeholder="Subcategories">
+          <datalist id="datalistOptions">
+          
+            <?php  
+              while($subcategory = mysqli_fetch_array($subcategories)) {
+                echo '<option value="'. $subcategory['name'] .'">';
+              }
+            ?>
 
-      <div class="accordion" id="accordionProducts">
+          </datalist>
+          <form action="" method="get" id="subcategoryForm">
+            <input type="hidden" name="subcategory" id="subcategory">
+          </form>
+        </div>
 
+        <div class="col-2">  
+          <input class="form-control" list="calenderDatalistOptions" <?php if(isset($_GET['calender'])) { echo "value='". $_GET['calender'] ."'"; } ?> id="calenderDataList" placeholder="Calender">
+          <datalist id="calenderDatalistOptions">
+          
+            <?php  
+              while ($month = mysqli_fetch_array($months)) {
+                echo '<option value="'. $month['name'] .'">';
+              }
+            ?>
 
-        <?php
+          </datalist>
+          <form action="" method="get" id="calenderForm">
+            <input type="hidden" name="calender" id="calender">
+          </form>
+        </div>
 
-        $container = "";
+        <div class="col-4">
+            
+          <div class="dropdown dropright">
+            <button class="btn btn-outline-primary dropdown-toggle" type="button" data-toggle="dropdown">Add New Product <span class="caret"></span></button>
+            <ul class="dropdown-menu">
 
-        while($category = mysqli_fetch_array($categories)) {
-          $subCatObj = new Subcategory($cn, $category['id']);
-        
+              <?php
+              while($category = mysqli_fetch_array($categories)) {
 
-          $container .=
-          "<div class='card border rounded my-3'>
-            <div class='card-header' id='heading-'". $category['id'] ." >
-              <h2 class='mb-0'>
-                <button class='btn text-uppercase font-weight-bold text-primary btn-block text-left' type='button' data-toggle='collapse' data-target='#collapse". $category['id'] ."' aria-expanded='true' aria-controls='collapse". $category['id'] ."'>
-                  ". $category['name'] ."
-                </button>
-              </h2>
-            </div>";
-
-
-
-            $container .= "<div id='collapse". $category['id'] ."' class='collapse show' aria-labelledby='heading-'". $category['id'] ."  data-parent='#accordionProducts'>
-              <div class='card-body'>";
+                $subcategories = mysqli_query($cn, "SELECT * FROM subcategories WHERE category_id=" . $category['id']);
                 
-
-              foreach($subCatObj->subcategories() as $subcategory) {
-                $productsObj = new Product($cn, $subcategory['id']);
-                $subcategoryBlock = "";
-                
-                $subcategoryBlock .= "<div id='collapseOne' class='collapse show' aria-labelledby='headingOne' data-parent='#accordionSubcategory'>
-                  <div class='card-body'>
-                    <button class='btn text-center mx-3 btn-sm btn-success' type='button' data-toggle='collapse' data-target='#sub". $subcategory['id'] ."' aria-expanded='false' aria-controls='sub". $subcategory['id'] ."'>
-                      ". $subcategory['name'] ."
-                    </button>
-                    <button class='btn btn-sm font-weight-bold btn-outline-primary create-product float-right' id='". $subcategory['id'] ."'	
-                      data-toggle='modal' data-target='#createProductModal'>Add Product</button>	
-                    
-
-                    <div class='collapse' id='sub". $subcategory['id'] ."'>
-                      <div class='card my-2 card-body'>";
-
-                      foreach($productsObj->products() as $row) {
-                        $productId = $row['id'];
-                        $packingDetailsObj = new PackingDetail($cn, $productId);  
-                        $galleryObj = new Gallery($cn, $productId);
-
-                        $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productId");
-                        $calender = mysqli_fetch_array($calender);
-
-                        
-                        $m = mysqli_query($cn, "SELECT * FROM `months`");
-                        $cal = "";
-                        while ($month = mysqli_fetch_array($m)) {
-                          $name = $month['name'];
-                          $cal .= $name ." : <small class='text-muted mb-1 ". $name ."'>". $calender[$name] ."</small><br />";
-                        }
-
-
-                        $images = "";
-                        foreach($galleryObj->images() as $file) {
-                          $images .= "<div class='col-4'>
-                            <div class='row mb-2 text-center'>
-                              <div class='col'>";
-                              $images .= ($file['type'] == "image") ? 
-                              "<img src='". $file['file'] ."' class='img w-100 img-fluid'>"
-                              :
-                              "<video src='". $file['file'] ."' class='img w-100 img-fluid' controls></video>";
-                              $images .= "</div>
-                            </div>
-                            <div class='row text-center'>
-                              <div class='col'>
-                                <form action='' method='POST'>
-                                  <input type='hidden' name='imageId' value='". $file['id'] ."'>
-                                  <button class='btn-sm btn-block btn-danger btn' type='submit' name='deleteGalleryImage'>Delete</button>
-                                </form>
-                              </div>
-                            </div>
-                          </div>";
-                        }
-
-                        $productBlock = "";
-                        $productBlock .= "<div class='row border rounded p-1 m-1 border-info'>
-                          <div class='card mb-3 border-0'>
-                            <div class='row g-0'>
-                              <div class='col-md-4'>
-                                <img src='". $row['image'] ."' class='w-100 img rounded img-fluid h-auto' alt='...'>
-                                <div class='row'>
-                                  <div class='col-6'>
-                                    <button class='btn btn-block btn-sm m-1 packing-specification btn-outline-primary' data-toggle='modal' data-target='#packingModal' id='". $row['id'] ."'>New Packing Specification</button>
-                                  </div>
-                                  <div class='col-6'>
-                                    <button class='btn btn-block btn-lg font-weight-light m-1 btn-outline-warning edit-product' id='". $row['id'] ."'>Edit</button>
-                                  </div>
-                                  <div class='col-6'>
-                                    <button class='btn btn-block btn-sm m-1 gallery-image btn-outline-info' data-toggle='modal' data-target='#gallery' id='". $row['id'] ."'>New Gallery Image</button>
-                                  </div>
-                                  <div class='col-6'>
-                                    <form action='' method='POST'>
-                                      <input type='hidden' name='productId' value='". $row['id'] ."'>
-                                      <button class='btn btn-block btn-sm m-1 btn-outline-danger' type='submit' name='deleteProduct'>Delete</button>
-                                    </form>
-                                  </div>
-                                </div>
-                              </div>
-
-                              <div class='col-md-8 details'>
-                                <div class='card-body'>
-                                  <h5 class='card-title'>". $row['title'] ."</h5>
-                                  <p class='card-text font-weight-bold text-muted description'>". $row['description'] ."</p>
-                                  <div class='row g-3 mt-5'>
-                                    $images
-                                  </div>
-                                  <p class='card-text text-primary font-weight-bold'>Varieties : <small class='text-muted varieties'>". $row['varieties'] ."</small></p>
-                                  <p class='card-text text-primary font-weight-bold'>Color : <small class='text-muted color'>". $row['color'] ."</small></p>
-                                  <p class='card-text text-primary font-weight-bold'>Size : <small class='text-muted size'>". $row['size'] ."</small></p>
-                                  <p class='card-text text-primary font-weight-bold'>Weight : <small class='text-muted weight'>". $row['weight'] ."</small></p>
-                                  <p class='card-text text-primary font-weight-bold'>TSS : <small class='text-muted tss'>". $row['tss'] ."</small></p>
-                                  
-                                  <p class='card-text text-primary font-weight-bold'>Calender</p>
-                                  <p class='card-text ml-5 calender text-primary'>
-                                    $cal
-                                  </p>
-
-                                  <p class='card-text text-primary font-weight-bold'>Container Capacity : <small class='text-muted containercapacity'>". $row['containercapacity'] ."</small></p>
-                                  <p class='card-text text-primary font-weight-bold'>INCOTERMS : <small class='text-muted incoterms'>". $row['incoterms'] ."</small></p>
-                                  <div class='card-text text-primary font-weight-bold'>Payment Terms : <small class='text-muted paymenterms'>". $row['paymenterms'] ."</small></div>
-                                  <div class='card-text text-primary font-weight-bold'>Certifications : <small class='text-muted certifications'>". $row['certifications'] ."</small></div>    
-                                </div>
-                              </div>
-                              
-                              <div class='col-md-12'>
-                                <div class='row g-0'>
-                                  <div class='table-responsive'>
-                                    <table class='table'>
-                                      <thead>
-                                        <tr>
-                                          <th scope='col'>Country</th>
-                                          <th scope='col'>Packing Specs</th>
-                                          <th scope='col'>Net Wt Per Box/Beg</th>
-                                          <th scope='col'>Gross Wt Per Box/Beg</th>
-                                          <th scope='col'>No. of Boxes</th>
-                                          <th scope='col'>Container Type</th>
-                                          <th scope='col'>Container Loadability</th>
-                                          <th scope='col'>Other Details</th>
-                                          <th scope='col'>Delete</th>
-                                        </tr>
-                                      </thead>
-                                      <tbody>";
-
-                                      foreach($packingDetailsObj->packingDetails() as $row) {
-
-                                        $productBlock .= "<tr>
-                                          <th scope='row'>". $row['country'] ."</th>
-                                          <td>". $row['specs'] ."</td>
-                                          <td>". $row['net_wt'] ."</td>
-                                          <td>". $row['gross_wt'] ."</td>
-                                          <td>". $row['boxes'] ."</td>
-                                          <td>". $row['container_type'] ."</td>
-                                          <td>". $row['container_loadability'] ."</td>
-                                          <td>". $row['other_details'] ."</td>
-                                          <td>
-                                            <form method='POST' action=''>
-                                              <input type='hidden' name='packingId' id='packingId' value='". $row['id'] ."' >
-                                              <button class='btn btn-sm m-1 btn-outline-danger' type='submit' name='deletePackingDetail'>Delete</button>
-                                            </form>
-                                          </td>
-                                        </tr>";
-
-                                      }
-
-                                      $productBlock .= "</tbody>
-                                    </table>
-                                  </div>
-                                </div>
-                              </div>
-
-
-                            </div>
-                          </div>
-                        </div>";
-
-                        $subcategoryBlock .= $productBlock;
-                      }
+                echo  "
+                  <li class='dropdown-submenu'>
+                    <a class='dropdown-item test' tabindex='-1' href='#'>". $category['name'] ." <span class='caret'></span></a>
+                    <ul class='dropdown-menu'>";
                       
-                      $subcategoryBlock .= 
-                      "</div>
+                  while ($subcategory = mysqli_fetch_array($subcategories)) {
+                    echo "<li><a class='dropdown-item btn create-product' id='". $subcategory['id'] ."' data-toggle='modal' data-target='#createProductModal' tabindex='-1'>". $subcategory['name'] ."</a></li>";
+                  }
+                    echo "</ul>
+                  </li>";
+              }
+
+              ?>
+            </ul>
+          </div>
+        </div>
+        
+        <form action="" method="get" class="d-flex justify-content-between col-4">
+          <input type="text" name="term" id="term" <?php if(isset($_GET['term'])) { echo "value='". $_GET['term'] ."'"; } ?> placeholder="Search For Product..." class="form-control mx-2" required pattern="^\w+(\s+\w+)*$" />
+          <button type="submit" name="search" class="btn btn-info">Search</button>
+        </form>
+        
+      </div>
+
+      <!-- Page Number -->
+      <?php if(!isset($_GET['term']) && !isset($_GET['calender']) && !isset($_GET['subcategory'])) { ?>
+      <div class="row">
+        <div class="text-center m-2">
+          <strong>Page <?php echo $page_no." of ".$total_no_of_pages; ?></strong>
+        </div>
+      </div>
+      <?php } ?>
+
+      <!-- Products -->
+      <div class="row my-3">
+        <div class="col-12">
+
+          <?php
+            mysqli_data_seek($products, 0);
+            while($row = mysqli_fetch_array($products)) {
+              $productId = $row['id'];
+              $packingDetailsObj = new PackingDetail($cn, $productId);  
+              $galleryObj = new Gallery($cn, $productId);
+
+              $calender = mysqli_query($cn, "SELECT * FROM calender WHERE product_id=$productId");
+              $calender = mysqli_fetch_array($calender);
+
+              
+              $m = mysqli_query($cn, "SELECT * FROM `months`");
+              $cal = "";
+              while ($month = mysqli_fetch_array($m)) {
+                $name = $month['name'];
+                $cal .= $name ." : <small class='text-muted mb-1 ". $name ."'>". $calender[$name] ."</small><br />";
+              }
+
+              $images = "";
+              foreach($galleryObj->images() as $file) {
+                $images .= "<div class='col-3'>
+                  <div class='row mb-2 text-center'>
+                    <div class='col'>";
+                    $images .= ($file['type'] == "image") ? 
+                    "<img src='". $file['file'] ."' class='img w-100 img-fluid'>"
+                    :
+                    "<video src='". $file['file'] ."' class='img w-100 img-fluid' controls></video>";
+                    $images .= "</div>
+                  </div>
+                  <div class='row text-center'>
+                    <div class='col'>
+                      <form action='' method='POST'>
+                        <input type='hidden' name='imageId' value='". $file['id'] ."'>
+                        <button class='btn-sm btn-block btn-danger btn' type='submit' name='deleteGalleryImage'>Delete</button>
+                      </form>
                     </div>
                   </div>
                 </div>";
-
-                $container .= $subcategoryBlock;
-
               }
 
-            $container .= "</div>";
+              $productBlock = "<div class='row border rounded p-1 m-1 border-info'>
+                <div class='card mb-3 border-0'>
+                  <div class='row g-0'>
+                    <div class='col-md-3'>
+                      <img src='". $row['image'] ."' class='w-100 img rounded-pill img-fluid h-auto' alt='...'>
+                      <div class='row'>
+                        <div class='col-6'>
+                          <button class='btn btn-block btn-sm m-1 packing-specification btn-outline-primary' data-toggle='modal' data-target='#packingModal' id='". $row['id'] ."'>New Packing Specification</button>
+                        </div>
+                        <div class='col-6'>
+                          <button class='btn btn-block btn-lg font-weight-light m-1 btn-outline-warning edit-product' id='". $row['id'] ."'>Edit</button>
+                        </div>
+                        <div class='col-6'>
+                          <button class='btn btn-block btn-sm m-1 gallery-image btn-outline-info' data-toggle='modal' data-target='#gallery' id='". $row['id'] ."'>New Gallery Image</button>
+                        </div>
+                        <div class='col-6'>
+                          <form action='' method='POST'>
+                            <input type='hidden' name='productId' value='". $row['id'] ."'>
+                            <button class='btn btn-block btn-sm m-1 btn-outline-danger' type='submit' name='deleteProduct'>Delete</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class='col-md-9 details'>
+                      <div class='card-body'>
+                        <h5 class='card-title'>". $row['title'] ."</h5>
+                        <p class='card-text font-weight-bold text-muted description'>". $row['description'] ."</p>
+                        <div class='row g-3 mt-5'>
+                          $images
+                        </div>
+                        <p class='card-text text-primary font-weight-bold'>Varieties : <small class='text-muted varieties'>". $row['varieties'] ."</small></p>
+                        <p class='card-text text-primary font-weight-bold'>Color : <small class='text-muted color'>". $row['color'] ."</small></p>
+                        <p class='card-text text-primary font-weight-bold'>Size : <small class='text-muted size'>". $row['size'] ."</small></p>
+                        <p class='card-text text-primary font-weight-bold'>Weight : <small class='text-muted weight'>". $row['weight'] ."</small></p>
+                        <p class='card-text text-primary font-weight-bold'>TSS : <small class='text-muted tss'>". $row['tss'] ."</small></p>
+                        
+                        <p class='card-text text-primary font-weight-bold'>Calender</p>
+                        <p class='card-text ml-5 calender text-primary'>
+                          $cal
+                        </p>
+
+                        <p class='card-text text-primary font-weight-bold'>Container Capacity : <small class='text-muted containercapacity'>". $row['containercapacity'] ."</small></p>
+                        <p class='card-text text-primary font-weight-bold'>INCOTERMS : <small class='text-muted incoterms'>". $row['incoterms'] ."</small></p>
+                        <div class='card-text text-primary font-weight-bold'>Payment Terms : <small class='text-muted paymenterms'>". $row['paymenterms'] ."</small></div>
+                        <div class='card-text text-primary font-weight-bold'>Certifications : <small class='text-muted certifications'>". $row['certifications'] ."</small></div>    
+                      </div>
+                    </div>
+                    
+                    <div class='col-md-12'>
+                      <div class='row g-0'>
+                        <div class='table-responsive'>
+                          <table class='table'>
+                            <thead>
+                              <tr>
+                                <th scope='col'>Country</th>
+                                <th scope='col'>Packing Specs</th>
+                                <th scope='col'>Net Wt Per Box/Beg</th>
+                                <th scope='col'>Gross Wt Per Box/Beg</th>
+                                <th scope='col'>No. of Boxes</th>
+                                <th scope='col'>Container Type</th>
+                                <th scope='col'>Container Loadability</th>
+                                <th scope='col'>Other Details</th>
+                                <th scope='col'>Delete</th>
+                              </tr>
+                            </thead>
+                            <tbody>";
+
+                            foreach($packingDetailsObj->packingDetails() as $row) {
+
+                              $productBlock .= "<tr>
+                                <th scope='row'>". $row['country'] ."</th>
+                                <td>". $row['specs'] ."</td>
+                                <td>". $row['net_wt'] ."</td>
+                                <td>". $row['gross_wt'] ."</td>
+                                <td>". $row['boxes'] ."</td>
+                                <td>". $row['container_type'] ."</td>
+                                <td>". $row['container_loadability'] ."</td>
+                                <td>". $row['other_details'] ."</td>
+                                <td>
+                                  <form method='POST' action=''>
+                                    <input type='hidden' name='packingId' id='packingId' value='". $row['id'] ."' >
+                                    <button class='btn btn-sm m-1 btn-outline-danger' type='submit' name='deletePackingDetail'>Delete</button>
+                                  </form>
+                                </td>
+                              </tr>";
+
+                            }
+
+                            $productBlock .= "</tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>";
+                      
+              echo $productBlock;
+            }
+          ?>
+
+        </div>
+      </div>    
 
 
-            $container .=
-            "</div>
-          </div>";
 
-
-
-        }
-
-        echo $container;
-        ?>
-
+      <?php if(!isset($_GET['term']) && !isset($_GET['calender']) && !isset($_GET['subcategory'])) { ?>
+      <!-- Pagination -->
+      <div class="row">
+        <div class="col d-flex justify-content-center">
+          <div aria-label="Page navigation">
+            <ul class="pagination">
+              <?php 
+              if($page_no > 1){
+                echo "<li class='page-item '><a class='page-link' href='?page_no=1'>First Page</a></li>";
+              } 
+              ?>      
+              <li class='page-item <?php if($page_no <= 1){ echo "disabled"; } ?>'>
+                <a class='page-link' <?php if($page_no > 1){ echo "href='?page_no=$previous_page'"; } ?> aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                  <span class="sr-only">Previous</span>
+                </a>
+              </li>
+                  
+              <li class='page-item <?php if($page_no >= $total_no_of_pages){ echo "disabled";} ?>'>
+                <a class='page-link' <?php if($page_no < $total_no_of_pages) { echo "href='?page_no=$next_page'"; } ?> aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                  <span class="sr-only">Next</span>
+                </a>
+              </li>
+              
+              <?php if($page_no < $total_no_of_pages){
+              echo "<li class='page-item'><a class='page-link' class='' href='?page_no=$total_no_of_pages'>Last &raquo;</a></li>";
+            } ?>
+            </ul>
+          </div>
+        </div>
       </div>
+      <?php } ?>
+
+      <?php
+        if($products->num_rows == 0) {
+          echo "<div class='row'>
+            <div class='col text-center'>
+              <div class='display-3'>
+                No Match Found!
+              </div>
+            </div>
+          </div>";
+        }
+      ?>
+
+        
     </div>
 
     <div class="modal fade" id="createProductModal" tabindex="-1" aria-labelledby="createProductModalLabel"
@@ -541,6 +690,7 @@ $months = mysqli_query($cn, $query);
               </div>
 
               <?php
+              mysqli_data_seek($months, 0);
               while($row = mysqli_fetch_array($months)) {
                 echo "<div class='col-md-6 col-lg-4 calender-box col-sm-12 d-flex justify-content-evenly'>
                   <div class='form-label text-primary font-weight-bold'>". $row['name'] ."</div>
@@ -777,8 +927,6 @@ $months = mysqli_query($cn, $query);
       </div>
     </div>
 
-    
-
   </main>
 <?php include_once('./includes/admin-script.php'); ?>
 <script>
@@ -832,6 +980,22 @@ $months = mysqli_query($cn, $query);
   }
 
   $(document).ready(function () {
+
+    $("#dataList").on("change", function () {
+      $("#subcategoryForm").find('#subcategory').val($(this).val());
+      $("#subcategoryForm").submit();
+    });
+
+    $("#calenderDataList").on("change", function () {
+      $("#calenderForm").find('#calender').val($(this).val());
+      $("#calenderForm").submit();
+    });
+
+    $('.dropdown-submenu a.test').on("click", function(e){
+      $(this).next('ul').toggle();
+      e.stopPropagation();
+      e.preventDefault();
+    });
     $('.card-text.text-primary').css({display: 'none'});
     var myModalEl = document.getElementById('createProductModal')
     myModalEl.addEventListener('hide.bs.modal', function (e) {
