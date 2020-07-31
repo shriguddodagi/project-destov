@@ -156,6 +156,17 @@ if (isset($_POST['delete'])) {
           </div>
         </div>
       </div>
+      <?php
+        if($slides->num_rows == 0) {
+          echo "<div class='row'>
+            <div class='col text-center'>
+              <div class='display-3'>
+                Nothing Found!
+              </div>
+            </div>
+          </div>";
+        }
+      ?>
     </div>
 
     <div class="modal fade" id="editSliderModal" data-backdrop="static" data-keyboard="false" tabindex="-1"

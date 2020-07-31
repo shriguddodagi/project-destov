@@ -130,6 +130,18 @@ $categories = mysqli_query($cn, $query);
       ?>
     </div>
 
+    <?php
+        if($categories->num_rows == 0) {
+          echo "<div class='row'>
+            <div class='col text-center'>
+              <div class='display-3'>
+                Nothing Found!
+              </div>
+            </div>
+          </div>";
+        }
+      ?>
+
     <!-- Category -->
     <div class="modal fade" id="createCategoryModal" tabindex="-1" data-backdrop="static" data-keyboard="false" aria-labelledby="createCategoryModalLabel"
       aria-hidden="true">

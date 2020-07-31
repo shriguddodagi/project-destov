@@ -127,7 +127,17 @@ if(isset($_POST['show'])) {
           </div>
         </div>
 
-
+        <?php
+        if($feedbacks->num_rows == 0) {
+          echo "<div class='row'>
+            <div class='col text-center'>
+              <div class='display-3'>
+                Nothing Found!
+              </div>
+            </div>
+          </div>";
+        }
+      ?>
     </div>
   </main>
 <?php include_once('./includes/admin-script.php'); ?>

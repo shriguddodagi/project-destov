@@ -73,7 +73,7 @@ if (isset($_POST['delete'])) {
 ?> 
   <main>
 
-    <div class="container mt-3">
+    <div class="container">
       <div class="row p-2">
         <div class="col d-flex justify-content-between">
           <h2>Blogs</h2>
@@ -142,6 +142,18 @@ if (isset($_POST['delete'])) {
           </div>
         </div>
       </div>
+
+      <?php
+        if($blogs->num_rows == 0) {
+          echo "<div class='row'>
+            <div class='col text-center'>
+              <div class='display-3'>
+                Nothing Found!
+              </div>
+            </div>
+          </div>";
+        }
+      ?>
 
     </div>
 

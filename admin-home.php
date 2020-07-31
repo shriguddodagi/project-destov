@@ -129,6 +129,18 @@ $products = mysqli_query($cn, $query);
 
   </main>
 
+  <?php
+    if($products->num_rows == 0) {
+      echo "<div class='row'>
+        <div class='col text-center'>
+          <div class='display-3'>
+            Nothing Found!
+          </div>
+        </div>
+      </div>";
+    }
+  ?>
+
 <?php include_once('./includes/admin-script.php'); ?>
 <script>
   $(document).ready(function () {
