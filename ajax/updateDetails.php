@@ -7,8 +7,9 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $id = $_SESSION['id'];
     $permissions = $_SESSION['permissions'];
     $password = $_POST['password'];
+    $hashedPassword = hash("sha512", $password);
     $newusername = $_POST['username'];
-    $isRight = mysqli_fetch_array(mysqli_query($cn, "SELECT id FROM `users` WHERE id='$id' AND `username`='$oldusername' AND `permissions`='$permissions' AND `password`='$password' LIMIT 1"));
+    $isRight = mysqli_fetch_array(mysqli_query($cn, "SELECT id FROM `users` WHERE id='$id' AND `username`='$oldusername' AND `permissions`='$permissions' AND `password`='$hashedPassword' LIMIT 1"));
     
     if(!isset($isRight['id'])) {
       echo "Wrong Password";
@@ -18,7 +19,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     
     $user = mysqli_fetch_array(mysqli_query($cn, "SELECT * FROM `users` WHERE username='$newusername'"));
     if(!isset($user['id'])) {
-      if(mysqli_query($cn, "UPDATE `users` SET `username`='$newusername' WHERE id='$id' AND `password`='$password'")) {
+      if(mysqli_query($cn, "UPDATE `users` SET `username`='$newusername' WHERE id='$id' AND `password`='$hashedPassword'")) {
         echo "Username Update Succesfully";
         $_SESSION['username'] = $newusername;
         exit;
@@ -41,16 +42,18 @@ if (isset($_POST['oldPassword']) && isset($_POST['newPassword'])) {
     $id = $_SESSION['id'];
     $permissions = $_SESSION['permissions'];
     $oldpassword = $_POST['oldPassword'];
+    $oldHashedPassword = hash("sha512", $oldpassword);
     $newpassword = $_POST['newPassword'];
+    $newHashedPassword = hash("sha512", $newpassword);
     
-    $isCorrect = mysqli_fetch_array(mysqli_query($cn, "SELECT id FROM `users` WHERE id='$id' AND `username`='$username' AND `permissions`='$permissions' AND `password`='$oldpassword' LIMIT 1"));
+    $isCorrect = mysqli_fetch_array(mysqli_query($cn, "SELECT id FROM `users` WHERE id='$id' AND `username`='$username' AND `permissions`='$permissions' AND `password`='$oldHashedPassword' LIMIT 1"));
     
     if(!isset($isCorrect['id'])) {
       echo "Wrong Password";
       exit;
     }
 
-    if(mysqli_query($cn, "UPDATE `users` SET `password`='$newpassword' WHERE id='$id' AND username='$username'")) {
+    if(mysqli_query($cn, "UPDATE `users` SET `password`='$newHashedPassword' WHERE id='$id' AND username='$username'")) {
       echo "Password Update Successfully";
     } else {
       echo "Something went wrong! Please try again later";

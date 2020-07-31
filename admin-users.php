@@ -8,10 +8,11 @@ if (!in_array('users', $permissions)) {
 if(isset($_POST['submit'])) {
   $username = $_POST['username'];
   $password = $_POST['password'];
+  $hashedPassword = hash("sha512", $password);
 
   $user = mysqli_fetch_array(mysqli_query($cn, "SELECT * FROM `users` WHERE username='$username'"));
   if(!isset($user['id'])) {
-    mysqli_query($cn, "INSERT INTO `users` (`username`, `password`) VALUE ('$username', '$password')");
+    mysqli_query($cn, "INSERT INTO `users` (`username`, `password`) VALUE ('$username', '$hashedPassword')");
     unset($_POST);
     header('Location: admin-users.php');
   } else {

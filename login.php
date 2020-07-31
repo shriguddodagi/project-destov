@@ -3,7 +3,8 @@ include_once('./config.php');
 
 if(isset($_POST['login'])) {
   $username = $_POST['adminUsername'];
-  $password = $_POST['adminPassword'];
+  $password = hash("sha512", $_POST['adminPassword']);
+
   $data = mysqli_fetch_array(mysqli_query($cn, "SELECT * FROM `users` WHERE `username`='$username' AND `password`='$password' LIMIT 1"));
   if(count($data) > 0) {
     if($data['permissions'] == "") {
