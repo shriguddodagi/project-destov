@@ -52,6 +52,8 @@
             </li>
             <li class="margin-b-10"><a class="footer-list-link" style="color: black" href="#">Terms And Conditions</a>
             </li>
+            <li class="margin-b-10"><a class="footer-list-link" style="color: black" href="login.php">Admin Login</a>
+            </li>
           </ul>
         </div>
         <div class="col-sm-5 sm-margin-b-30 text-center">
