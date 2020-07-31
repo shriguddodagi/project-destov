@@ -19,7 +19,25 @@ if(isset($_POST['show'])) {
   header('Location: admin-feedbacks.php');
 }
 
-$feedbacks  = mysqli_query($cn, 'SELECT * FROM feedbacks');
+
+  // Pagination
+  $page_no = 1;
+  $total_records_per_page = 3;
+
+  if(isset($_GET['page_no']) && $_GET['page_no'] != "") {
+    $page_no = $_GET['page_no'];
+  }
+
+  $offset = ($page_no - 1) * $total_records_per_page;
+  $previous_page = $page_no - 1;
+  $next_page = $page_no + 1;
+
+  $total_records = mysqli_fetch_array(mysqli_query($cn, "SELECT COUNT(*) AS total_records FROM `feedbacks`"))['total_records'];
+
+  $total_no_of_pages = ceil($total_records / $total_records_per_page);
+  $second_last = $total_no_of_pages - 1; // total pages minus 1
+
+  $feedbacks = mysqli_query($cn, "SELECT * FROM `feedbacks` ORDER BY id DESC LIMIT $offset, $total_records_per_page");
 
 ?>
 <?php include_once('./includes/admin-header.php'); ?>
@@ -29,6 +47,12 @@ $feedbacks  = mysqli_query($cn, 'SELECT * FROM feedbacks');
       <div class="row p-2">
         <div class="col">
           <h2>Feedbacks</h2>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="text-center m-2">
+          <strong>Page <?php echo $page_no." of ".$total_no_of_pages; ?></strong>
         </div>
       </div>
 
@@ -72,7 +96,36 @@ $feedbacks  = mysqli_query($cn, 'SELECT * FROM feedbacks');
           </table>
         </div>
       
-
+        <div class="row m-5">
+          <div class="col d-flex justify-content-center">
+            <div aria-label="Page navigation">
+              <ul class="pagination">
+                <?php 
+                if($page_no > 1){
+                  echo "<li class='page-item '><a class='page-link' href='?page_no=1'>First Page</a></li>";
+                } 
+                ?>      
+                <li class='page-item <?php if($page_no <= 1){ echo "disabled"; } ?>'>
+                  <a class='page-link' <?php if($page_no > 1){ echo "href='?page_no=$previous_page'"; } ?> aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                    
+                <li class='page-item <?php if($page_no >= $total_no_of_pages){ echo "disabled";} ?>'>
+                  <a class='page-link' <?php if($page_no < $total_no_of_pages) { echo "href='?page_no=$next_page'"; } ?> aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+                
+                <?php if($page_no < $total_no_of_pages){
+                echo "<li class='page-item'><a class='page-link' class='' href='?page_no=$total_no_of_pages'>Last &raquo;</a></li>";
+              } ?>
+              </ul>
+            </div>
+          </div>
+        </div>
 
 
     </div>
