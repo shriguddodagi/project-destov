@@ -77,7 +77,7 @@ $products = mysqli_query($cn, $query);
       <div class="row p-2">
         <div class="col d-flex justify-content-between">
           <h2>Change Product</h2> 
-          <button id="0" class="btn font-weight-bold change btn-outline-info" data-toggle="modal" data-target="#modal">New</button>
+          <button id="0" class="btn change font-weight-bold btn-outline-primary" data-toggle="modal" data-target="#modal">New</button>
         </div>
       </div>
       <div class="row g-3">  

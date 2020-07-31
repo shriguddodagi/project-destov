@@ -71,15 +71,13 @@ $categories = mysqli_query($cn, $query);
 
 <main>
   <div class="container">
-    <div class="row d-flex justify-content-between">
-      <div class="col-8 display-3">
-        Categories
-      </div>
-      <div class="col-4 text-center justify-content-center">
-        <button class="btn btn-block btn-dark mt-4" data-toggle="modal" data-target="#createCategoryModal">New
-          Category</button>
+    <div class="row p-2">
+      <div class="col d-flex justify-content-between">
+        <h2>Categories</h2>
+        <button class="btn font-weight-bold btn-outline-primary" data-toggle="modal" data-target="#createCategoryModal">New Category</button>
       </div>
     </div>
+    
     <div class="row">
       
 

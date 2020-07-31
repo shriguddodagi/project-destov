@@ -208,8 +208,10 @@ $months = mysqli_query($cn, $query);
   <main>
 
     <div class="container">
-      <div class="display-1">
-        Products
+      <div class="row">
+        <div class="col">
+          <h2>Products</h2>
+        </div>
       </div>
 
       <div class="accordion" id="accordionProducts">
@@ -248,7 +250,7 @@ $months = mysqli_query($cn, $query);
                     <button class='btn text-center mx-3 btn-sm btn-success' type='button' data-toggle='collapse' data-target='#sub". $subcategory['id'] ."' aria-expanded='false' aria-controls='sub". $subcategory['id'] ."'>
                       ". $subcategory['name'] ."
                     </button>
-                    <button class='btn btn-sm btn-outline-secondary create-product float-right' id='". $subcategory['id'] ."'	
+                    <button class='btn btn-sm font-weight-bold btn-outline-primary create-product float-right' id='". $subcategory['id'] ."'	
                       data-toggle='modal' data-target='#createProductModal'>Add Product</button>	
                     
 

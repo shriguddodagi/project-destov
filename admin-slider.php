@@ -64,11 +64,11 @@ $result = mysqli_query($cn, $query);
 ?> 
   <main>
 
-    <div class="container-fluid mt-3">
-      <div class="row p-2">
+    <div class="container">
+      <div class="row">
         <div class="col d-flex justify-content-between display-3">
-          <span>Sliders</span> 
-          <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#sliderModal">Add New
+          <h2>Sliders</h2> 
+          <button class="btn font-weight-bold btn-outline-primary" data-toggle="modal" data-target="#sliderModal">Add New
             Slide</button>
         </div>
       </div>

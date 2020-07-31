@@ -25,8 +25,12 @@ $closeInquirie  = mysqli_query($cn, 'SELECT * FROM inquiries WHERE mode="close" 
 ?>
 <?php include_once('./includes/admin-header.php'); ?>
   <main>
-    <div class="container m-5">
-
+    <div class="container">
+      <div class="row p-2">
+        <div class="col">
+          <h2>Inquiries</h2>
+        </div>
+      </div>
       <ul class='nav nav-tabs' id='myTab' role='tablist'>
         <li class='nav-item'>
           <a class='nav-link active text-capitalization' id='open-tab' data-toggle='tab' href='#open' role='tab'

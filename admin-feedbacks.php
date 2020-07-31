@@ -24,7 +24,13 @@ $feedbacks  = mysqli_query($cn, 'SELECT * FROM feedbacks');
 ?>
 <?php include_once('./includes/admin-header.php'); ?>
   <main>
-    <div class="container m-5">
+    <div class="container">
+
+      <div class="row p-2">
+        <div class="col">
+          <h2>Feedbacks</h2>
+        </div>
+      </div>
 
 
           <table class="table">

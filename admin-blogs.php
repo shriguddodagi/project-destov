@@ -57,11 +57,11 @@ $result = mysqli_query($cn, $query);
 ?> 
   <main>
 
-    <div class="container-fluid mt-3">
+    <div class="container mt-3">
       <div class="row p-2">
-        <div class="col d-flex justify-content-between display-3">
-          <span>Blogs</span> 
-          <button class="btn font-weight-bold btn-outline-info" data-toggle="modal" data-target="#blogModal">Create Blog</button>
+        <div class="col d-flex justify-content-between">
+          <h2>Blogs</h2>
+          <button class="btn font-weight-bold btn-outline-primary" data-toggle="modal" data-target="#blogModal">Create Blog</button>
         </div>
       </div>
       <div class="row g-2">

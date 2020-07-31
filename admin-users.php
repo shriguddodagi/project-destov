@@ -42,7 +42,7 @@ $users = mysqli_query($cn, "SELECT * FROM `users` WHERE id!=1");
     <div class="row">
       <div class="col d-flex justify-content-between">
         <h2>User Permissions</h2>
-        <button data-toggle="modal" data-target="#createUser" class="btn btn-outline-info">Create New User</button>
+        <button data-toggle="modal" data-target="#createUser" class="btn font-weight-bold btn-outline-primary">Create New User</button>
       </div>
     </div>
 
@@ -131,8 +131,8 @@ $users = mysqli_query($cn, "SELECT * FROM `users` WHERE id!=1");
             <form action="" method="POST" class="row g-3 needs-validation" novalidate>
               <input type="hidden" name="id" id="userId">
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="permissions[]" value="homepage" id="homepage">
-                <label class="form-check-label" for="homepage">
+                <input class="form-check-input" type="checkbox" name="permissions[]" value="home" id="home">
+                <label class="form-check-label" for="home">
                   Home Page Products
                 </label>
               </div>
