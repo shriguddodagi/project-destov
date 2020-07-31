@@ -32,13 +32,6 @@ if (isset($_POST['subscribe'])) {
 </head>
 
 <body>
-
-<style>
-.nav-item-child:hover {
-  color: red;
-}
-</style>
-  
   
   <header class="header navbar-fixed-top">
     <div style="background: #f1f1f1; display: flex; justify-content: space-between;">

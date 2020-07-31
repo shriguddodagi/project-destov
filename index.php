@@ -208,8 +208,8 @@ $feedbacks = mysqli_query($cn, $query);
           <div class='work wow fadeInUp' data-wow-duration='.3' data-wow-delay='.4s'>
             <a href='products.php'>
               <img class='full-width img-responsive' style='relative' src='img/1920x1080/EXPLORE US.jpg' alt='Portfolio Image'>
-              <h3 class='color-white margin-b-5' style='position: absolute; left: 5px; bottom: 20px;'>Show All</h3>
-              <p class='color-white margin-b-0' style='position: absolute; left: 5px; bottom: 1px;'>Explore Our All Products</p>
+              <h3 class='color-white margin-b-5' style='position: absolute; left: 5px; bottom: 20px; font-size: 60px;'>Show All</h3>
+              <p class='color-white margin-b-0' style='position: absolute; left: 5px; bottom: 1px; font-size: 25px;'>Explore Our All Products</p>
             </a>
           </div>
         </div>";
