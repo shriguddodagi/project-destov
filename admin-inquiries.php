@@ -72,7 +72,7 @@ $closeInquirie  = mysqli_query($cn, 'SELECT * FROM inquiries WHERE mode="close" 
                   <td>".$row['email']."</td>
                   <td>".$row['phone']."</td>
                   <td>".$row['message']."</td>
-                  <td>".$row['product']."</td>
+                  <td class='font-weight-bold text-primary'>".$row['product']."</td>
                   <td>". date('jS F, Y', strtotime($row['created_at']))."</td>
                   <td>
                     <form action='' method='POST'>
@@ -115,7 +115,7 @@ $closeInquirie  = mysqli_query($cn, 'SELECT * FROM inquiries WHERE mode="close" 
                   <td>".$row['email']."</td>
                   <td>".$row['phone']."</td>
                   <td>".$row['message']."</td>
-                  <td>".$row['product']."</td>
+                  <td class='font-weight-bold text-primary'>".$row['product']."</td>
                   <td>". date('jS F, Y', strtotime($row['created_at']))."</td>
                   <td>
                     <form action='' method='POST'>
