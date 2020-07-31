@@ -1,7 +1,25 @@
-<?php include_once('./includes/header.php') ?>
-<?php
-  $query = "SELECT * FROM `blogs` ORDER BY id DESC";
-  $blogs = mysqli_query($cn, $query);
+<?php include_once('./includes/header.php');
+
+
+  // Pagination
+  $page_no = 1;
+  $total_records_per_page = 3;
+
+  if(isset($_GET['page_no']) && $_GET['page_no'] != "") {
+    $page_no = $_GET['page_no'];
+  }
+
+  $offset = ($page_no - 1) * $total_records_per_page;
+  $previous_page = $page_no - 1;
+  $next_page = $page_no + 1;
+
+  $total_records = mysqli_fetch_array(mysqli_query($cn, "SELECT COUNT(*) AS total_records FROM `blogs`"))['total_records'];
+
+  $total_no_of_pages = ceil($total_records / $total_records_per_page);
+  $second_last = $total_no_of_pages - 1; // total pages minus 1
+
+  $blogs = mysqli_query($cn, "SELECT * FROM `blogs` LIMIT $offset, $total_records_per_page");
+
 ?>
   <div class="parallax-window" data-parallax="scroll" data-image-src="img/1920x1080/blog.jpg">
     <div class="parallax-content container">
@@ -9,7 +27,14 @@
     </div>
   </div>
 
+  
+  
     <div class="content-lg container">
+      <div class="row">
+        <div class="text-center margin-b-20">
+          <strong>Page <?php echo $page_no." of ".$total_no_of_pages; ?></strong>
+        </div>
+      </div>
       <div class="masonry-grid row" style="position: relative; height: 1106.08px;">
         <div class="masonry-grid-sizer col-xs-6 col-sm-6 col-md-1"></div>
         <?php
@@ -30,6 +55,38 @@
         ?>
         
       
+      </div>
+
+      <div class="text-center">
+        <ul class="pagination">
+          <?php 
+          if($page_no > 1){
+            echo "<li><a href='?page_no=1'>First Page</a></li>";
+          } 
+          ?>      
+          <li <?php if($page_no <= 1){ echo "class='disabled'"; } ?>>
+            <a 
+              <?php 
+              if($page_no > 1){
+                echo "href='?page_no=$previous_page'";
+              } 
+              ?>>
+              Previous
+            </a>
+          </li>
+              
+          <li <?php if($page_no >= $total_no_of_pages){
+            echo "class='disabled'";
+          } ?>>
+          <a <?php if($page_no < $total_no_of_pages) {
+            echo "href='?page_no=$next_page'";
+          } ?>>Next</a>
+          </li>
+          
+          <?php if($page_no < $total_no_of_pages){
+          echo "<li><a href='?page_no=$total_no_of_pages'>Last &rsaquo;&rsaquo;</a></li>";
+        } ?>
+        </ul>
       </div>
     </div>
     
