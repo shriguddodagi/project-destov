@@ -1,5 +1,5 @@
 <?php
-include_once("./config.php");
+include_once("../config.php");
 session_start();
 if (isset($_POST['username']) && isset($_POST['password'])) {
   if($_SESSION['auth']) {

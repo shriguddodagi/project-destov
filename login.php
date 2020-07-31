@@ -6,6 +6,12 @@ if(isset($_POST['login'])) {
   $password = $_POST['adminPassword'];
   $data = mysqli_fetch_array(mysqli_query($cn, "SELECT * FROM `users` WHERE `username`='$username' AND `password`='$password' LIMIT 1"));
   if(count($data) > 0) {
+    if($data['permissions'] == "") {
+      echo "<script>alert('You do not have any permission yet!');</script>";
+      unset($_POST);
+      exit;
+    }
+
     session_start();
     $_SESSION['auth'] = true;
     $_SESSION['username'] = $data['username'];

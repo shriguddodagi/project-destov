@@ -1,5 +1,5 @@
 <?php
-require_once("config.php"); 
+require_once("../config.php"); 
 
 if(isset($_POST['term']) && isset($_POST['productId'])) {
   $term = $_POST['term'];

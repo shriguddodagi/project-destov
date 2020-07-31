@@ -142,7 +142,7 @@ $products = mysqli_query($cn, $query);
       // console.log($(this).val());
       
       $.ajax({
-        url: "search.php", 
+        url: "ajax/search.php", 
         data: { 
           term: $(this).val().trim(),
           productId: $('#modal').find('#productId').val()
@@ -159,6 +159,7 @@ $products = mysqli_query($cn, $query);
             dropIndex = ui.item.index();
         }
     });
+    
     $('#submit').click(function (e) {
         var imageIdsArray = [];
         $('#image-list .image-item').each(function (index) {
@@ -167,7 +168,7 @@ $products = mysqli_query($cn, $query);
           imageIdsArray.push(split_id[1]);
         });
         $.ajax({
-            url: 'updateRecord.php',
+            url: 'ajax/updateRecord.php',
             type: 'post',
             data: {imageIds: imageIdsArray},
             success: function (response) {

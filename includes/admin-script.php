@@ -118,7 +118,7 @@
       const alertBox = $(this).find("#updateusernameresponse");
       console.log(alertBox);
       $.ajax({
-        url: 'updateDetails.php',
+        url: 'ajax/updateDetails.php',
         type: 'post',
         data: {username, password},
         success: function (response) {
@@ -134,7 +134,7 @@
       const alertBox = $(this).find("#changepasswordresponse");
       
       $.ajax({
-        url: 'updateDetails.php',
+        url: 'ajax/updateDetails.php',
         type: 'post',
         data: {oldPassword, newPassword},
         success: function (response) {
