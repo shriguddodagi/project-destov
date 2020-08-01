@@ -143,11 +143,11 @@ $months = mysqli_query($cn, "SELECT * FROM months");
           </div>
 
         </div>
-        <div class="col-md-3 margin-b-10 col-xs-4 text-right">
-          <div id="btnContainer">
-              <button id="listview" style="color: #000;" class="btn"><i class="fa fa-bars"></i></button> 
-              <button id="gridview" style="color: #000;" class="btn active"><i class="fa fa-th-large"></i></button>
-            </div>
+        <div class="col-md-3 margin-b-10 col-xs-6 text-right">
+          <!-- <div id="btnContainer"> -->
+          <button id="listview" class="btn"><i style="font-size: 15px" class="fa fa-bars"></i></button> 
+          <button id="gridview" class="btn active"><i style="font-size: 15px" class="fa fa-th-large"></i></button>
+            <!-- </div> -->
         </div>
       <form action="" method="get">
         <div class="col-md-4 margin-b-10 col-xs-8 text-right">
