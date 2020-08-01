@@ -27,7 +27,7 @@ if (isset($_POST['subscribe'])) {
   <link href="css/animate.css" rel="stylesheet">
   <link href="css/layout.min.css" rel="stylesheet" type="text/css" />
 
-  <link rel="shortcut icon" href="favicon.ico" />
+  <link rel="shortcut icon" href="./img/max-11.png" />
   <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5f2154069194d500128e100f&product=sticky-share-buttons" async="async"></script>
 </head>
 
@@ -37,9 +37,9 @@ if (isset($_POST['subscribe'])) {
     <div style="background: #f1f1f1; display: flex; justify-content: space-between;">
       <div id="google_translate_element" style="text-align: left" class="xs-translate"></div>
       <div>
-        <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-facebook"></i></a>
-        <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-twitter"></i></a>
-        <a href="https://twitter.com/destovofficial"><i class="margin-r-10 fa fa-lg fa-tag fa-linkedin"></i></a>
+        <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-facebook-square"></i></a>
+        <a href="https://twitter.com/destovofficial"><i class="margin-r-10 fa fa-lg fa-tag fa-twitter-square"></i></a>
+        <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-linkedin-square"></i></a>
         <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-instagram"></i></a>
       </div>
   </div>

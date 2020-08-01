@@ -29,10 +29,10 @@
                 <div>info@destov.com</div>
               </div><br>
               <div class="margin-b-10 margin-l-20" style="display: -webkit-inline-box; text-align: center;">
-                <a class="footer-list-link" style="color: black" href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-facebook"></i></a>
-                <a class="footer-list-link" style="color: black" href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-twitter"></i></a>
-                <a class="footer-list-link" style="color: black" href="https://twitter.com/destovofficial"><i class="margin-r-10 fa fa-lg fa-tag fa-linkedin"></i></a>
-                <a class="footer-list-link" style="color: black" href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-instagram"></i></a>
+                <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-facebook-square"></i></a>
+                <a href="https://twitter.com/destovofficial"><i class="margin-r-10 fa fa-lg fa-tag fa-twitter-square"></i></a>
+                <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-linkedin-square"></i></a>
+                <a href="https://www.facebook.com/destovinternational"><i class="margin-r-10 fa fa-lg fa-tag fa-instagram"></i></a>
               </div>
             </div>
           </ul>
@@ -123,6 +123,9 @@
   function googleTranslateElementInit() {
     new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
   }
+
+
+
 </script>
   <a href="javascript:void(0);" class="js-back-to-top back-to-top">Top</a>
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>

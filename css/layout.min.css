@@ -1345,52 +1345,45 @@ fieldset[disabled] .btn-theme {
 }
 
 .fa {
-  padding: 6px;
+  /* padding: 6px;
   border-radius: 50px;
-  /* font-size: 30px; */
   border-radius:50%;
   width: 30px;
   text-align: center;
-  text-decoration: none;
+  text-decoration: none; */
+  font-size: 25px;
+  margin-top: 2px;
 }
 
 .fa:hover {
   opacity: 0.7;
 }
 
-.fa-facebook {
-  color: white;
-  background: #3B5998;
+.fa-facebook-square {
+  color: #3b5998;
 }
 
-.fa-twitter {
-  color: white;
-  background: #55ACEE;
+.fa-twitter-square {
+  color: #55acee;
 }
 
-.fa-linkedin {
-  color: white;
-  background: #0077B5;
+.fa-linkedin-square {
+  color: #0077b5;
 }
 
 .fa-instagram {
-  color: white;
-  background: #E02D72;
+  color: #e02d72;
 }
 
 .fa-map-marker {
-  color: white;
-  background: rgba(0, 118, 181, 0.767);
+  color: #0076b5c4;
+  /* background: #; */
 }
 
 .fa-phone {
-  color: white;
-  background: #18692c;
+  color: #4dc247;
 }
 
 .fa-envelope {
-  color: white;
-  background: #DA4E41;
-  padding-right: 8px;
-  padding-bottom: 7px;
+  color: #d93025;
 }
