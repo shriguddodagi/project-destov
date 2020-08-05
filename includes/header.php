@@ -27,7 +27,7 @@ if (isset($_POST['subscribe'])) {
   <link href="css/animate.css" rel="stylesheet">
   <link href="css/layout.min.css" rel="stylesheet" type="text/css" />
 
-  <link rel="shortcut icon" href="./img/max-11.png" />
+  <link rel="shortcut icon" href="./img/logo.png" />
   <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5f2154069194d500128e100f&product=sticky-share-buttons" async="async"></script>
 </head>
 

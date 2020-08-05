@@ -1,11 +1,14 @@
 <?php include_once('./includes/header.php') ?>
 
-  <div class="parallax-window" data-parallax="scroll" data-image-src="img/1920x1080/about us.jpg">
+  <!-- <div class="parallax-window" data-parallax="scroll" data-image-src="img/1920x1080/about us.jpg">
     <div class="parallax-content container">
       <h1 class="carousel-title" style="color: #FFC107;">About Destov International</h1>
     </div>
-  </div>
-
+  </div> -->
+    <div>
+      <img src="img/1920x1080/about us.jpg" class="cover-image" />
+      <h1 class="cover-text" style="color: #FFC107;">About Destov International</h1>
+    </div>
   <div class="content-lg container">
     <div class="row">
       <div class="col-sm-7 sm-margin-b-50">

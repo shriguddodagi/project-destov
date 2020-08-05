@@ -1,9 +1,9 @@
-<footer class="footer">
+<footer class="full-screen">
 
   <div class="footer-seperator">
     <div class="content-lg container">
-      <div class="row">
-        <div class="col-sm-3 sm-margin-b-50">
+      <div class="row margin-b-20">
+        <div class="col-sm-3 sm-margin-b-30">
           <ul class="list-unstyled footer-list text-center">
             <h2 class="text-capitalization" style="color:black">HOW TO REACH US</h2>
             <div class="container"  style="color:black; display:contents">
@@ -67,6 +67,20 @@
           </form>
         </div>
       </div>
+      <div class="row">
+        <div class="content text-black bg-color-white container-fluid">
+          <div style="display: flex; justify-content: space-between;">
+            <div>
+              Copyright &copy;
+              <script>document.write(new Date().getFullYear());</script> <strong>Destov International</strong> All rights
+              reserved
+            </div>
+            <div>
+              Designed and Developed by <strong>Destov Tech</strong>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -82,7 +96,7 @@
       </div>
     </div>
   </div> -->
-  <div class="content text-black bg-color-white container-fluid">
+  <!-- <div class="content text-black bg-color-white container-fluid">
     <div style="display: flex; justify-content: space-between;">
       <div>
         Copyright &copy;
@@ -93,7 +107,7 @@
         Designed and Developed by <strong>Destov Tech</strong>
       </div>
     </div>
-  </div>
+  </div> -->
   
 </footer>
 <script type="text/javascript">

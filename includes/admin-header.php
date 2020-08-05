@@ -21,6 +21,7 @@ if(isset($_POST['logout'])) {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Destov - Admin</title>
+  <link rel="shortcut icon" href="./img/logo.png" />
   <link rel="stylesheet" href="./vendor/bootstrap 5/css/bootstrap.min.css">
   <script src="http://cdn.ckeditor.com/4.14.1/standard/ckeditor.js"></script>
 </head>

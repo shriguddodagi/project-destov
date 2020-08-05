@@ -65,7 +65,7 @@ $feedbacks = mysqli_query($cn, $query);
         $slide = "<div class='item'>";
 
         $slide .= ($row['type'] == "image") ? 
-        "<img src='". $row['file'] ."' data-color='red' class='img-responsive' alt='".$row['title']."'>"
+        "<img src='". $row['file'] ."' class='img-responsive' alt='".$row['title']."'>"
         :
         "<video src='". $row['file'] ."' class='img-responsive full-screen' alt='".$row['title']."'></video>";
 
